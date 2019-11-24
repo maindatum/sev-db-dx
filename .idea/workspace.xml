@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fc_django/fc_django/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+            <state relative-caret-position="277">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -313,6 +313,7 @@
       <workItem from="1574496391460" duration="4348000" />
       <workItem from="1574502304170" duration="45426000" />
       <workItem from="1574598241341" duration="621000" />
+      <workItem from="1574604504446" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="20191123">
       <created>1574486584370</created>
@@ -325,7 +326,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73409000" />
+    <option name="totallyTimeSpent" value="73431000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -339,7 +340,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49911818" visible="true" weight="0.2832618" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49911818" visible="true" weight="0.28701717" />
       <window_info id="Structure" order="1" sideWeight="0.50088185" side_tool="true" weight="0.24980047" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -350,7 +351,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32962137" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49892703" visible="true" weight="0.042316258" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49892703" visible="true" weight="0.042316258" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50107294" side_tool="true" weight="0.15367483" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3289941" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -472,13 +473,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/fcuser/dxcoding_1ex.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="116" column="70" lean-forward="true" selection-start-line="116" selection-start-column="70" selection-end-line="116" selection-end-column="70" />
         </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="1045">
@@ -676,6 +677,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fc_django/product/templates/dxlistquery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/product/templates/dropdownlist_dx1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -717,17 +725,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fc_django/product/templates/dxlistquery.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/fc_django/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="32" column="18" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+        <state relative-caret-position="277">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
         </state>
       </provider>
     </entry>
