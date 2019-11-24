@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block contents %}
+<style>
+    .isdisabled{
+        color: currentColor;
+        cursor: not-allowed;
+        opacity: 0.5;
+        text-decoration: none;
+    }
+    #centerbox{
+        height: 500px
+    }
+</style>
+<div>
+  <div>
+      <div id=centerbox class="alert alert-primary" role="alert">
+        {% csrf_token %}
+          <div class="form-group">
+            <table  class="table table-light">
+                <tr>
+                    <td>UNITNUMB</td>
+                    <td>Dx0</td>
+                    <td>Dx1</td>
+                    <td>Dx2</td>
+                    <td>Dx3</td>
+                </tr>
+            {% for el in result1 %}
+                <tr>
+                    <td>{{el.unitnumb}}</td>
+                    <td>{{el.dxname0}}</td>
+                    <td>{{el.dxname1}}</td>
+                    <td>{{el.dxname2}}</td>
+                    <td>{{el.dxname3}}</td>
+                </tr>
+            {% endfor %}
+
+            </table>
+
+          </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+ {#  <form method="GET" action="./db_import">#}
+{#      <button type="submit" class="btn btn-primary">Import</button>#}
+{#  </form>#}
+      </div>
+  </div>
+     <div class="pagination">
+          <span class="step-links">
+          {% if result1.has_previous %}
+          <a href="?page=1">맨앞으로</a>
+          <a href="?page={{result1.previous_page_number}}">이전으로</a>
+          {% else %}
+          <span style="color:grey;">맨앞으로</span>
+          <span style="color:grey;">이전으로</span>
+          {% endif %}
+              <span class="current">(현재{{ result1.number }}페이지</span>
+              <span>/전체{{ result1.paginator.num_pages }}장)</span>
+          {% if result1.has_next %}
+          <a href="?page={{result1.next_page_number}}">다음으로</a>
+          <a href="?page={{result1.paginator.num_pages}}">맨뒤로</a>
+          {% else %}
+          <span style="color:grey;">다음으로</span>
+          <span style="color:grey;">맨뒤로</span>
+          {% endif %}
+          </span>
+     </div>
+</div>
+{% endblock %}

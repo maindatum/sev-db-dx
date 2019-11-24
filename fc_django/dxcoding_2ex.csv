@@ -1,0 +1,246 @@
+dxcode_1,dxcode_2,dxname_2
+abdt010,abdt010_1010,Neuroblastoma (NB)
+abdt010,abdt010_1020,Ganglioneuroblastoma (GNB)
+abdt010,abdt010_1030,Ganglioneuroma (GN)
+abdt020,abdt020_2010,Favorable Histology (FH)
+abdt020,abdt020_2020,Diffuse Anaplasia (DA)
+abdt020,abdt020_2030,Focal Anaplasia (FA)
+abdt030,abdt030_3010,Rhabdoid tumor of kidney (RTK)
+abdt030,abdt030_3020,Clear cell sarcoma of kidney (CCSK)
+abdt030,abdt030_3030,Congenital Mesoblastic Nephroma
+abdt030,abdt030_3040,Renal Cell Carcinoma
+abdt030,abdt030_3050,Cystic Nephroma
+abdt050,abdt050_5010,"Hepatoblastoma (HBL), Pure Fetal"
+abdt050,abdt050_5020,"Hepatoblastoma (HBL), Undifferentiated"
+abdt050,abdt050_5030,"Hepatoblastoma (HBL), Unspecified"
+abdt060,abdt060_6010,Hepatocellular Carcinoma (HCC)
+abdt070,abdt070_7010,"Hemangioendothelioma, Liver"
+abdt080,abdt080_,
+abdt090,abdt090_,
+abdt100,abdt100_1110,Solid Pseudopapillary Carcinoma of Pancreas
+abdt100,abdt100_1120,Pancreatic Cancer
+abdt100,abdt100_1130,Pheochromocytoma
+abdt110,abdt110_,
+abdt120,abdt120_1210,"Juvenile granulosa cell tumor, cystic variant"
+brain010,brain010_1010,Medulloblastoma (MBL)
+brain020,brain020_2010,Atypical Teratoid Rhabdoid Tumor (ATRT)
+brain030,brain030_3010,Primitive Neuroectodermal Tumor (PNET)
+brain040,brain040_4010,York sac tumor
+brain040,brain040_4020,Choriocarcinoma
+brain040,brain040_4030,Embryonal carcinoma
+brain040,brain040_4040,Teratoma
+brain040,brain040_4050,Immature teratoma
+brain040,brain040_4060,Mixed Germ Cell Tumor
+brain050,brain050_5010,"Glioma, Brain Stem"
+brain050,brain050_5020,"Glioma, Unspecified"
+brain050,brain050_5030,"Glioma, Oligodendroglioma, low grade (1~2)"
+brain050,brain050_5040,"Glioma, Anaplastic Oligodendroglioma, high grade (3)"
+brain050,brain050_5050,"Glioma, Oligodendroglioma, unspecified"
+brain050,brain050_5060,"Glioma, Optic"
+brain050,brain050_5070,"Astrocytoma, Unspecified"
+brain050,brain050_5080,"Astrocytoma, Low Grade (1~2)-pilocytic astrocytoma"
+brain050,brain050_5090,"Astrocytoma, Low Grade (1~2)-diffuse astrocytoma"
+brain050,brain050_5100,"Astrocytoma, Low Grade (1~2)-fibrillary astrocytoma"
+brain050,brain050_5110,"Astrocytoma, Low Grade (1~2)-Others"
+brain050,brain050_5120,"Astrocytoma, High Grade (3)-anaplastic astrocytoma"
+brain050,brain050_5130,"Astrocytoma, High Grade (3)-Others"
+brain050,brain050_5140,Glioblastoma multiforme (GM)
+brain050,brain050_5150,Glioneuronal Tumor
+brain060,brain060_6010,"Pineal Gland Tumor, unspecified"
+brain060,brain060_6020,Pineoblastoma
+brain060,brain060_6030,PPID (pineal parenchymal tumor of intermed diff)
+brain070,brain070_7010,Ependymoma
+brain070,brain070_7020,Anaplastic Ependymoma
+brain090,brain090_9010,Choroid plexus papilloma
+brain090,brain090_9020,Choroid plexus carcinoma
+brain090,brain090_9030,Meningioma
+brain090,brain090_9060,Others (please specify)
+coag010,coag010_1010,Hemophilia A (F8)
+coag010,coag010_1020,Hemophilia B (F9)
+coag010,coag010_1030,Hemophilia C (F11)
+coag010,coag010_1040,Hemophilia A (F8) with inhibitor
+coag010,coag010_1050,Hemophilia B (F9) with inhibitor
+coag010,coag010_1060,"Hemophilia with inhibitor, Unspecified"
+coag010,coag010_1070,F7 deficiency
+coag010,coag010_1080,F12 deficiency
+coag010,coag010_1090,기타 - Factor 명기
+coag020,coag020_1100,type 1 von Willebrand Disease (vWD)
+coag020,coag020_1110,type 2 von Willebrand Disease (vWD)
+coag020,coag020_1120,type 3 von Willebrand Disease (vWD)
+coag030,coag030_1130,Platelet Function Disorder
+coag040,coag040_1140,"Coagulopathy, Unspecified"
+coag040,coag040_1150,"Epistaxis, Unspecified"
+coag040,coag040_1160,"Bruise, Unspecified"
+coag040,coag040_1170,"Bleeding, Unspecified"
+coag050,coag050_1180,Protein C deficiency
+coag050,coag050_1190,Protein S deficiency
+coag050,coag050_1200,AT-III deficiency
+coag050,coag050_1210,FV Leiden mutation
+coag050,coag050_1220,기타 원인 명기
+exgct010,exgct010_1010,Immature Teratoma
+exgct010,exgct010_1011,Mature Teratoma
+exgct010,exgct010_1012,"Teratoma, Unspecified"
+exgct010,exgct010_1013,Yolk Sac Tumor/Endodermal Sinus Tumor
+exgct010,exgct010_1014,Choriocarcinoma
+exgct010,exgct010_1015,Embryonal Carcinoma
+exgct010,exgct010_1020,Dysgerminoma
+exgct010,exgct010_1021,Seminoma
+exgct010,exgct010_1030,Others
+hema010,hema010_1010,Acquired Aplastic Anemia
+hema020,hema020_1020,Fanconi anemia
+hema030,hema030_,
+hema040,hema040_,
+hema050,hema050_,
+hered010,hered010_1010,Cowden Syndrome
+hered010,hered010_1020,Neurofibromatosis
+hered020,hered020_1010,Severe Combined Immuno Deficiency (SCID)
+hered020,hered020_1020,Chronic Granulomatous Disease
+hered020,hered020_1030,Common Variable ImmunoDeficiency (CVID)
+hered030,hered030_3010,Adrenoleukodystrophy (ALD)
+hered030,hered030_3020,Mucopolysaccharidosis
+hered040,hered040_,
+hered050,hered050_,
+hered060,hered060_,
+hn010,hn010_,
+hn020,hn020_,
+hn030,hn030_1010,Papillary thyroid cancer
+hn030,hn030_1011,Medullary thyroid cancer
+hn040,hn040_1020,"Thyroid nodule, Benign"
+leu010,leu010_1010,B Cell ALL
+leu010,leu010_1020,T Cell ALL
+leu010,leu010_1030,Infantile leukemia
+leu020,leu020_2010,AML M0
+leu020,leu020_2011,AML M1
+leu020,leu020_2012,AML M2
+leu020,leu020_2013,AML M3
+leu020,leu020_2014,AML M4
+leu020,leu020_2015,AML M5
+leu020,leu020_2016,AML M6
+leu020,leu020_2017,AML M7
+leu020,leu020_2030,Granulocytic sarcoma
+leu020,leu020_2040,Infantile leukemia
+leu030,leu030_,
+leu040,leu040_,
+leu050,leu050_5000,Chronic myelonenous leukemia (CML)
+leu050,leu050_5010,Myelofibrosis (MF)
+leu050,leu050_5020,Polycythemia vera (PV)
+leu050,leu050_5030,Essential Thrombocythemia (ET)
+leu060,leu060_6000,Refractory Anemia (RA)
+leu060,leu060_6010,Refractory Anemia with Excess Blast (RAEB)
+leu060,leu060_6020,Refractory Cytopenia of Childhood (RCC)
+leu070,leu070_7010,Juvenile myelomonocytic leukemia (JMML)
+leu070,leu070_7020,Chronic myelomonocytic leukemia (CMML)
+leu080,leu080_,
+lym010,lym010_1000,Lymphoblastic Lymphoma (T cell)
+lym010,lym010_1010,Lymphoblastic Lymphoma (B cell)
+lym010,lym010_1020,Lymphoblastic Lymphoma (UK)
+lym010,lym010_1030,Burkitt Lymphoma (BL)
+lym010,lym010_1040,Diffuse Large B Cell Lymphoma (DLBCL)
+lym010,lym010_1050,Anaplastic Large Cell Lymphoma (ALCL)
+lym010,lym010_1060,Large Cell Lymphoma
+lym010,lym010_1070,"Peripheral T Cell Lymphoma, NOS"
+lym010,lym010_1080,Marginal Zone B Cell Lymphoma
+lym010,lym010_1090,NK/T Cell Lymphoma
+lym010,lym010_1100,CNS lymphoma
+lym010,lym010_1110,Hydroa Vacciniforme
+lym010,lym010_1120,Gastric Lymphoma
+lym010,lym010_1130,Gastrointestinal Lymphoma
+lym020,lym020_2010,Nodular Sclerosis (NS)
+lym020,lym020_2020,Lymphocyte Predominant (LP)
+lym020,lym020_2030,Lymphocyte Depleted (LD)
+lym020,lym020_2040,Mixed Cellularity (MC)
+lym030,lym030_3010,non destructive
+lym030,lym030_3020,polymorphic
+lym030,lym030_3030,monomorphic-DLBCL
+lym030,lym030_3040,monomorphic-Burkitt
+lym030,lym030_3050,monomorphic-Peripheral T Cell
+lym030,lym030_3060,monomorphic-Others
+lym030,lym030_3070,classical HD type PTLD
+msk010,msk010_1010,Embryonal RMS
+msk010,msk010_1020,Alveolar RMS (FOXO1 translocation포함)
+msk010,msk010_1030,Pleomorphic RMS
+msk010,msk010_1040,Other RMS
+msk020,msk020_2010,Fibrosarcoma
+msk020,msk020_2020,Leiomyosarcoma (LMS)
+msk020,msk020_2030,Myxofibrosarcoma
+msk020,msk020_2040,Angiosarcoma
+msk020,msk020_2050,Angiomatosis
+msk020,msk020_2060,Alveolar Soft Part Sarcoma (ASPS)
+msk020,msk020_2070,Desmoplastic Small Round Cell Tumor (DSRCT)
+msk020,msk020_2080,Lipoma
+msk020,msk020_2090,Lipoblastoma
+msk020,msk020_2100,Liposarcoma
+msk020,msk020_2110,Giant Cell Tumor
+msk020,msk020_2120,Chordoma
+msk020,msk020_2130,Infantile Fibromatosis
+msk020,msk020_2140,Desmoid Tumor (Aggressive Fibromatosis)
+msk020,msk020_2150,Infantile Fibrosarcoma
+msk020,msk020_2160,Inflammatory myofibroblastic tumor (IMT)
+msk020,msk020_2170,Myofibrosarcoma
+msk020,msk020_2180,Malignant Peripheral Nerve Sheath Tumor (MPNST)
+msk020,msk020_2190,Schwannoma
+msk020,msk020_2200,Neurillema
+msk020,msk020_2210,Synovial sarcoma
+msk020,msk020_2220,Undifferentiated Sarcoma
+msk020,msk020_2230,Malignant Fibrous Histiocytoma
+msk020,msk020_2240,Embryonal Sarcoma
+msk020,msk020_2250,Neurofibroma
+msk020,msk020_2260,Others (please specify)
+msk050,msk050_,
+msk060,msk060_,
+msk070,msk070_,
+msk080,msk080_8010,Cavernous hemangioma
+msk080,msk080_8020,Infantile hemangioma
+msk080,msk080_8030,Lymphangioma
+msk080,msk080_8040,Venous Malformation
+msk080,msk080_8050,Hemangioma
+msk080,msk080_8060,Kaposiform Hemangioendothelioma
+msk090,msk090_9010,Enchondroma
+msk090,msk090_9020,Fibrous dysplasia
+msk090,msk090_9030,"Bone Cyst, Simple"
+msk090,msk090_9040,"Bone Cyst, Multiple"
+others010,others010_1010,Tonsillar Infection
+others010,others010_1020,cervical lymphadenopathy
+others010,others010_1030,mesenteric lymphadenitis
+others010,others010_1040,other lymphadenopathy
+others010,others010_1050,"Lymphadenitis, Terminal Ileum"
+others010,others010_1060,Infectious Mononucleosis
+others020,others020_,
+others030,others030_,
+others050,others050_,
+others060,others060_,
+others070,others070_,
+others100,others100_,
+plt010,plt010_1010,Acute ITP
+plt010,plt010_1020,Chronic ITP
+plt010,plt010_1030,"ITP, unspecified duration"
+plt020,plt020_2010,Secondary thrombocytopenia
+plt020,plt020_2020,Amegakaryocytic thrombocytopenia
+plt020,plt020_2030,"Thrombocytopenia, Unspecified"
+plt030,plt030_3010,Secondary thrombocytosis
+plt030,plt030_3020,"Other thrombocytosis, other than ET"
+rbcd010,rbcd010_1010,Iron Deficiency Anemia (IDA)
+rbcd010,rbcd010_1020,VitB 12 deficiency
+rbcd010,rbcd010_1030,Folate deficiency
+rbcd010,rbcd010_1040,Megaloblastic Anemia
+rbcd010,rbcd010_1050,Pernicious Anemia
+rbcd010,rbcd010_1060,Pure Red Cell Aplasia (PRCA)
+rbcd010,rbcd010_1070,Congenital dyserythropoietic anemia (CDA)
+rbcd010,rbcd010_1080,Others (기타원인명기)
+rbcd020,rbcd020_2010,G6PD Deficiency
+rbcd020,rbcd020_2020,"Hemolytic Anemia, Unspecified"
+rbcd020,rbcd020_2020,Pyruvate Kinase (PK) Deficiency
+rbcd020,rbcd020_2030,Hereditary Spherocytosis
+rbcd020,rbcd020_2040,Immune hemolytic anemia
+rbcd020,rbcd020_2050,alpha thalassemia
+rbcd020,rbcd020_2060,beta thalassemia
+rbcd020,rbcd020_2070,Sickle cell anemia
+rbcd020,rbcd020_2100,Others
+rbcd030,rbcd030_3010,polycythemia other than PV
+wbcd010,wbcd010_1010,Leukocytosis
+wbcd010,wbcd010_1020,Leukopenia
+wbcd010,wbcd010_1030,Lymphocytosis
+wbcd010,wbcd010_1040,Lymphocytopenia
+wbcd010,wbcd010_1050,"Neutropenia, Unspecified"
+wbcd010,wbcd010_1060,Congenital Neutropenia
+wbcd010,wbcd010_1070,Autoimmune Neutropenia

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block contents %}
+<div>
+  <div>
+      <div class="alert alert-primary" role="alert">
+      <form method="post" id="PtForm" data-dx-url="{% url 'ajax_load_dxs' %}" novalidate>
+        {% csrf_token %}
+          <div class="form-group">
+            <table  class="table table-light">
+              {{ form.as_table }}
+            </table>
+          </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+{#  <form method="GET" action="./db_import">#}
+{#      <button type="submit" class="btn btn-primary">Import</button>#}
+{#  </form>#}
+
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+   <script>
+    $("#id_dxcode_0").change(function () {
+      var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
+      var dxcode_0id = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'dxcode_0': dxcode_0id       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+     $("#id_dxcode_1").change(function () {
+      var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
+      var dxcode_1id = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'dxcode_1': dxcode_1id       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_dxcode_2").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+          
+          
+{#  <script>#}
+{#    $('select[name=dxcode_0]').change(function () {#}
+{#        var dxcode_0_id = $(this).val();#}
+{#        var request_url = '/dxcode_0/' + dxcode_0_id + '/';#}
+{#        $.ajax({#}
+{#            url: request_url,#}
+{#            success: function (data) {#}
+{#                $('select[name=dxcode_1]').html(data);#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#     $('select[name=dxcode_1]').change(function () {#}
+{#            var dxcode_1_id = $(this).val();#}
+{#            var request_url = '/dxcode_1/' + dxcode_1_id + '/';#}
+{#            $.ajax({#}
+{#                url: request_url,#}
+{#                success: function (data) {#}
+{#                    $('select[name=dxcode_2]').html(data);#}
+{#                }#}
+{#            });#}
+{#        });#}
+{##}
+{##}
+{##}
+{#  </script>#}
+</div>
+</div>
+{% endblock %}

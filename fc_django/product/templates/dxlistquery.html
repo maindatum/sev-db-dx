@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block contents %}
+<style>
+    .isdisabled{
+        color: currentColor;
+        cursor: not-allowed;
+        opacity: 0.5;
+        text-decoration: none;
+    }
+    #centerbox{
+        width: 1000px;
+        height: 500px;
+    }
+</style>
+<div>
+  <div>
+      <div>
+          <table  class="table table-light">
+          <tr>
+              <td>
+                  <select id="dxcode_0" class="form-control">
+                      {% for el in result1  %}
+                      <option value="{{ el.dx_0_pk }}">{{ el.dxname_0 }}</option>
+                      {% endfor %}
+                  </select>
+              </td>
+              <td>
+                  <select id="dxcode_1" class="form-control">
+                  </select>
+              </td>
+              <td>
+                  <select  id="dxcode_2" class="form-control">
+                  </select>
+              </td>
+              <td>
+                  <button id="btn_query1" type="submit" class="btn btn-primary">조회</button>
+              </td>
+              <td></td>
+          </tr>
+          </table>
+      </div>
+      <div id="centerbox" class="alert alert-primary" role="alert">
+        {% csrf_token %}
+          <div id="centerbox_inner" class="form-group">
+            <table id="result_query" class="table table-light">
+                <tr>
+                    <td>UNITNUMB</td>
+                    <td>Dx0</td>
+                    <td>Dx1</td>
+                    <td>Dx2</td>
+                    <td>Dx3</td>
+                </tr>
+            {% for el in result1 %}
+                <tr>
+                    <td>{{el.unitnumb}}</td>
+                    <td>{{el.dxname0}}</td>
+                    <td>{{el.dxname1}}</td>
+                    <td>{{el.dxname2}}</td>
+                    <td>{{el.dxname3}}</td>
+                </tr>
+            {% endfor %}
+
+            </table>
+
+          </div>
+      </div>
+  </div>
+     <div class="pagination">
+          <span class="step-links">
+          {% if result1.has_previous %}
+          <a href="?page=1">맨앞으로</a>
+          <a href="?page={{result1.previous_page_number}}">이전으로</a>
+          {% else %}
+          <span style="color:grey;">맨앞으로</span>
+          <span style="color:grey;">이전으로</span>
+          {% endif %}
+              <span class="current">(현재{{ result1.number }}페이지</span>
+              <span>/전체{{ result1.paginator.num_pages }}장)</span>
+          {% if result1.has_next %}
+          <a href="?page={{result1.next_page_number}}">다음으로</a>
+          <a href="?page={{result1.paginator.num_pages}}">맨뒤로</a>
+          {% else %}
+          <span style="color:grey;">다음으로</span>
+          <span style="color:grey;">맨뒤로</span>
+          {% endif %}
+          </span>
+     </div>
+</div>
+
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#dxcode_0").change(function () {
+      var dx_0_pk = $(this).val();
+      $.ajax({                       // initialize an AJAX request
+        url: "/dxlistquery/loaddx",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'dx_0_pk': dx_0_pk     // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+
+     $("#dxcode_1").change(function () {
+      var dx_1_pk = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: "/dxlistquery/loaddx",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'dx_1_pk': dx_1_pk       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#dxcode_2").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+      });
+
+      $("#btn_query1").click(function () {
+      var dx_0_pk = $("#dxcode_0").val();
+      var dx_1_pk = $("#dxcode_1").val();  // get the selected country ID from the HTML input
+      var dx_2_pk = $("#dxcode_2").val();
+      $.ajax({                       // initialize an AJAX request
+        url: "/dxlistquery/tblquery",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'dx_0_pk':dx_0_pk,
+          'dx_1_pk': dx_1_pk,
+          'dx_2_pk': dx_2_pk
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#centerbox_inner").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+      });
+  </script>
+
+{% endblock %}

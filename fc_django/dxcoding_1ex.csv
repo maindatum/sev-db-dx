@@ -1,0 +1,246 @@
+dxcode_0,dxcode_1,dxname_1
+abd,abdt010,Neuroblastoma (NB)
+abd,abdt010,Neuroblastoma (NB)
+abd,abdt010,Neuroblastoma (NB)
+abd,abdt020,Wilms Tumor (WT)
+abd,abdt020,Wilms Tumor (WT)
+abd,abdt020,Wilms Tumor (WT)
+abd,abdt030,Other Kidney Tumor
+abd,abdt030,Other Kidney Tumor
+abd,abdt030,Other Kidney Tumor
+abd,abdt030,Other Kidney Tumor
+abd,abdt030,Other Kidney Tumor
+abd,abdt050,Hepatoblastoma (HBL)
+abd,abdt050,Hepatoblastoma (HBL)
+abd,abdt050,Hepatoblastoma (HBL)
+abd,abdt060,Hepatocellular Carcinoma (HCC)
+abd,abdt070,Other liver tumor
+abd,abdt080,Adrenocartical Carcinoma (ACC)
+abd,abdt090,Colon Cancer
+abd,abdt100,Pancreatic Tumor
+abd,abdt100,Pancreatic Tumor
+abd,abdt100,Pancreatic Tumor
+abd,abdt110,Cholangio Cellular Carcinoma
+abd,abdt120,Ovarian tumor
+bt,brain010,Medulloblastoma (MBL)
+bt,brain020,Atypical Teratoid Rhabdoid Tumor (ATRT)
+bt,brain030,Primitive Neuroectodermal Tumor (PNET)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain040,CNS Germ Cell Tumor (CNS GCT)
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain050,Glioma
+bt,brain060,Pineal Gland Tumor
+bt,brain060,Pineal Gland Tumor
+bt,brain060,Pineal Gland Tumor
+bt,brain070,Ependymoma
+bt,brain070,Ependymoma
+bt,brain090,Other brain tumor
+bt,brain090,Other brain tumor
+bt,brain090,Other brain tumor
+bt,brain090,Other brain tumor
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag010,Hemophilia
+coag,coag020,von Willebrand Disease (vWD)
+coag,coag020,von Willebrand Disease (vWD)
+coag,coag020,von Willebrand Disease (vWD)
+coag,coag030,Platelet Function Disorder
+coag,coag040,"Coagulation disorder, others"
+coag,coag040,"Coagulation disorder, others"
+coag,coag040,"Coagulation disorder, others"
+coag,coag040,"Coagulation disorder, others"
+coag,coag050,Thrombophilia
+coag,coag050,Thrombophilia
+coag,coag050,Thrombophilia
+coag,coag050,Thrombophilia
+coag,coag050,Thrombophilia
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+exgct,exgct010,ExtraCNS germ cell tumor (ExtraCNS GCT)
+hema,hema010,bone marrow failure syndrome-AA
+hema,hema020,bone marrow failure syndrome-hereditary
+hema,hema030,Langerhans Cell Histiocytosis (LCH)
+hema,hema040,Hemophagocytic Lymphohistiocytosis (HLH)
+hema,hema050,Castleman Disease
+hereditary,hered010,Hereditary Cancer Syndrome
+hereditary,hered010,Hereditary Cancer Syndrome
+hereditary,hered020,Immune Deficiency
+hereditary,hered020,Immune Deficiency
+hereditary,hered020,Immune Deficiency
+hereditary,hered030,metabolic and storage disorders
+hereditary,hered030,metabolic and storage disorders
+hereditary,hered040,Osteopetrosis
+hereditary,hered050,Porphyria
+hereditary,hered060,Cystic Fibrosis
+hn,hn010,Nasopharyngeal Cancer
+hn,hn020,Retinoblastoma (RB)
+hn,hn030,Thyroid Cancer
+hn,hn030,Thyroid Cancer
+hn,hn040,Benign Thyroid Tumors
+leu,leu010,Acute Lymphoblastic Leukemia (ALL)
+leu,leu010,Acute Lymphoblastic Leukemia (ALL)
+leu,leu010,Acute Lymphoblastic Leukemia (ALL)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu020,Acute Myeloid Leukemia (AML)
+leu,leu030,Mixed Phenotype Acute Leukemia (MPAL)
+leu,leu040,Undifferentiated leukemia
+leu,leu050,Myeloproliferative Disease (MPD)
+leu,leu050,Myeloproliferative Disease (MPD)
+leu,leu050,Myeloproliferative Disease (MPD)
+leu,leu050,Myeloproliferative Disease (MPD)
+leu,leu060,Myelodysplastic syndrome (MDS)
+leu,leu060,Myelodysplastic syndrome (MDS)
+leu,leu060,Myelodysplastic syndrome (MDS)
+leu,leu070,Leukemia Others
+leu,leu070,Leukemia Others
+leu,leu080,Transient myeloproliferative syndrome in Down Syndrome
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym010,Non Hodgkin's Lymphoma (NHL)
+lym,lym020,Hodgkin's Lymphoma (HD)
+lym,lym020,Hodgkin's Lymphoma (HD)
+lym,lym020,Hodgkin's Lymphoma (HD)
+lym,lym020,Hodgkin's Lymphoma (HD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+lym,lym030,Post Transplant Lympho Proliferative Disease (PTLD)
+msk,msk010,Rhabdomyosarcoma (RMS)
+msk,msk010,Rhabdomyosarcoma (RMS)
+msk,msk010,Rhabdomyosarcoma (RMS)
+msk,msk010,Rhabdomyosarcoma (RMS)
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk020,Soft tissue sarcoma
+msk,msk050,Ewing sarcoma/Peripheral Primitive Neuroectodermal Tumor (EWS/PNET)
+msk,msk060,Osteosarcoma
+msk,msk070,Other bone tumors
+msk,msk080,Vascular tumor
+msk,msk080,Vascular tumor
+msk,msk080,Vascular tumor
+msk,msk080,Vascular tumor
+msk,msk080,Vascular tumor
+msk,msk080,Vascular tumor
+msk,msk090,Benign Bone Lesion
+msk,msk090,Benign Bone Lesion
+msk,msk090,Benign Bone Lesion
+msk,msk090,Benign Bone Lesion
+others,others010,Infectious disorders
+others,others010,Infectious disorders
+others,others010,Infectious disorders
+others,others010,Infectious disorders
+others,others010,Infectious disorders
+others,others010,Infectious disorders
+others,others020,Henoch-Schonlein purpura (HSP)
+others,others030,IgG4 related disease
+others,others050,Esophageal duplication cyst
+others,others060,Thymic Hyperplasia
+others,others070,Pleuropulmonary Blastoma
+others,others100,Bone Marrow Donor
+plt,plt010,Idiopathic Thrombocytopenic Purpura (ITP)
+plt,plt010,Idiopathic Thrombocytopenic Purpura (ITP)
+plt,plt010,Idiopathic Thrombocytopenic Purpura (ITP)
+plt,plt020,"Thrombocytopenia, Others"
+plt,plt020,"Thrombocytopenia, Others"
+plt,plt020,"Thrombocytopenia, Others"
+plt,plt030,Thrombocytosis
+plt,plt030,Thrombocytosis
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd010,Anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd020,Hemolytic anemia
+rbcd,rbcd030,Polycythemia
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality
+wbcd,wbcd010,WBC abnormality

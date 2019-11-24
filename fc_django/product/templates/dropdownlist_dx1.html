@@ -1,0 +1,11 @@
+<option value="">---------</option>
+{% if dxcode_1 %}
+{% for dx in dxcode_1 %}
+<option class="form-control" value="{{ dx.pk}}">{{ dx.dxname_1 }}</option>
+{% endfor %}
+{% endif %}
+{% if dxcode_2 %}
+{% for dx in dxcode_2 %}
+<option class="form-control" value="{{ dx.pk }}">{{ dx.dxname_2 }}</option>
+{% endfor %}
+{% endif %}
