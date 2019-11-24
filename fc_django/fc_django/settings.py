@@ -25,7 +25,8 @@ SECRET_KEY = '$e(s7(y+3=)if#rjw2_43li4r-%(ulk@#e#g(+2*zkwr34&*jc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['maindatum.pythonanywhere.com']
+ALLOWED_HOSTS = ['maindatum.pythonanywhere.com',
+                 u'maindatum.pythonanywhere.com']
 
 
 # Application definition
