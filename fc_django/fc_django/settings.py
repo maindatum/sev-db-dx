@@ -26,7 +26,10 @@ SECRET_KEY = '$e(s7(y+3=)if#rjw2_43li4r-%(ulk@#e#g(+2*zkwr34&*jc'
 DEBUG = True
 
 ALLOWED_HOSTS = ['maindatum.pythonanywhere.com',
-                 u'maindatum.pythonanywhere.com']
+                 u'maindatum.pythonanywhere.com',
+                 '*.pythonanywhere.com',
+                 '*',
+                 '.pythonanywhere.com']
 
 
 # Application definition

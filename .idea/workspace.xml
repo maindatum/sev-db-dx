@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fc_django/fc_django/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+            <state relative-caret-position="174">
+              <caret line="14" column="71" lean-forward="true" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -185,7 +185,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-67" />
     <option name="y" value="192" />
     <option name="width" value="1936" />
@@ -197,17 +197,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="django_class" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\jwhan\PycharmProjects\django_class" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,6 +245,17 @@
             <path>
               <item name="django_class_c2" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="django_class" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\jwhan\PycharmProjects\django_class" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -315,6 +315,7 @@
       <workItem from="1574598241341" duration="621000" />
       <workItem from="1574604504446" duration="22000" />
       <workItem from="1574604818734" duration="245000" />
+      <workItem from="1574605188304" duration="211000" />
     </task>
     <task id="LOCAL-00001" summary="20191123">
       <created>1574486584370</created>
@@ -327,7 +328,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73676000" />
+    <option name="totallyTimeSpent" value="73887000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -339,9 +340,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-67" y="192" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49911818" visible="true" weight="0.291309" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49911818" visible="true" weight="0.29560086" />
       <window_info id="Structure" order="1" sideWeight="0.50088185" side_tool="true" weight="0.24980047" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -474,39 +475,39 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/fcuser/dxcoding_1ex.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="1045">
+          <caret line="55" column="38" lean-forward="true" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
+        </state>
       </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="116" column="70" lean-forward="true" selection-start-line="116" selection-start-column="70" selection-end-line="116" selection-end-column="70" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="1045">
-          <caret line="55" column="38" lean-forward="true" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
-        </state>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/dxcoding_1ex.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="-532" />
       </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/dxcoding_0ex.csv">
+      <provider selected="true" editor-type-id="csv-text-editor" />
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/dxcoding_2ex.csv">
+      <provider selected="true" editor-type-id="csv-text-editor" />
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/fcuser/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -728,8 +729,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fc_django/fc_django/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+        <state relative-caret-position="174">
+          <caret line="14" column="71" lean-forward="true" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
         </state>
       </provider>
     </entry>
