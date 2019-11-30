@@ -75,16 +75,21 @@ class Patient_info(models.Model):
         verbose_name ='환자기본정보'
 
 class Pt_diagnosis(models.Model):
-    unitnumb = models.CharField(max_length=12, verbose_name='등록번호')
+    unitnumb = models.ForeignKey('Patient_info', on_delete=models.CASCADE, verbose_name='환자등록번호')
+    dx_date = models.DateField(verbose_name='진단일')
+    dx_age = models.FloatField(verbose_name='연령')
     dxcode_0 = models.ForeignKey('Diagnosis_0', on_delete=models.CASCADE, verbose_name='진단대분류')
     dxcode_1 = models.ForeignKey('Diagnosis_1', on_delete=models.CASCADE, verbose_name='진단중분류')
     dxcode_2 = models.ForeignKey('Diagnosis_2', on_delete=models.CASCADE, verbose_name='진단소분류')
-    dxcode_3 = models.CharField(max_length=12, blank=True, verbose_name='진단상세')
+    dxcode_3 = models.CharField(max_length=40, blank=True, verbose_name='Comment')
+    need_confirm = models.BooleanField(verbose_name='컨펌필요여부', default=False)
+    compl_confirm = models.BooleanField(verbose_name='컨펌완료여부', default=False)
+    dr_name = models.CharField(max_length=40, blank=True, verbose_name='주치의')
     regist_dttm = models.DateTimeField(auto_now_add=True, verbose_name='등록시간')
     regist_user = models.ForeignKey('fcuser.Fcuser', on_delete=models.CASCADE, verbose_name='작성자')
 
     def __str__(self):
-        return self.unitnumb
+        return str(self.unitnumb_id)
 
     class Meta:
         db_table = 'pt_diagnosis'

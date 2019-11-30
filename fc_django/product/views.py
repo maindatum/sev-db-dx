@@ -1,16 +1,21 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.edit import FormView
-from .models import Product, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
+from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
 from fcuser.models import Fcuser
-from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm
+from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm, PtRegisterForm
 from order.forms import RegisterForm as OrderForm
 from django.utils.decorators import method_decorator
 from fcuser.decorator import login_required, admin_required
 from django.core.paginator import Paginator
-
-import simplejson
+import pandas as pd
+import os
 from django.http import HttpResponse
+import simplejson
+import datetime
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Create your views here.
@@ -115,7 +120,7 @@ def DxRegister(request):
 
 def dxlistview(request):
     ptdxs = Pt_diagnosis.objects.all()
-
+    ptdxtrans_dict = {}
     ptdxlist = []
     # print(ptdxs)
     for ptdx in ptdxs:
@@ -160,37 +165,74 @@ class DxLV(ListView):
 
 
 # @method_decorator(login_required, name='dispatch')
-class PtCreate(CreateView):
+class PtCreate(FormView):
     model = Pt_diagnosis
     form_class = PtForm
     template_name = "regist_dx.html"
     success_url = '/regist_dx'
 
+    # def form_valid(self, form):
+    #     unitnumb = str(form.data.get('unitnumb'))
+    #     print(unitnumb)
+
     def form_valid(self, form):
-        # print(self.request.session.get('user'))
+        print(self.request.session.get('user'))
         # print(Fcuser.objects.get(email=self.request.session.get('user')))
         # print(Fcuser.objects.get(email=self.request.session.get('user')))
         print(form.data.get('dxcode_0'))
+        unitnumb_pk = int(form.data.get('unitnumb'))
+        print('unirnumb_pk', unitnumb_pk)
+        birthdate = Patient_info.objects.get(pk=unitnumb_pk).birthdate
+        print(birthdate)
+        dx_date = datetime.datetime.strptime(form.data.get('dx_date'),'%Y-%m-%d').date()
+        print(type(dx_date))
+        print(type(birthdate))
+        td=dx_date-birthdate
+        dx_age = float(td.days/365.25)
+        print(dx_age)
+        print(dx_age)
+        print(type(dx_age))
+        print('ptinfo object', Patient_info.objects.get(pk=unitnumb_pk))
+        need_confirm = form.data.get('need_confirm')
+        compl_confirm = form.data.get('comp_confirm')
+        if form.data.get('need_confirm') == 'on':
+            need_confirm = True
+        else:
+            need_confirm = False
+
+        if form.data.get('compl_confirm') == 'on':
+            compl_confirm = True
+        else:
+            compl_confirm = False
+
         ptdiagnosis = Pt_diagnosis(
-            unitnumb=form.data.get('unitnumb'),
+            unitnumb=Patient_info.objects.get(pk=unitnumb_pk),
+            dx_date=dx_date,
             dxcode_0=Diagnosis_0.objects.get(pk=form.data.get('dxcode_0')),
             dxcode_1=Diagnosis_1.objects.get(pk=form.data.get('dxcode_1')),
             dxcode_2=Diagnosis_2.objects.get(pk=form.data.get('dxcode_2')),
             dxcode_3=form.data.get('dxcode_3'),
             regist_user=Fcuser.objects.get(pk=form.data.get('regist_user')),
+            dr_name=form.data.get('dr_name'),
         )
-        ptdiagnosis = form.save(commit=False)
+        print('the age', ptdiagnosis.dx_age)
+        # ptdiagnosis = form.save(commit=False)
+        ptdiagnosis.dx_age = dx_age
+        ptdiagnosis.need_confirm = need_confirm
+        ptdiagnosis.compl_confirm = compl_confirm
+        print('ptdx.unitnumb is', ptdiagnosis.unitnumb)
+        print('ptdx.dxage is', ptdiagnosis.dx_age)
         # regist_user = Fcuser.objects.get(email=self.request.session.get('user'))
         # ptdiagnosis.regist_user = Fcuser.objects.get(email=regist_user)
         ptdiagnosis.save()
         return super().form_valid(form)
 
-    def get_form_kwargs(self, **kwargs):
-        kw = super().get_form_kwargs(**kwargs)
-        kw.update({
-            'request': self.request
-        })
-        return kw
+    # def get_form_kwargs(self, **kwargs):
+    #     kw = super().get_form_kwargs(**kwargs)
+    #     kw.update({
+    #         'request': self.request
+    #     })
+    #     return kw
 
 
 # def get_diagnosis_1(request, dxcode_0_id):
@@ -223,11 +265,13 @@ class RegistDx(CreateView):
         print(Fcuser.objects.get(email=self.request.session.get('user')))
         print(Fcuser.objects.get(email=self.request.session.get('user')))
         ptdiagnosis = Pt_diagnosis(
-            unitnumb=form.data.get('unitnumb'),
-            dxcode_0=Diagnosis_0.objects.get(pk=form.data.get('dxcode_0')),
-            dxcode_1=Diagnosis_1.objects.get(pk=form.data.get('dxcode_1')),
-            dxcode_2=Diagnosis_2.objects.get(pk=form.data.get('dxcode_2')),
+            unitnumb=form.data.get('id_unitnumb'),
+            dx_date=form.data.get('id_dx_date'),
+            dxcode_0=Diagnosis_0.objects.get(pk=form.data.get('id_dxcode_0')),
+            dxcode_1=Diagnosis_1.objects.get(pk=form.data.get('id_dxcode_1')),
+            dxcode_2=Diagnosis_2.objects.get(pk=form.data.get('id_dxcode_2')),
             dxcode_3=form.data.get('dxcode_3'),
+            dr_name=form.data.get('id_dr_name'),
             regist_user=form.data.get(''),
         )
         ptdiagnosis = form.save(commit=False)
@@ -242,6 +286,12 @@ class RegistDx(CreateView):
             'request': self.request
         })
         return kw
+
+
+class Pt_Dx_Detail(DetailView):
+    template_name = 'pt_dx_detail.html'
+    queryset = Pt_diagnosis.objects.all()
+    context_object_name = 'ptdx'
 
 
 #
@@ -299,6 +349,10 @@ def query_tbl(request, *args, **kwargs):
         ptdxtrans_dict = {}
         print(ptdx.dxcode_0)
         ptdxtrans_dict['unitnumb'] = ptdx.unitnumb
+        ptdxtrans_dict['ptname'] = Patient_info.objects.get(unitnumb=ptdx.unitnumb).ptname
+        ptdxtrans_dict['birthdate'] = Patient_info.objects.get(unitnumb=ptdx.unitnumb).birthdate
+        ptdxtrans_dict['dx_date'] = ptdx.dx_date
+        ptdxtrans_dict['dx_age'] = ptdx.dx_age
         ptdxtrans_dict['dxname0'] = Diagnosis_0.objects.get(dxcode_0=ptdx.dxcode_0).dxname_0
         ptdxtrans_dict['dxname1'] = Diagnosis_1.objects.get(dxcode_1=ptdx.dxcode_1).dxname_1
         ptdxtrans_dict['dxname2'] = Diagnosis_2.objects.get(dxcode_2=ptdx.dxcode_2).dxname_2
@@ -310,3 +364,64 @@ def query_tbl(request, *args, **kwargs):
     page = request.GET.get('page')
     ptdx_paged = paginator.get_page(page)
     return render(request, 'dx_query_tbl.html', {'results': ptdx_paged})
+
+
+def DbImport(request):
+    tb_dxcoding_0 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_0ex.csv"), encoding="cp949")
+    tb_dxcoding_1 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_1ex.csv"), encoding="cp949")
+    tb_dxcoding_2 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_2ex.csv"), encoding="cp949")
+    print(tb_dxcoding_0.columns)
+    for dxcode in tb_dxcoding_0.itertuples():
+        if not Diagnosis_0.objects.filter(dxcode_0=dxcode.dxcode_0):
+            Diagnosis_0.objects.create(dxcode_0=dxcode.dxcode_0, dxname_0=dxcode.dxname_0)
+    for dxcode in tb_dxcoding_1.itertuples():
+        if not Diagnosis_1.objects.filter(dxcode_1=dxcode.dxcode_1):
+            Diagnosis_1.objects.create(dxcode_0=Diagnosis_0.objects.get(dxcode_0=dxcode.dxcode_0),
+                                       dxcode_1=dxcode.dxcode_1, dxname_1=dxcode.dxname_1)
+    for dxcode in tb_dxcoding_2.itertuples():
+        if not Diagnosis_2.objects.filter(dxcode_2=dxcode.dxcode_2):
+            Diagnosis_2.objects.create(dxcode_1=Diagnosis_1.objects.get(dxcode_1=dxcode.dxcode_1),
+                                       dxcode_2=dxcode.dxcode_2, dxname_2=dxcode.dxname_2)
+
+    print(len(tb_dxcoding_0))
+    print('dbimport!!')
+    return redirect('/')
+
+
+def ptcheck(request, *args, **kwargs):
+    unitnumb = request.GET.get('unitnumb')
+    result_count = Patient_info.objects.filter(unitnumb=str(unitnumb)).count()
+    flag = 0
+    response_dict ={}
+    if result_count < 1:
+        response_dict['flag'] = 0
+        response_dict['unitnumb_pk'] = None
+        print(simplejson.dumps(response_dict))
+        return HttpResponse(simplejson.dumps(response_dict), content_type="application/json")
+    elif result_count > 1:
+        response_dict['flag'] = 2
+        response_dict['unitnumb_pk'] = None
+        print(simplejson.dumps(response_dict))
+        return HttpResponse(simplejson.dumps(response_dict), content_type="application/json")
+    else:
+        response_dict['flag'] = 1
+        unitnumb_pk = Patient_info.objects.get(unitnumb=str(unitnumb)).pk
+        response_dict['unitnumb_pk'] = unitnumb_pk
+        print(response_dict)
+        return HttpResponse(simplejson.dumps(response_dict), content_type="application/json")
+
+
+class RegisterView(FormView):
+    template_name = "ptregister.html"
+    form_class = PtRegisterForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        ptinfo = Patient_info(
+            unitnumb=str(form.data.get('unitnumb')),
+            ptname=form.data.get('ptname'),
+            birthdate=form.data.get('birthdate'),
+        )
+        ptinfo.save()
+
+        return super().form_valid(form)

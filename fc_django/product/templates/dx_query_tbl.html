@@ -2,6 +2,10 @@
     <table  class="table table-light">
         <tr>
             <td>UNITNUMB</td>
+            <td>Pt_Name</td>
+            <td>BirthD</td>
+            <td>Dx_Date</td>
+            <td>Dx_Age</td>
             <td>Dx0</td>
             <td>Dx1</td>
             <td>Dx2</td>
@@ -10,6 +14,10 @@
     {% for el in results %}
         <tr>
             <td>{{el.unitnumb}}</td>
+            <td>{{el.ptname}}</td>
+            <td>{{el.birthdate }}</td>
+            <td>{{el.dx_date}}</td>
+            <td>{{el.dx_age}}</td>
             <td>{{el.dxname0}}</td>
             <td>{{el.dxname1}}</td>
             <td>{{el.dxname2}}</td>

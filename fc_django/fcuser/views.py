@@ -24,8 +24,9 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         fcuser = Fcuser(
+            username=form.data.get('username'),
             email=form.data.get('email'),
-            password=make_password(form.data.get('password')),
+            password=form.data.get('password'),
             level='user'
         )
         fcuser.save()
@@ -50,23 +51,3 @@ def logout(request):
     return redirect('/')
 
 
-def DbImport(request):
-    tb_dxcoding_0 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_0ex.csv"), encoding="cp949")
-    tb_dxcoding_1 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_1ex.csv"), encoding="cp949")
-    tb_dxcoding_2 = pd.read_csv(os.path.join(BASE_DIR, "dxcoding_2ex.csv"), encoding="cp949")
-    print(tb_dxcoding_0.columns)
-    for dxcode in tb_dxcoding_0.itertuples():
-        if not Diagnosis_0.objects.filter(dxcode_0=dxcode.dxcode_0):
-            Diagnosis_0.objects.create(dxcode_0=dxcode.dxcode_0, dxname_0=dxcode.dxname_0)
-    for dxcode in tb_dxcoding_1.itertuples():
-        if not Diagnosis_1.objects.filter(dxcode_1=dxcode.dxcode_1):
-            Diagnosis_1.objects.create(dxcode_0=Diagnosis_0.objects.get(dxcode_0=dxcode.dxcode_0),
-                                       dxcode_1=dxcode.dxcode_1, dxname_1=dxcode.dxname_1)
-    for dxcode in tb_dxcoding_2.itertuples():
-        if not Diagnosis_2.objects.filter(dxcode_2=dxcode.dxcode_2):
-            Diagnosis_2.objects.create(dxcode_1=Diagnosis_1.objects.get(dxcode_1=dxcode.dxcode_1),
-                                       dxcode_2=dxcode.dxcode_2, dxname_2=dxcode.dxname_2)
-
-    print(len(tb_dxcoding_0))
-    print('dbimport!!')
-    return redirect('/')

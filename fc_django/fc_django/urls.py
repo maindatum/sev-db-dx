@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from fcuser.views import index, logout, RegisterView, LoginView, DbImport
-from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery
+from fcuser.views import index, logout, RegisterView, LoginView
+from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView
 from order.views import OrderCreate, OrderList
 
 urlpatterns = [
@@ -31,10 +31,13 @@ urlpatterns = [
     path('product/<int:pk>/',ProductDetail.as_view()),
     path('order/create/', OrderCreate.as_view()),
     path('order', OrderList.as_view()),
+    path('ptdx/<int:pk>', Pt_Dx_Detail.as_view()),
     path('regist_dx/', PtCreate.as_view()),
     path('dxlist/', dxlistview),
     path('dxlistquery/', dxlistquery),
-    path('dx/db_import/', DbImport),
+    path('ptcheck/', ptcheck),
+    path('ptregist/', RegisterView.as_view()),
+    path('db_import/', DbImport),
     # path('dxcode_0/<int:dxcode_0_id>/', get_diagnosis_1),
     # path('dxcode_1/<int:dxcode_1_id>/', get_diagnosis_2),
     path('ajax/load-cities/', load_dx1, name='ajax_load_dxs'),
