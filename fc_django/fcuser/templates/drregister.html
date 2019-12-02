@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+<div class="form-group">
+    <h1> Dr Register Page</h1>
+        <li>
+            <label for="dr_name"> 의사 성명 </label>
+            <input class="form-control" type="text", id="dr_name">
+        </li>
+        <li>
+            <label for="email"> 이메일 </label>
+            <input class="form-control" type="text", id="email">
+        </li>
+        <li>
+            <label for="comment1"> 참고사항 </label>
+            <input class="form-control" type="text", id="comment1">
+        </li>
+        <button class="btn btn-primary" id="register">등록</button>
+</div>
+<script>
+    {#$(document).ready(#}
+    {#    alert('hi')#}
+    {#);#}
+    $(document).ready(function(){
+        $("#register").click(function(){
+            var dr_name=$('#dr_name').val();
+            var email =$('#email').val();
+            var comment1 = $('#comment1').val();
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+                }
+                var csrftoken = getCookie('csrftoken');
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+            $.ajax({
+                url: '/dr_create/',
+                method: 'post',
+                data: {'dr_name':dr_name, 'email':email, 'comment1':comment1},
+                success : function(){
+                    alert('가입을 환영합니다.');
+                    window.location = {% url 'dr_registration_home' %};
+                },
+                error : function(response) {
+                    alert(response.responseJSON.message)
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}
+

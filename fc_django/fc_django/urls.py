@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from fcuser.views import index, logout, RegisterView, LoginView
+from fcuser.views import index, logout, RegisterView, LoginView, DrCreateView
 from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView
 from order.views import OrderCreate, OrderList
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,5 +44,7 @@ urlpatterns = [
     path('ajax/load-cities/', load_dx1, name='ajax_load_dxs'),
     # path('ajax/load-cities2/', load_dx2, name='ajax_load_dxs2'),
     path('dxlistquery/loaddx', load_dx3),
-    path('dxlistquery/tblquery', query_tbl)
+    path('dxlistquery/tblquery', query_tbl),
+    path('dr_create/', DrCreateView.as_view()),
+    path('dr_register/', TemplateView.as_view(template_name='drregister.html'), name='dr_registration_home')
 ]

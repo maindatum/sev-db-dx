@@ -25,5 +25,5 @@ class Fcuser(models.Model):
 class Physician(models.Model):
     dr_name = models.CharField(max_length=15, blank=False, verbose_name='의사성명')
     email = models.EmailField(blank=False, verbose_name='이메일')
-    comment = models.CharField(max_length=15)
+    comment = models.CharField(max_length=15, blank=True)
     register_date = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')

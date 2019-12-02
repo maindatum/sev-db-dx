@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.edit import FormView
 from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
@@ -10,7 +11,7 @@ from fcuser.decorator import login_required, admin_required
 from django.core.paginator import Paginator
 import pandas as pd
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import simplejson
 import datetime
 
@@ -19,6 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Create your views here.
+
+
 
 class ProductList(ListView):
     model = Product
