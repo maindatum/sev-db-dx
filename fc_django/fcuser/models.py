@@ -27,3 +27,6 @@ class Physician(models.Model):
     email = models.EmailField(blank=False, verbose_name='이메일')
     comment = models.CharField(max_length=15, blank=True)
     register_date = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+
+    def __str__(self):
+        return self.dr_name

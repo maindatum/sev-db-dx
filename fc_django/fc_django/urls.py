@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from fcuser.views import index, logout, RegisterView, LoginView, DrCreateView
-from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView
+from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView, DxUpdateView
 from order.views import OrderCreate, OrderList
 from django.views.generic import TemplateView
 
@@ -46,5 +46,6 @@ urlpatterns = [
     path('dxlistquery/loaddx', load_dx3),
     path('dxlistquery/tblquery', query_tbl),
     path('dr_create/', DrCreateView.as_view()),
-    path('dr_register/', TemplateView.as_view(template_name='drregister.html'), name='dr_registration_home')
+    path('dr_register/', TemplateView.as_view(template_name='drregister.html'), name='dr_registration_home'),
+    path('dx_update/<int:pk>', DxUpdateView.as_view())
 ]

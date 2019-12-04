@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'fcuser',
     'product',
-    'order'
+    'order',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

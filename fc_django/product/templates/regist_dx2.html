@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load widget_tweaks %}
 {% block header %}
 {% endblock %}
 {% block contents %}
@@ -189,26 +188,79 @@
       <form method="post" id="PtForm" data-dx-url="{% url 'ajax_load_dxs' %}" novalidate>
         {% csrf_token %}
           <div class="form-group">
-              <div class="form-group form-inline">
-                <table  class="table table-light">
+            <table  class="table table-light">
+                <div class="form-group form-inline">
                 <tr>
-                    <td class="align-middle"><label for={{field.id_for_label}}> 등록번호</label></td>
-                    <td class="align-middle"><input type="text"  class="form-control" id="unitnumbtext_id" name="unitnumbtext" placeholder="등록번호" ></td>
-                    <td class="align-middle"><input type="hidden" class="form-control" id="id_unitnumb" name="unitnumb" placeholder="등록번호" ></td>
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput"><input type="text"  class="form-control" id="unitnumbtext_id" name="unitnumbtext" placeholder="등록번호" ></td>
+                    <td class="tdinput"><input type="hidden" class="form-control" id="id_unitnumb" name="unitnumb" placeholder="등록번호" ></td>
                 </tr>
-                {% for formel in form %}
+                {% for field in form %}
                 <tr>
-                    <td class="align-middle"> <label for="{{ formel.id_for_label }}">{{ formel.label }}</label></td>
-                    <td class="align-middle"> {{ formel|add_class:'form-control form-check-input' }} </td>
-                    <td class="align-middle" style="color:lightblue;font-size:0.5rem">
-                        {% if formel.errors %}
-                        <span style="font-size:0.5rem; color:red">{{ formel.errors }}</span>
-                        {% endif %}
+                    <td style="color:lightblue;font-size:0.5rem">1</td>
+                    <td style="color:lightblue;font-size:0.5rem">{% if field.errors %}
+                    <span style="font-size:0.5rem; color:red">{{ field.errors }}</span>
+                    {% endif %}
                     </td>
                 </tr>
+                {% if field.name == "dxcode_0" %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput">
+                        <select class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}">
+                            <option value="">---------</option>
+                            {% for el in field.field.queryset %}
+                            <option value={{ el.pk }}> {{ el.dxname_0 }} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                {% elif field.name == "dxcode_1" %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput">
+                        <select class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}">
+                            <option value="">---------</option>
+                            {% for el in field.field.queryset %}
+                            <option value={{ el.pk }}> {{ el.dxname_1 }} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                {% elif field.name == "dxcode_2" %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput">
+                        <select class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}">
+                            <option value="">---------</option>
+                            {% for el in field.field.queryset %}
+                            <option value={{ el.pk }}> {{ el.dxname_2 }} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                {% elif field.name == "dr_name" %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput">
+                        <select class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}">
+                            {% for el in field.field.queryset %}
+                            <option value={{ el.pk }}> {{ el.dr_name }} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+
+                {% elif field.name == "regist_user" %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput">
+                        <select class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}">
+                            <option value="">---------</option>
+                            {% for el in field.field.queryset %}
+                            <option value={{ el.pk }}> {{ el.username }} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </div>
+                {% else %}
+                    <td class="tdlabel"><label for={{field.id_for_label}}> {{field.label}}</label></td>
+                    <td class="tdinput"><input type="{{field.field.widget.input_type}}" class="form-control" id="{{field.id_for_label}}" placeholder="{{ field.label }}" name="{{field.name}}" /></td>
+                {% endif %}
+                </tr>
                 {% endfor %}
-                </table>
-              </div>
+            </table>
           </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>
@@ -231,7 +283,6 @@
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
                     $("#id_dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
-                    $("#id_dxcode_2").html("<option>-----------</option>")
                 }
             });
 

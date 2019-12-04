@@ -197,8 +197,8 @@ class PtForm(forms.ModelForm):
                     'dxname_1')
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
-        elif self.instance.pk:
-            self.fields['dxcode_1'].queryset = self.instance.diagnosis_0.dxcode_1_set.order_by('dxname_1')
+        # elif self.instance.pk:
+        #     self.fields['dxcode_1'].queryset = self.instance.Diagnosis_0.dxcode_1_set.order_by('dxname_1')
 
         if 'dxcode_1' in self.data:
             try:
@@ -208,7 +208,10 @@ class PtForm(forms.ModelForm):
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
-            self.fields['dxcode_2'].queryset = self.instance.diagnosis_1.dxcode_2_set.order_by('dxname_2')
+            print(type(self.instance))
+            print(dir(self.instance))
+
+            self.fields['dxcode_2'].queryset = self.instance.Diagnosis_1.dxcode_2_set.order_by('dxname_2')
 
     #     for visible in self.visible_fields():
     #         visible.field.widget.attrs['class'] = 'form-control'
@@ -220,6 +223,130 @@ class PtForm(forms.ModelForm):
     #     #     return HttpResponse(simplejson.dumps(diagnosis_1_list), content_type='application/json')
     #
 
+
+class PtUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Pt_diagnosis
+        fields = ('dx_date', 'dxcode_0', 'dxcode_1', 'dxcode_2', 'dxcode_3', 'need_confirm', 'compl_confirm', 'dr_name',
+                  'regist_user')
+
+    dx_date = forms.DateField(
+        error_messages={
+            'required': '진단일을 입력해주세요'
+        },
+        label='진단일',
+        widget=forms.DateInput
+    )
+
+    dxcode_0 = forms.ModelChoiceField(
+        queryset=Diagnosis_0.objects.all(),
+        widget=forms.Select,
+        error_messages={
+            'required': '대분류를 입력해주세요'
+        },
+        label='대분류',
+    )
+
+    dxcode_1 = forms.ModelChoiceField(
+        error_messages={
+            'required': '중분류를 입력해주세요'
+        },
+        label='중분류',
+        widget=forms.Select,
+        queryset=Diagnosis_1.objects.all()
+
+    )
+
+    dxcode_2 = forms.ModelChoiceField(
+        error_messages={
+            'required': '소분류를 입력해주세요'
+        },
+        label='소분류',
+        widget=forms.Select,
+        queryset=Diagnosis_2.objects.all(),
+    )
+    need_confirm = forms.BooleanField(
+        label='컨펌필요여부',
+        required=False,
+        initial=False,
+    )
+    compl_confirm = forms.BooleanField(
+        label='컨펌완료',
+        required=False,
+        initial=False,
+    )
+    dr_name = forms.ModelChoiceField(
+        queryset=Physician.objects.all(),
+        label='의사성명'
+    )
+    regist_user = forms.ModelChoiceField(
+        queryset=Fcuser.objects.all(),
+        label='등록자'
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        unitnumb = cleaned_data.get('unitnumb')
+        dx_date = cleaned_data.get('dx_date')
+        dxcode_0 = cleaned_data.get('dxcode_0')
+        dxcode_1 = cleaned_data.get('dxcode_1')
+        dxcode_2 = cleaned_data.get('dxcode_2')
+        dxcode_3 = cleaned_data.get('dxcode_3')
+        need_confirm = cleaned_data.get('need_confirm')
+        compl_confirm = cleaned_data.get('compl_confirm')
+        dr_name = cleaned_data.get('dr_name')
+        regist_user = cleaned_data.get('regist_user')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(self.instance.dxcode_1)
+        self.fields['dxcode_1'].queryset = Diagnosis_1.objects.filter(dxname_1=self.instance.dxcode_1)
+        self.fields['dxcode_2'].queryset = Diagnosis_2.objects.filter(dxname_2=self.instance.dxcode_2)
+        print(self.fields['dxcode_1'].queryset)
+
+        if 'dxcode_0' in self.data:
+            try:
+                dxcode_0_id = int(self.data.get('dxcode_0'))
+                self.fields['dxcode_1'].queryset = Diagnosis_1.objects.filter(dxcode_0_id=dxcode_0_id).order_by(
+                    'dxname_1')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        # elif self.instance.pk:
+        #     self.fields['dxcode_1'].queryset = self.instance.Diagnosis_0.dxcode_1_set.order_by('dxname_1')
+
+        if 'dxcode_1' in self.data:
+            try:
+                dxcode_1_id = int(self.data.get('dxcode_1'))
+                self.fields['dxcode_2'].queryset = Diagnosis_2.objects.filter(dxcode_1_id=dxcode_1_id).order_by(
+                    'dxname_2')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+    #     elif self.instance.pk:
+    #         print(type(self.instance))
+    #         print(dir(self.instance))
+    #
+    #         self.fields['dxcode_2'].queryset = self.instance.Diagnosis_1.dxcode_2_set.order_by('dxname_2')
+
+
+# class Meta:
+#     model = Pt_diagnosis
+#     fields = (
+#         'unitnumb', 'dx_date', 'dxcode_0', 'dxcode_1', 'dxcode_2', 'dxcode_3', 'need_confirm', 'compl_confirm',
+#         'dr_name', 'regist_user')
+#     widgets = {
+#         'unitnumb': forms.TextInput(),
+#         'dx_date': forms.SelectDateWidget(),
+#         'dxcode_0': forms.Select()
+#     }
+#     labels = {
+#         'unitnumb' : '올랄라'
+#     }
+# unitnumb = forms.CharField(
+#     label='등록번호',
+#     error_messages={
+#         'required': '등록번호를 입력해주세요'
+#     }
+# )
 
 class PtRegisterForm(forms.Form):
     unitnumb = forms.CharField(

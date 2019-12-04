@@ -20,7 +20,7 @@ class Diagnosis_0(models.Model):
     dxname_0 = models.CharField(max_length=64, verbose_name='dxname_0')
 
     def __str__(self):
-        return self.dxcode_0
+        return self.dxname_0
 
     class Meta:
         db_table = 'dx_0'
@@ -32,7 +32,7 @@ class Diagnosis_1(models.Model):
     dxname_1 = models.CharField(max_length=64, verbose_name='dxname_1')
 
     def __str__(self):
-        return self.dxcode_1
+        return self.dxname_1
 
     class Meta:
         db_table = 'dx_1'
@@ -44,7 +44,7 @@ class Diagnosis_2(models.Model):
     dxname_2 = models.CharField(max_length=64, verbose_name='dxname_2')
 
     def __str__(self):
-        return self.dxcode_2
+        return self.dxname_2
 
     class Meta:
         db_table = 'dx_2'
@@ -56,7 +56,7 @@ class Diagnosis_3(models.Model):
     dxname_3 = models.CharField(max_length=64, verbose_name='dxname_3')
 
     def __str__(self):
-        return self.dxcode_3
+        return self.dxname_3
 
     class Meta:
         db_table = 'dx_3'

@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.edit import FormView
 from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
 from fcuser.models import Fcuser
-from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm, PtRegisterForm
+from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm, PtRegisterForm, PtUpdateForm
 from order.forms import RegisterForm as OrderForm
 from django.utils.decorators import method_decorator
 from fcuser.decorator import login_required, admin_required
@@ -125,14 +125,17 @@ def dxlistview(request):
     ptdxs = Pt_diagnosis.objects.all()
     ptdxtrans_dict = {}
     ptdxlist = []
-    # print(ptdxs)
+    print(ptdxs)
     for ptdx in ptdxs:
         ptdxtrans_dict = {}
         print(ptdx.dxcode_0)
-        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb
-        ptdxtrans_dict['dxname0'] = Diagnosis_0.objects.get(dxcode_0=ptdx.dxcode_0).dxname_0
-        ptdxtrans_dict['dxname1'] = Diagnosis_1.objects.get(dxcode_1=ptdx.dxcode_1).dxname_1
-        ptdxtrans_dict['dxname2'] = Diagnosis_2.objects.get(dxcode_2=ptdx.dxcode_2).dxname_2
+        print(ptdx.dxcode_1)
+        print('ptdx.code2', ptdx.dxcode_2)
+        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
+        ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
+        ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
+        ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
+        ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
         ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
         ptdxlist.append(ptdxtrans_dict)
     print(ptdxtrans_dict)
@@ -172,6 +175,7 @@ class PtCreate(FormView):
     model = Pt_diagnosis
     form_class = PtForm
     template_name = "regist_dx.html"
+    # template_name = "dxupdate.html"
     success_url = '/regist_dx'
 
     # def form_valid(self, form):
@@ -342,23 +346,24 @@ def query_tbl(request, *args, **kwargs):
     dx_0_pk = request.GET.get('dx_0_pk')
     dx_1_pk = request.GET.get('dx_1_pk')
     dx_2_pk = request.GET.get('dx_2_pk')
-    print(dx_0_pk, dx_1_pk, dx_2_pk)
+    print('query', dx_0_pk, dx_1_pk, dx_2_pk)
     if dx_0_pk:
-        ptdxs = Pt_diagnosis.objects.filter(dxcode_0=dx_0_pk)
+        ptdxs = Pt_diagnosis.objects.filter(dxcode_0_id=dx_0_pk)
+    print(ptdxs)
 
     ptdxlist = []
     # print(ptdxs)
     for ptdx in ptdxs:
         ptdxtrans_dict = {}
         print(ptdx.dxcode_0)
-        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb
-        ptdxtrans_dict['ptname'] = Patient_info.objects.get(unitnumb=ptdx.unitnumb).ptname
-        ptdxtrans_dict['birthdate'] = Patient_info.objects.get(unitnumb=ptdx.unitnumb).birthdate
+        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
+        ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
+        ptdxtrans_dict['birthdate'] = ptdx.unitnumb.birthdate
         ptdxtrans_dict['dx_date'] = ptdx.dx_date
         ptdxtrans_dict['dx_age'] = ptdx.dx_age
-        ptdxtrans_dict['dxname0'] = Diagnosis_0.objects.get(dxcode_0=ptdx.dxcode_0).dxname_0
-        ptdxtrans_dict['dxname1'] = Diagnosis_1.objects.get(dxcode_1=ptdx.dxcode_1).dxname_1
-        ptdxtrans_dict['dxname2'] = Diagnosis_2.objects.get(dxcode_2=ptdx.dxcode_2).dxname_2
+        ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
+        ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
+        ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
         ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
         ptdxlist.append(ptdxtrans_dict)
 
@@ -428,3 +433,14 @@ class RegisterView(FormView):
         ptinfo.save()
 
         return super().form_valid(form)
+
+class DxUpdateView(UpdateView):
+    model = Pt_diagnosis
+    form_class = PtUpdateForm
+    template_name = "dxupdate.html"
+    success_url = '/regist_dx'
+    #
+    # context_object_name = "ptdx"
+    # fields = "__all__"
+    # template_name = "dxupdate.html"
+    # success_url = "/"

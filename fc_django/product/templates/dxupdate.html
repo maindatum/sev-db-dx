@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block contents %}
+<style>
+</style>
+<script
+src="https://code.jquery.com/jquery-3.4.1.js"
+integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+crossorigin="anonymous"></script>
+<script
+src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+crossorigin="anonymous"></script>
+
+<form method="post" id="DxF" novalidate>
+    {% csrf_token %}
+    <div class="form-group form-inline">
+        <table  class="table table-light align-middle">
+            {% for formel in form %}
+                <tr>
+                    <td class="align-middle"> <label for="{{ formel.id_for_label }}">{{ formel.label }}</label></td>
+                    <td class="align-middle"> {{ formel|add_class:'form-control form-check-input' }} </td>
+                    <td class="align-middle" style="color:lightblue;font-size:0.5rem">
+                        {% if formel.errors %}
+                        <span style="font-size:0.5rem; color:red">{{ formel.errors }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<script>
+    $(document).ready(function() {
+        $("#id_dxcode_0").change(function () {
+            var url = '/ajax/load-cities/';  // get the url of the `load_cities` view
+            var dxcode_0id = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'dxcode_0': dxcode_0id       // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    $("#id_dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_dxcode_2").html("<option>-----------</option>")
+                }
+            });
+
+        });
+
+        $("#id_dxcode_1").change(function () {
+            var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
+            var dxcode_1id = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+                url: '/ajax/load-cities/',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'dxcode_1': dxcode_1id       // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    $("#id_dxcode_2").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+            });
+
+        });
+    });
+
+     $(document).ready(function(){
+         $.datepicker.setDefaults({
+             dateFormat: 'yy-mm-dd' //Input Display Format 변경
+            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+            ,changeYear: true //콤보박스에서 년 선택 가능
+            ,changeMonth: true //콤보박스에서 월 선택 가능
+            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
+            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
+            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+            ,minDate: "-100Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            ,maxDate: "+100Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+            ,yearRange: "-60:+40"
+             });
+         $("#id_dx_date").datepicker();
+         document.querySelector('#id_dx_date').setAttribute('autocomplete','off');
+     });
+
+
+</script>
+{% endblock %}
