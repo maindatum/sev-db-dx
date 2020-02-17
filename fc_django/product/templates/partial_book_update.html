@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+{% if form.instance.pk %}
+    <p>{{ form.instance.unitnumb }}</p>
+    <form method="post" action="{% url 'dx2_update' pk %}" data-dx-url="{% url 'ajax_load_dxs' %}" class="js-book-update-form">
+{% else %}
+    <form method="post" action="{% url 'dx2_update' pk %}" data-dx-url="{% url 'ajax_load_dxs' %}" class="js-book-update-form">
+{% endif %}
+{% csrf_token %}
+<h4 id="update_modal_form" class="modal-title">Update book</h4>
+<div class="modal-header">
+    <button onclick="dismiss_modal()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<p>등록번호:{{ ptunitnumb }} 환자일련{{ pk }}</p>
+<div class="modal-body">
+    {% include 'partial_dx2_form.html' %}
+</div>
+<div class="modal-footer">
+    <button type="button" onclick="dismiss_modal()" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" id="btn_update_pt" class="btn btn-primary">Update/Create</button>
+</div>
+</form>
+
+<script>
+    alert(`hi`)
+</script>

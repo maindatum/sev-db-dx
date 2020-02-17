@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Diagnosis_0, Diagnosis_1, Diagnosis_2, Diagnosis_3, Patient_info, Pt_diagnosis
+from .models import Product, Diagnosis_0, Diagnosis_1, Diagnosis_2, Diagnosis_3, Patient_info, Pt_diagnosis, Book
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
@@ -43,3 +43,9 @@ class Patient_info_Admin(admin.ModelAdmin):
     pass
 
 admin.site.register(Patient_info, Patient_info_Admin)
+
+class Book_Admin(admin.ModelAdmin):
+    list_display = ('title', 'publication_date','author')
+    pass
+
+admin.site.register(Book, Book_Admin)

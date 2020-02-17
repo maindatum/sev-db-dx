@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+{% for key, ptdx in ptdxs.items %}
+<tr>
+    <td>{{ key }}{{ ptdx.id }}</td>
+    <td>{{ ptdx.unitnumb}}</td>
+    <td>{{ ptdx.ptname_x }}</td>
+    <td>{{ ptdx.birthdate}}</td>
+    <td>{{ ptdx.dx_date }}</td>
+    <td>{{ ptdx.dx_age|floatformat:2 }}</td>
+    <td>{{ ptdx.dxname0 }}</td>
+    <td>{{ ptdx.dxname1 }}</td>
+    <td>{{ ptdx.dxname2 }}</td>
+    <td>
+        <button type="button"
+                class="btn btn-warning btn-sm js-update-patient"
+                data-url = "{% url 'dx2_update' key %}">
+            <span class=""></span>Edit
+        </button>
+        <button type="button"
+                class="btn btn-danger btn-sm js-delete-patient"
+                data-url = "{% url 'dx2_delete' key  %}">
+            <span class=""></span>Delete
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="8" class="text-center bg-warning">No book</td>
+</tr>
+{% endfor %}
+
+{#<script>#}
+{#function bindUpdatePtButton(){#}
+{#        const btnUpdatePts = document.getElementsByClassName('js-update-patient');#}
+{#        for (let i=0; i < btnUpdatePts.length; i++){#}
+{#            btnUpdatePts[i].addEventListener('click', loadupdateform, false);#}
+{#        }#}
+{#    }#}
+{#function main(){#}
+{#        bindUpdatePtButton();#}
+{#    }#}
+{#document.addEventListener('DOMContentLoaded', main);#}
+{#</script>#}

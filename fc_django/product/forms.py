@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
+from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2, Book
 from fcuser.models import Fcuser, Physician
 
 import simplejson
@@ -404,3 +404,19 @@ class PtRegisterForm(forms.Form):
 #         # if not (quantity and product):
 #         #     self.add_error('quantity', '값이 없습니다')
 #         #     self.add_error('product', '값이 없습니다')
+
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ('title', 'publication_date', 'author', 'price', 'pages', 'book_type', )
+
+class PtDx2Form(forms.ModelForm):
+    class Meta:
+        model = Patient_info
+        fields = ('unitnumb','ptname', 'birthdate')
+
+class PtDx3Form(forms.ModelForm):
+    class Meta:
+        model = Pt_diagnosis
+        fields = ('unitnumb', 'dx_date', 'dxcode_0', 'dxcode_1', 'dxcode_2', 'dxcode_3', 'regist_user')

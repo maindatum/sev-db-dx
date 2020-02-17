@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.views.generic.edit import FormView
-from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2
+from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2, Book
 from fcuser.models import Fcuser
-from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm, PtRegisterForm, PtUpdateForm
+from .forms import RegisterForm, DxRegisterForm, PtForm, DxForm, PtRegisterForm, PtUpdateForm, BookForm, PtDx2Form, \
+    PtDx3Form
 from order.forms import RegisterForm as OrderForm
 from django.utils.decorators import method_decorator
 from fcuser.decorator import login_required, admin_required
@@ -12,15 +13,23 @@ from django.core.paginator import Paginator
 import pandas as pd
 import os
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import render_to_string
 import simplejson
 import datetime
+from django.shortcuts import render, get_object_or_404
+from django.template.defaulttags import register
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Create your views here.
-
 
 
 class ProductList(ListView):
@@ -121,28 +130,36 @@ def DxRegister(request):
 #         dx.save()
 #         return super().form_valid(form)
 
+# def dxlistview(request):
+#     ptdxs = Pt_diagnosis.objects.all()
+#     ptdxtrans_dict = {}
+#     ptdxlist = []
+#     print(ptdxs)
+#     for ptdx in ptdxs:
+#         ptdxtrans_dict = {}
+#         print(ptdx.dxcode_0)
+#         print(ptdx.dxcode_1)
+#         print('ptdx.code2', ptdx.dxcode_2)
+#         ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
+#         ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
+#         ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
+#         ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
+#         ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
+#         ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
+#         ptdxlist.append(ptdxtrans_dict)
+#     print(ptdxtrans_dict)
+#     paginator = Paginator(ptdxlist, 7)
+#     page = request.GET.get('page')
+#     ptdx_paged = paginator.get_page(page)
+#     print(ptdx_paged)
+#     return render(request, "dxlist.html", {'result1': ptdx_paged})
+
 def dxlistview(request):
     ptdxs = Pt_diagnosis.objects.all()
-    ptdxtrans_dict = {}
-    ptdxlist = []
-    print(ptdxs)
-    for ptdx in ptdxs:
-        ptdxtrans_dict = {}
-        print(ptdx.dxcode_0)
-        print(ptdx.dxcode_1)
-        print('ptdx.code2', ptdx.dxcode_2)
-        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
-        ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
-        ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
-        ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
-        ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
-        ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
-        ptdxlist.append(ptdxtrans_dict)
-    print(ptdxtrans_dict)
-    paginator = Paginator(ptdxlist, 7)
+    paginator = Paginator(ptdxs, 7)
     page = request.GET.get('page')
-    ptdx_paged = paginator.get_page(page)
-    return render(request, "dxlist.html", {'result1': ptdx_paged})
+    ptdxs_paged = paginator.get_page(page)
+    return render(request, "dxlist.html", {'ptdxs': ptdxs_paged})
 
 
 def dxlistquery(request):
@@ -191,11 +208,11 @@ class PtCreate(FormView):
         print('unirnumb_pk', unitnumb_pk)
         birthdate = Patient_info.objects.get(pk=unitnumb_pk).birthdate
         print(birthdate)
-        dx_date = datetime.datetime.strptime(form.data.get('dx_date'),'%Y-%m-%d').date()
+        dx_date = datetime.datetime.strptime(form.data.get('dx_date'), '%Y-%m-%d').date()
         print(type(dx_date))
         print(type(birthdate))
-        td=dx_date-birthdate
-        dx_age = float(td.days/365.25)
+        td = dx_date - birthdate
+        dx_age = float(td.days / 365.25)
         print(dx_age)
         print(dx_age)
         print(type(dx_age))
@@ -400,7 +417,7 @@ def ptcheck(request, *args, **kwargs):
     unitnumb = request.GET.get('unitnumb')
     result_count = Patient_info.objects.filter(unitnumb=str(unitnumb)).count()
     flag = 0
-    response_dict ={}
+    response_dict = {}
     if result_count < 1:
         response_dict['flag'] = 0
         response_dict['unitnumb_pk'] = None
@@ -434,6 +451,7 @@ class RegisterView(FormView):
 
         return super().form_valid(form)
 
+
 class DxUpdateView(UpdateView):
     model = Pt_diagnosis
     form_class = PtUpdateForm
@@ -444,3 +462,303 @@ class DxUpdateView(UpdateView):
     # fields = "__all__"
     # template_name = "dxupdate.html"
     # success_url = "/"
+
+
+def book_list(request):
+    books = Book.objects.all().order_by('-id')
+    print(books)
+    return render(request, "book_list.html", {'books': books})
+
+
+def dx2(request):
+    ptinfos_merge_dict2 = get_merged_table()
+    # ptdxs = Pt_diagnosis.objects.select_related('unitnumb_set').order_by('-id')
+    # ptinfos = Patient_info.objects.get(id=1)
+    # ptdxs = Pt_diagnosis.objects.all()
+    # ptinfos = Patient_info.objects.all()
+    # ptdxtrans_dict = {}
+    # ptdxlist = []
+    # print(ptdxs)
+    # for ptdx in ptdxs:
+    #     ptdxtrans_dict = {}
+    #     print(ptdx.dxcode_0)
+    #     print(ptdx.dxcode_1)
+    #     print('ptdx.code2', ptdx.dxcode_2)
+    #     ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
+    #     ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
+    #     ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
+    #     ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
+    #     ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
+    #     ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
+    #     ptdxlist.append(ptdxtrans_dict)
+    #     print(ptdxtrans_dict)
+    # print('list',ptdxlist)
+    # ptdxlist_df = pd.DataFrame(ptdxlist)
+    # print('listdf', ptdxlist_df)
+    # ptinfos_df = pd.DataFrame(list(ptinfos.values()))
+    # ptdxs_df = pd.DataFrame(list(ptdxs.values()))
+    # print(ptinfos_df)
+    # print(ptdxs_df)
+    # ptinfos_merge = ptinfos_df.merge(ptdxs_df, left_on='id', right_on='unitnumb_id', how='left')
+    # ptinfos_merge2 = ptinfos_df.merge(ptdxlist_df, left_on='unitnumb', right_on='unitnumb', how='left')
+    # print('m2', ptinfos_merge2)
+    # print(ptinfos_merge.columns)
+    # ptinfos_merge_dict = ptinfos_merge.set_index('id_x').to_dict('index')
+    # ptinfos_merge_dict2 = ptinfos_merge2.set_index('id').to_dict('index')
+    # print(ptinfos_merge_dict)
+    return render(request, "dx2.html", {'ptdxs': ptinfos_merge_dict2})
+
+
+def dx2_create(request):
+    print('this is dx2_create')
+    if request.method == "POST":
+        form = PtDx2Form(request.POST)
+    else:
+        form = PtDx2Form()
+    pk = None
+    return save_dx2_form(request, form, pk, 'partial_dx2_create.html')
+
+
+def get_merged_table():
+    ptdxs = Pt_diagnosis.objects.all()
+    ptinfos = Patient_info.objects.all()
+    ptdxtrans_dict = {}
+    ptdxlist = []
+    print(ptdxs)
+    for ptdx in ptdxs:
+        ptdxtrans_dict = {}
+        ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
+        ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
+        ptdxtrans_dict['dx_date'] = ptdx.dx_date
+        ptdxtrans_dict['dx_age'] = ptdx.dx_age
+        ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
+        ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
+        ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
+        ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
+        ptdxlist.append(ptdxtrans_dict)
+    ptdxlist_df = pd.DataFrame(ptdxlist)
+    ptinfos_df = pd.DataFrame(list(ptinfos.values()))
+    ptdxs_df = pd.DataFrame(list(ptdxs.values()))
+    ptinfos_merge = ptinfos_df.merge(ptdxs_df, left_on='id', right_on='unitnumb_id', how='left')
+    ptinfos_merge2 = ptinfos_df.merge(ptdxlist_df, left_on='unitnumb', right_on='unitnumb', how='left')
+    ptinfos_merge_dict = ptinfos_merge.set_index('id_x').to_dict('index')
+    ptinfos_merge_dict2 = ptinfos_merge2.set_index('id').to_dict('index')
+    return (ptinfos_merge_dict2)
+
+
+def save_dx2_form(request, form, pk, template_name):
+    print('this is save dx2 form!')
+    data = dict()
+    print('this request is', request.method)
+    if request.method == 'POST':
+        if form.is_valid():
+            if form.__class__.__name__ == 'PtDx3Form':
+                print('this is PtDx3Form, Yes.')
+                print('this is form is', form.__class__.__name__)
+                print('Form is valid and POST is successful')
+                instance=form.save(commit=False)
+                birthdate = Patient_info.objects.get(pk=pk).birthdate
+                print(birthdate)
+                dx_date = datetime.datetime.strptime(form.data.get('dx_date'), '%Y-%m-%d').date()
+                print(type(dx_date))
+                print(type(birthdate))
+                td = dx_date - birthdate
+                dx_age = float(td.days / 365.25)
+                instance.dx_age = dx_age
+                instance.save()
+
+                data['form_is_valid'] = True
+                ptdxs = get_merged_table()
+                context = {'ptdxs': ptdxs}
+                data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+            else:
+                print('this is form is', form.__class__.__name__)
+                print('Form is valid and POST is successful')
+                form.save()
+                data['form_is_valid'] = True
+                ptdxs = get_merged_table()
+                context = {'ptdxs': ptdxs}
+                data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+        else:
+            data['form_is_valid'] = False
+            print("Form is not valid...")
+            print("this is form", form)
+            context = {'form': form, 'pk': pk}
+            data['html_form'] = render_to_string(template_name, context, request=request)
+    else:
+        context = {'form': form, 'pk': pk}
+        print("This is Get Method function in save dx2 form")
+        print(context)
+        print(request)
+        data['html_form'] = render_to_string(template_name, context, request=request)
+
+    # print(data)
+    return JsonResponse(data)
+
+
+def dx2_search(request):
+    return render(request, 'dx2_search.html')
+
+
+def dx2_anysearch(request, *args, **kwargs):
+    data = dict()
+    print("here is function dx2_anysearch")
+    keyword = request.GET.get('keyword')
+    print('keyword is', keyword)
+    ptdxs = get_merged_table()
+    print('ptdxs is', ptdxs)
+    df_ptdxs = pd.DataFrame(ptdxs)
+    df_ptdxs = df_ptdxs.T
+    mask = df_ptdxs.applymap(lambda x: str(keyword).lower() in str(x).lower())
+    print('mask', mask)
+    mask1 = mask.any(axis=1)
+    print('anymask', mask1)
+    df_ptdxs_masked = df_ptdxs[mask.any(axis=1)]
+    print(df_ptdxs)
+    print('masked df',df_ptdxs_masked)
+    df_ptdxs_masked_dict = df_ptdxs_masked.to_dict('index')
+    print('masked dict', df_ptdxs_masked_dict)
+    context = {'ptdxs': df_ptdxs_masked_dict}
+    data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    print('success in dx2_anysearch.')
+    return JsonResponse(data)
+
+
+def dx2_update(request, pk):
+    print("this is dx-update function")
+    print(pk)
+    print(type(pk))
+    try:
+        ptdx = Pt_diagnosis.objects.get(unitnumb=pk)
+    except:
+        print("없네요")
+        ptdx = None
+    #
+    # # ptdx = get_object_or_404(Pt_diagnosis, unitnumb=pk)
+    # print('postbookgetting')
+    print('ptdx is', ptdx)
+    if request.method == "POST":
+        print("this is if statement post")
+        if ptdx:
+            print("there is ptdx and doing post")
+            form = PtDx3Form(request.POST, instance=ptdx)
+        else:
+            print("NO PTDX")
+            form = PtDx3Form(request.POST)
+    else:
+        if ptdx:
+            print("pk is", pk)
+            form = PtDx3Form(instance=ptdx)
+        else:
+            print("nono ptdx")
+            print("pk is", pk)
+            form = PtDx3Form(initial={'unitnumb': Patient_info.objects.get(id=pk)})
+            return save_dx2_form_initialvalue(request, pk, form, 'partial_book_update.html')
+    print("ㅗㅑㅗㅑ")
+    return save_dx2_form(request, form, pk, 'partial_book_update.html')
+
+
+def save_dx2_form_initialvalue(request, pk, form, template_name):
+    data = dict()
+
+    ptinfo = Patient_info.objects.get(id=pk)
+    ptunitnumb = ptinfo.unitnumb
+    print("hererere")
+    print(request)
+    context = {'form': form, 'pk': pk, 'ptunitnumb': ptunitnumb}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    # print(data)
+    return JsonResponse(data)
+
+
+def dx2_delete(request, pk):
+    print("this is book-delete function")
+    print('this is pk', pk)
+    book = get_object_or_404(Book, pk=pk)
+    data = dict()
+    print('postbookdelete getting')
+    print(book)
+    if request.method == "POST":
+        book.delete()
+        data['form_is_valid'] = True
+        books = Book.objects.all().order_by('-id')
+        data['html_book_list'] = render_to_string('partial_book_list.html', {'books': books})
+    else:
+        print("this is if statement get")
+        context = {'book': book}
+        data['html_form'] = render_to_string('partial_book_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)
+
+
+def save_book_form(request, form, template_name):
+    data = dict()
+
+    if request.method == 'POST':
+        if form.is_valid():
+            print('succesful')
+            form.save()
+            data['form_is_valid'] = True
+            books = Book.objects.all().order_by('-id')
+            data['html_book_list'] = render_to_string('partial_book_list.html', {
+                'books': books
+            })
+            print('validation', data['form_is_valid'])
+        else:
+            data['form_is_valid'] = False
+            context = {'form': form}
+            data['html_form'] = render_to_string(template_name, context, request=request)
+    else:
+        context = {'form': form}
+        data['html_form'] = render_to_string(template_name, context, request=request)
+    print('this is data', data)
+    return JsonResponse(data)
+
+
+def book_create(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+    else:
+        form = BookForm()
+    return save_book_form(request, form, 'partial_book_create.html')
+
+
+def book_update(request, pk):
+    print("this is book-update function")
+    print(pk)
+    print(type(pk))
+    book = get_object_or_404(Book, pk=pk)
+    print('postbookgetting')
+    print(book)
+    if book:
+        if request.method == "POST":
+            print("this is if statement post")
+            form = BookForm(request.POST, instance=book)
+        else:
+            print("this is if statement get")
+            form = BookForm(instance=book)
+    return save_book_form(request, form, 'partial_book_update.html')
+
+
+def book_delete(request, pk):
+    print("this is book-delete function")
+    print('this is pk', pk)
+    book = get_object_or_404(Book, pk=pk)
+    data = dict()
+    print('postbookdelete getting')
+    print(book)
+    if request.method == "POST":
+        book.delete()
+        data['form_is_valid'] = True
+        books = Book.objects.all().order_by('-id')
+        data['html_book_list'] = render_to_string('partial_book_list.html', {'books': books})
+    else:
+        print("this is if statement get")
+        context = {'book': book}
+        data['html_form'] = render_to_string('partial_book_delete.html',
+                                             context,
+                                             request=request,
+                                             )
+    return JsonResponse(data)

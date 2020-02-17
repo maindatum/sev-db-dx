@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+{% for ptdx in ptdxs %}
+<tr>
+    <td>{{ ptdx.id }}</td>
+    <td>{{ ptdx.unitnumb }}</td>
+    <td>{{ ptdx.dx_date }}</td>
+    <td>{{ ptdx.dx_age|floatformat:2 }}</td>
+    <td>{{ ptdx.dxcode_0 }}</td>
+    <td>{{ ptdx.dxcode_1 }}</td>
+    <td>{{ ptdx.dxcode_2 }}</td>
+    <td>
+        <button type="button"
+                onclick="alert('hi')"
+                class="btn btn-warning btn-sm js-update-book"
+                data-url = "{% url 'dx2_update' ptdx.id  %}">
+            <span class=""></span>Edit
+        </button>
+        <button type="button"
+                class="btn btn-danger btn-sm js-update-book"
+                data-url = "{% url 'dx2_delete' ptdx.id  %}">
+            <span class=""></span>Delete
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="8" class="text-center bg-warning">No book</td>
+</tr>
+{% endfor %}

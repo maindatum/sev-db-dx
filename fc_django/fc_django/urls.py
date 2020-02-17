@@ -14,9 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from fcuser.views import index, logout, RegisterView, LoginView, DrCreateView
-from product.views import ProductList, ProductCreate, ProductDetail, DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView, DxUpdateView
+from product.views import ProductList, ProductCreate, ProductDetail, \
+    DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, \
+    dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView, \
+    DxUpdateView, book_list, book_create, book_update, save_book_form, book_delete, \
+    dx2, dx2_update, dx2_create, dx2_delete, dx2_search, dx2_anysearch
 from order.views import OrderCreate, OrderList
 from django.views.generic import TemplateView
 
@@ -29,11 +33,11 @@ urlpatterns = [
     path('product/', ProductList.as_view()),
     path('product/create/', ProductCreate.as_view()),
     path('dx_product/', DxCreate.as_view()),
-    path('product/<int:pk>/',ProductDetail.as_view()),
+    path('product/<int:pk>/', ProductDetail.as_view()),
     path('order/create/', OrderCreate.as_view()),
     path('order', OrderList.as_view()),
     path('ptdx/<int:pk>', Pt_Dx_Detail.as_view()),
-    path('regist_dx/', PtCreate.as_view()),
+    path('regist_dx/', PtCreate.as_view(), name='regist_dx'),
     path('dxlist/', dxlistview),
     path('dxlistquery/', dxlistquery),
     path('ptcheck/', ptcheck),
@@ -47,5 +51,15 @@ urlpatterns = [
     path('dxlistquery/tblquery', query_tbl),
     path('dr_create/', DrCreateView.as_view()),
     path('dr_register/', TemplateView.as_view(template_name='drregister.html'), name='dr_registration_home'),
-    path('dx_update/<int:pk>', DxUpdateView.as_view())
+    path('dx_update/<int:pk>', DxUpdateView.as_view()),
+    path('books/', book_list, name='book_list'),
+    path('dx2/', dx2, name='dx2'),
+    path('dx2/create/', dx2_create, name='dx2_create'),
+    path('dx2/<int:pk>/update/', dx2_update, name='dx2_update'),
+    path('dx2/<int:pk>/delete/', dx2_delete, name='dx2_delete'),
+    path('books/create/', book_create, name="book_create"),
+    path('dx2/search/', dx2_search, name="dx2_search"),
+    path('dx2/search/any/', dx2_anysearch ,name="dx2_anysearch"),
+    path('books/<int:pk>/update/', book_update, name="book_update"),
+    path('books/<int:pk>/delete/', book_delete, name="book_delete"),
 ]

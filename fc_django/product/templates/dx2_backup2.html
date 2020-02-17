@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block contents %}
+    {#<script#}
+    {#src="https://code.jquery.com/jquery-3.4.1.js"#}
+    {#integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="#}
+    {#crossorigin="anonymous"></script>#}
+    <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+
+
+    <h1 class="page-header">Patient Diagnosis</h1>
+    <p>
+        <button type="button" class="btn btn-primary js-create-book" data-url="{% url 'dx2_create' %}">
+            <span class="glyphicon glyphicon-plus" style="font-size:1.2rem">
+            <strong>+ </strong>New Patient</span>
+        </button>
+    </p>
+    <table class="table" id="book-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>DxDate</th>
+            <th>DxAge</th>
+            <th>Dx0</th>
+            <th>Dx1</th>
+            <th>Dx2</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% include './partial_dx2_list.html' %}
+        </tbody>
+    </table>
+    <div class="modal fade" id="modal-book">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <button id="open">모달열기</button>
+    <div class="modal-wrapper" style="display: none">
+        <div class="modal">
+            <div class="modal-title">안녕하세요</div>
+            <p>모달 내용은 어쩌고 저쩌고</p>
+            <div class="close-wrapper">
+            <button id="close">닫기</button></div>
+        </div>
+    </div>
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            var loadForm = function () {
+                var btn = $(this);
+                $.ajax({
+                    url: btn.attr("data-url"),
+                    type: 'get',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $("#modal-book").modal({backdrop: 'static'});
+                        $("#modal-book").modal("show");
+                    },
+                    success: function (data) {
+                        $("#modal-book .modal-content").html(data.html_form);
+                    }
+                });
+            };
+
+            var saveForm = function () {
+                var form = $(this);
+                $.ajax({
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    type: form.attr("method"),
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("response arrived");
+                        alert(data.form_is_valid)
+                        if (data.form_is_valid) {
+                            alert("Successful");  // <-- This is just a placeholder for now for testing
+                            $('#book-table tbody').html(data.html_book_list);
+                            $('#modal-book').modal("hide");
+                        }
+                        else {
+                            alert("failure");
+                            $("#modal-book .modal-content").html(data.html_form);
+                        }
+                    }
+                });
+                return false;
+            };
+
+            {#$(".js-create-book").click(loadForm);#}
+            {#$("#modal-book").on("submit", ".js-book-create-form", saveForm)#}
+            {##}
+            {#$("#book-table").on("click", ".js-update-book", loadForm)#}
+            {#$("#modal-book").on("submit", ".js-book-update-form", saveForm)#}
+
+            $(".js-create-book").click(loadForm);
+            $("#modal-book").on("submit", ".js-book-create-form", saveForm);
+
+            // Update book
+            $("#book-table").on("click", ".js-update-book", loadForm);
+            $("#modal-book").on("submit", ".js-book-update-form", saveForm);
+            // Delete book
+            $('#book-table').on("click",".js-delete-book", loadForm);
+            $("#modal-book").on("submit", ".js-book-delete-form", saveForm);
+
+
+        });
+
+    </script>
+    {% load static %}
+    <script src='{% static 'js/index-modal.js' %}'></script>
+{% endblock %}

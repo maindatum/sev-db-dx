@@ -1,0 +1,32 @@
+{% load widget_tweaks %}
+
+<form method="post" action="{% url 'dx2_create' %}" class="js-book-create-form">
+    {% csrf_token %}
+    <h4 id="create_modal_form", class="modal-title">Create a new patient</h4>
+    <div class="modal-header">
+        <button onclick="dismiss_modal()" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% include 'partial_dx2_form.html'%}
+    </div>
+    <div class="modal-footer">
+        <button onclick="dismiss_modal()" type="button" class="btn btn-default" >Close</button>
+        <button type="submit" id="btn_create_pt" class="btn btn-primary">Create Patient</button>
+    </div>
+</form>
+{##}
+{#<script>#}
+{#    console.log('hello??')#}
+{#    function bindDismissButton(){#}
+{#        const btnDismiss = document.getElementById('btn_modal_dismiss')#}
+{#        btnDismiss.addEventListener('click',dismiss_modal)#}
+{#    }#}
+{##}
+{#    function main(){#}
+{#        bindDismissButton();#}
+{#        bindSubmitButton();#}
+{#    }#}
+{#    document.addEventListener('DOMContentLoaded', main);#}
+{#</script>#}

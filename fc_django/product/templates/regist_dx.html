@@ -4,347 +4,347 @@
 {% endblock %}
 {% block contents %}
     <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
     <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
-<style>
-    body{
-        font-size:1rem;
-    }
-    .form-group input,
-    .form-group select{
-        height:30px;
-    }
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <style>
+        body{
+            font-size:1rem;
+        }
+        .form-group input,
+        .form-group select{
+            height:30px;
+        }
 
 
-    tr {
-        height:5px;
-        border-color:black;
-        padding:1px;
-        margin:1px;
-    }
-    div> tr> td {
-        height:5px;
-        padding:1px;
-        border-color:black;
-        margin-bottom:1px;
-    }
-    td.tdlabel {
-        border-color:black;
-        width:15%;
-        height:15px;
-        padding:1px;
-        margin-bottom:1px;
-    }
-    td.tdinput {
-        width:85%;
-        border-color:black;
-        height:10px;
-        padding:1px;
-    }
-    .ui-datepicker a {
-  text-decoration: none;
-    }
-    .ui-datepicker {
-      width: 216px;
-      height: auto;
-      background-color:lightblue;
-      margin: 5px auto 0;
-      font: 9pt Arial, sans-serif;
-      -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-      -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-    }
-/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
-    .ui-datepicker-trigger{cursor: pointer;}
-/*datepicer input 롤오버 시 손가락 모양 표시*/
-    .hasDatepicker{cursor: pointer;}
-    .ui-datepicker table {
-    width: 100%;
-    }
-.ui-datepicker-title {
-  text-align: center;
-}
+        tr {
+            height:5px;
+            border-color:black;
+            padding:1px;
+            margin:1px;
+        }
+        div> tr> td {
+            height:5px;
+            padding:1px;
+            border-color:black;
+            margin-bottom:1px;
+        }
+        td.tdlabel {
+            border-color:black;
+            width:15%;
+            height:15px;
+            padding:1px;
+            margin-bottom:1px;
+        }
+        td.tdinput {
+            width:85%;
+            border-color:black;
+            height:10px;
+            padding:1px;
+        }
+        .ui-datepicker a {
+            text-decoration: none;
+        }
+        .ui-datepicker {
+            width: 216px;
+            height: auto;
+            background-color:lightblue;
+            margin: 5px auto 0;
+            font: 9pt Arial, sans-serif;
+            -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+            -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+        }
+        /*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+        .ui-datepicker-trigger{cursor: pointer;}
+        /*datepicer input 롤오버 시 손가락 모양 표시*/
+        .hasDatepicker{cursor: pointer;}
+        .ui-datepicker table {
+            width: 100%;
+        }
+        .ui-datepicker-title {
+            text-align: center;
+        }
 
 
-.ui-datepicker-header {
-  background: url('./img/dark_leather.png') repeat 0 0 #459;
-  color: #e0e0e0;
-  font-weight: bold;
-  -webkit-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, 2);
-  -moz-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
-  box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
-  text-shadow: 1px -1px 0px #000;
-  filter: dropshadow(color=#000, offx=1, offy=-1);
-  line-height: 30px;
-  border-width: 1px 0 0 0;
-  border-style: solid;
-  border-color: #111;
-}
+        .ui-datepicker-header {
+            background: url('./img/dark_leather.png') repeat 0 0 #459;
+            color: #e0e0e0;
+            font-weight: bold;
+            -webkit-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, 2);
+            -moz-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
+            box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, .2);
+            text-shadow: 1px -1px 0px #000;
+            filter: dropshadow(color=#000, offx=1, offy=-1);
+            line-height: 30px;
+            border-width: 1px 0 0 0;
+            border-style: solid;
+            border-color: #111;
+        }
 
-.ui-datepicker-prev, .ui-datepicker-next {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  cursor: pointer;
-  background-color: orangered;
-  {#background-image: url('./img/arrow.png');#}
-  background-repeat: no-repeat;
-  line-height: 200%;
-  {#overflow: hidden;#}
+        .ui-datepicker-prev, .ui-datepicker-next {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            cursor: pointer;
+            background-color: orangered;
+        {#background-image: url('./img/arrow.png');#}
+            background-repeat: no-repeat;
+            line-height: 200%;
+        {#overflow: hidden;#}
 
-}
+        }
 
-.ui-datepicker-prev {
-  float: left;
-  background-position: center 0px;
-}
-.ui-datepicker-next {
-  float: right;
-  background-position: center +90px;
-}
+        .ui-datepicker-prev {
+            float: left;
+            background-position: center 0px;
+        }
+        .ui-datepicker-next {
+            float: right;
+            background-position: center +90px;
+        }
 
-.ui-datepicker thead {
-  background-color: #f7f7f7;
-  background-image: -moz-linear-gradient(top,  #f7f7f7 0%, #f1f1f1 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#f1f1f1));
-  background-image: -webkit-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: -o-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: -ms-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f1f1f1',GradientType=0 );
-  border-bottom: 1px solid #bbb;
-}
+        .ui-datepicker thead {
+            background-color: #f7f7f7;
+            background-image: -moz-linear-gradient(top,  #f7f7f7 0%, #f1f1f1 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#f1f1f1));
+            background-image: -webkit-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
+            background-image: -o-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
+            background-image: -ms-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
+            background-image: linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f1f1f1',GradientType=0 );
+            border-bottom: 1px solid #bbb;
+        }
 
-.ui-datepicker th {
-  text-transform: uppercase;
-  font-size: 6pt;
-  padding: 5px 0;
-  color: #666666;
-  text-shadow: 1px 0px 0px #fff;
-  filter: dropshadow(color=#fff, offx=1, offy=0);
-}
+        .ui-datepicker th {
+            text-transform: uppercase;
+            font-size: 6pt;
+            padding: 5px 0;
+            color: #666666;
+            text-shadow: 1px 0px 0px #fff;
+            filter: dropshadow(color=#fff, offx=1, offy=0);
+        }
 
-.ui-datepicker tbody td {
-  padding: 0;
-  border-right: 1px solid #bbb;
-}
-
-
-.ui-datepicker td span, .ui-datepicker td a {
-  display: inline-block;
-  font-weight: bold;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #666666;
-  text-shadow: 1px 1px 0px #fff;
-  filter: dropshadow(color=#fff, offx=1, offy=1);
-}
-.ui-datepicker-calendar .ui-state-default {
-  background: #ededed;
-  background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#dedede));
-  background: -webkit-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -o-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -ms-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: linear-gradient(top,  #ededed 0%,#dedede 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#dedede',GradientType=0 );
-  -webkit-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-  -moz-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-  box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
-}
-.ui-datepicker-unselectable .ui-state-default {
-  background: #f4f4f4;
-  color: #b4b3b3;
-}
-
-.ui-datepicker-calendar .ui-state-hover {
-  background: #f7f7f7;
-}
-
-.ui-datepicker-calendar .ui-state-active {
-  background: #6eafbf;
-  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  color: #e0e0e0;
-  text-shadow: 0px 1px 0px #4d7a85;
-  filter: dropshadow(color=#4d7a85, offx=0, offy=1);
-  border: 1px solid #55838f;
-  position: relative;
-  margin: -1px;
-}
-
-</style>
-<div>
-  <div>
-      <div class="alert alert-primary" role="alert">
-      <form method="post" id="PtForm" data-dx-url="{% url 'ajax_load_dxs' %}" novalidate>
-        {% csrf_token %}
-          <div class="form-group">
-              <div class="form-group form-inline">
-                <table  class="table table-light">
-                <tr>
-                    <td class="align-middle"><label for={{field.id_for_label}}> 등록번호</label></td>
-                    <td class="align-middle"><input type="text"  class="form-control" id="unitnumbtext_id" name="unitnumbtext" placeholder="등록번호" ></td>
-                    <td class="align-middle"><input type="hidden" class="form-control" id="id_unitnumb" name="unitnumb" placeholder="등록번호" ></td>
-                </tr>
-                {% for formel in form %}
-                <tr>
-                    <td class="align-middle"> <label for="{{ formel.id_for_label }}">{{ formel.label }}</label></td>
-                    <td class="align-middle"> {{ formel|add_class:'form-control form-check-input' }} </td>
-                    <td class="align-middle" style="color:lightblue;font-size:0.5rem">
-                        {% if formel.errors %}
-                        <span style="font-size:0.5rem; color:red">{{ formel.errors }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-                </table>
-              </div>
-          </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </form>
-{#  <form method="GET" action="./db_import">#}
-{#      <button type="submit" class="btn btn-primary">Import</button>#}
-{#  </form>#}
+        .ui-datepicker tbody td {
+            padding: 0;
+            border-right: 1px solid #bbb;
+        }
 
 
-  
-   <script>
-    $(document).ready(function() {
-        $("#id_dxcode_0").change(function () {
-            var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
-            var dxcode_0id = $(this).val();  // get the selected country ID from the HTML input
+        .ui-datepicker td span, .ui-datepicker td a {
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            color: #666666;
+            text-shadow: 1px 1px 0px #fff;
+            filter: dropshadow(color=#fff, offx=1, offy=1);
+        }
+        .ui-datepicker-calendar .ui-state-default {
+            background: #ededed;
+            background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#dedede));
+            background: -webkit-linear-gradient(top,  #ededed 0%,#dedede 100%);
+            background: -o-linear-gradient(top,  #ededed 0%,#dedede 100%);
+            background: -ms-linear-gradient(top,  #ededed 0%,#dedede 100%);
+            background: linear-gradient(top,  #ededed 0%,#dedede 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#dedede',GradientType=0 );
+            -webkit-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+            -moz-box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+            box-shadow: inset 1px 1px 0px 0px rgba(250, 250, 250, .5);
+        }
+        .ui-datepicker-unselectable .ui-state-default {
+            background: #f4f4f4;
+            color: #b4b3b3;
+        }
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'dxcode_0': dxcode_0id       // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
-                    $("#id_dxcode_2").html("<option>-----------</option>")
-                }
-            });
+        .ui-datepicker-calendar .ui-state-hover {
+            background: #f7f7f7;
+        }
 
-        });
+        .ui-datepicker-calendar .ui-state-active {
+            background: #6eafbf;
+            -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+            -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+            box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
+            color: #e0e0e0;
+            text-shadow: 0px 1px 0px #4d7a85;
+            filter: dropshadow(color=#4d7a85, offx=0, offy=1);
+            border: 1px solid #55838f;
+            position: relative;
+            margin: -1px;
+        }
 
-        $("#id_dxcode_1").change(function () {
-            var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
-            var dxcode_1id = $(this).val();  // get the selected country ID from the HTML input
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'dxcode_1': dxcode_1id       // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_dxcode_2").html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            });
-
-        });
-    });
-
-     $(document).ready(function(){
-         $.datepicker.setDefaults({
-             dateFormat: 'yy-mm-dd' //Input Display Format 변경
-            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-            ,changeYear: true //콤보박스에서 년 선택 가능
-            ,changeMonth: true //콤보박스에서 월 선택 가능
-            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
-            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
-            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-            ,minDate: "-100Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-            ,maxDate: "+100Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-            ,yearRange: "-60:+40"
-             });
-         $("#id_dx_date").datepicker();
-         document.querySelector('#id_dx_date').setAttribute('autocomplete','off');
-     });
-
-     $(document).ready(function() {
-         $("#unitnumbtext_id").focusout(function () {
-             var unitnumb_val = $(this).val();
-             if (!unitnumb_val){
-                 alert('빈값입니다.');
-                 return false;
-             }
-             else{
-             var url = '/ptcheck/';
-             $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'unitnumb': unitnumb_val       // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    if(data.flag == 1){
-                        alert("등록번호  "+ unitnumb_val+" : 오!!! 환자가 등록되어 있네요" + data.flag + data.unitnumb_pk);
-                        alert(parseInt(data.unitnumb_pk))
-                        alert(typeof(data.unitnumb_pk))
-                        $('#id_unitnumb').val(data.unitnumb_pk);
-                    }else if(data.flag == 0){
-                        alert("환자 등록을 해주세요");
-                        window.open("/ptregist");
-                    }else{
-                        alert("등록번호"+ unitnumb_val+" :등록번호 중복환자가 있는 것 같아요");
-                    }
-                      // replace the contents of the city input with the data that came from the server
-                }
-                });
-             }
-
-             }
-
-         );
-     });
+    </style>
+    <div>
+        <div>
+            <div class="alert alert-primary" role="alert">
+                <form method="post" id="PtForm" data-dx-url="{% url 'ajax_load_dxs' %}" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-group form-inline">
+                            <table  class="table table-light">
+                                <tr>
+                                    <td class="align-middle"><label for={{field.id_for_label}}> 등록번호</label></td>
+                                    <td class="align-middle"><input type="text"  class="form-control" id="unitnumbtext_id" name="unitnumbtext" placeholder="등록번호" ></td>
+                                    <td class="align-middle"><input type="hidden" class="form-control" id="id_unitnumb" name="unitnumb" placeholder="등록번호" ></td>
+                                </tr>
+                                {% for formel in form %}
+                                    <tr>
+                                        <td class="align-middle"> <label for="{{ formel.id_for_label }}">{{ formel.label }}</label></td>
+                                        <td class="align-middle"> {{ formel|add_class:'form-control form-check-input' }} </td>
+                                        <td class="align-middle" style="color:lightblue;font-size:0.5rem">
+                                            {% if formel.errors %}
+                                                <span style="font-size:0.5rem; color:red">{{ formel.errors }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+                {#  <form method="GET" action="./db_import">#}
+                {#      <button type="submit" class="btn btn-primary">Import</button>#}
+                {#  </form>#}
 
 
-  </script>
-          
-          
-{#  <script>#}
-{#    $('select[name=dxcode_0]').change(function () {#}
-{#        var dxcode_0_id = $(this).val();#}
-{#        var request_url = '/dxcode_0/' + dxcode_0_id + '/';#}
-{#        $.ajax({#}
-{#            url: request_url,#}
-{#            success: function (data) {#}
-{#                $('select[name=dxcode_1]').html(data);#}
-{#            }#}
-{#        });#}
-{#    });#}
-{##}
-{#     $('select[name=dxcode_1]').change(function () {#}
-{#            var dxcode_1_id = $(this).val();#}
-{#            var request_url = '/dxcode_1/' + dxcode_1_id + '/';#}
-{#            $.ajax({#}
-{#                url: request_url,#}
-{#                success: function (data) {#}
-{#                    $('select[name=dxcode_2]').html(data);#}
-{#                }#}
-{#            });#}
-{#        });#}
-{##}
-{##}
-{##}
-{#  </script>#}
-</div>
-</div>
-</div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#id_dxcode_0").change(function () {
+                            var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
+                            var dxcode_0id = $(this).val();  // get the selected country ID from the HTML input
+
+                            $.ajax({                       // initialize an AJAX request
+                                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                                data: {
+                                    'dxcode_0': dxcode_0id       // add the country id to the GET parameters
+                                },
+                                success: function (data) {   // `data` is the return of the `load_cities` view function
+                                    $("#id_dxcode_1").html(data);  // replace the contents of the city input with the data that came from the server
+                                    $("#id_dxcode_2").html("<option>-----------</option>")
+                                }
+                            });
+
+                        });
+
+                        $("#id_dxcode_1").change(function () {
+                            var url = $("#PtForm").attr("data-dx-url");  // get the url of the `load_cities` view
+                            var dxcode_1id = $(this).val();  // get the selected country ID from the HTML input
+
+                            $.ajax({                       // initialize an AJAX request
+                                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                                data: {
+                                    'dxcode_1': dxcode_1id       // add the country id to the GET parameters
+                                },
+                                success: function (data) {   // `data` is the return of the `load_cities` view function
+                                    $("#id_dxcode_2").html(data);  // replace the contents of the city input with the data that came from the server
+                                }
+                            });
+
+                        });
+                    });
+
+                    $(document).ready(function(){
+                        $.datepicker.setDefaults({
+                            dateFormat: 'yy-mm-dd' //Input Display Format 변경
+                            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+                            ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+                            ,changeYear: true //콤보박스에서 년 선택 가능
+                            ,changeMonth: true //콤보박스에서 월 선택 가능
+                            ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
+                            ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+                            ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+                            ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
+                            ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+                            ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+                            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+                            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+                            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+                            ,minDate: "-100Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+                            ,maxDate: "+100Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+                            ,yearRange: "-60:+40"
+                        });
+                        $("#id_dx_date").datepicker();
+                        document.querySelector('#id_dx_date').setAttribute('autocomplete','off');
+                    });
+
+                    $(document).ready(function() {
+                        $("#unitnumbtext_id").focusout(function () {
+                                var unitnumb_val = $(this).val();
+                                if (!unitnumb_val){
+                                    alert('빈값입니다.');
+                                    return false;
+                                }
+                                else{
+                                    var url = '/ptcheck/';
+                                    $.ajax({                       // initialize an AJAX request
+                                        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                                        data: {
+                                            'unitnumb': unitnumb_val       // add the country id to the GET parameters
+                                        },
+                                        success: function (data) {   // `data` is the return of the `load_cities` view function
+                                            if(data.flag == 1){
+                                                alert("등록번호  "+ unitnumb_val+" : 오!!! 환자가 등록되어 있네요" + data.flag + data.unitnumb_pk);
+                                                alert(parseInt(data.unitnumb_pk))
+                                                alert(typeof(data.unitnumb_pk))
+                                                $('#id_unitnumb').val(data.unitnumb_pk);
+                                            }else if(data.flag == 0){
+                                                alert("환자 등록을 해주세요");
+                                                window.open("/ptregist");
+                                            }else{
+                                                alert("등록번호"+ unitnumb_val+" :등록번호 중복환자가 있는 것 같아요");
+                                            }
+                                            // replace the contents of the city input with the data that came from the server
+                                        }
+                                    });
+                                }
+
+                            }
+
+                        );
+                    });
+
+
+                </script>
+
+
+                {#  <script>#}
+                {#    $('select[name=dxcode_0]').change(function () {#}
+                {#        var dxcode_0_id = $(this).val();#}
+                {#        var request_url = '/dxcode_0/' + dxcode_0_id + '/';#}
+                {#        $.ajax({#}
+                {#            url: request_url,#}
+                {#            success: function (data) {#}
+                {#                $('select[name=dxcode_1]').html(data);#}
+                {#            }#}
+                {#        });#}
+                {#    });#}
+                {##}
+                {#     $('select[name=dxcode_1]').change(function () {#}
+                {#            var dxcode_1_id = $(this).val();#}
+                {#            var request_url = '/dxcode_1/' + dxcode_1_id + '/';#}
+                {#            $.ajax({#}
+                {#                url: request_url,#}
+                {#                success: function (data) {#}
+                {#                    $('select[name=dxcode_2]').html(data);#}
+                {#                }#}
+                {#            });#}
+                {#        });#}
+                {##}
+                {##}
+                {##}
+                {#  </script>#}
+            </div>
+        </div>
+    </div>
 {% endblock %}

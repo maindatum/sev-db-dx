@@ -63,7 +63,7 @@ class Diagnosis_3(models.Model):
         verbose_name ='진단세부3'
 
 class Patient_info(models.Model):
-    unitnumb = models.CharField(max_length=12, verbose_name='등록번호')
+    unitnumb = models.IntegerField(verbose_name='등록번호', unique=True)
     ptname = models.CharField(max_length=48, verbose_name='환자성명')
     birthdate = models.DateField(verbose_name='생년월일')
 
@@ -75,13 +75,13 @@ class Patient_info(models.Model):
         verbose_name ='환자기본정보'
 
 class Pt_diagnosis(models.Model):
-    unitnumb = models.ForeignKey('Patient_info', on_delete=models.CASCADE, verbose_name='환자등록번호')
+    unitnumb = models.ForeignKey('Patient_info', on_delete=models.CASCADE, verbose_name='환자등록번호', unique=True, null=True)
     dx_date = models.DateField(verbose_name='진단일')
     dx_age = models.FloatField(verbose_name='연령')
     dxcode_0 = models.ForeignKey('Diagnosis_0', on_delete=models.CASCADE, verbose_name='진단대분류')
     dxcode_1 = models.ForeignKey('Diagnosis_1', on_delete=models.CASCADE, verbose_name='진단중분류')
     dxcode_2 = models.ForeignKey('Diagnosis_2', on_delete=models.CASCADE, verbose_name='진단소분류')
-    dxcode_3 = models.CharField(max_length=40, blank=True, verbose_name='Comment')
+    dxcode_3 = models.CharField(max_length=40, blank=True, verbose_name='진단참고사항')
     need_confirm = models.BooleanField(verbose_name='컨펌필요여부', default=False)
     compl_confirm = models.BooleanField(verbose_name='컨펌완료여부', default=False)
     dr_name = models.CharField(max_length=40, blank=True, verbose_name='주치의')
@@ -94,3 +94,20 @@ class Pt_diagnosis(models.Model):
     class Meta:
         db_table = 'pt_diagnosis'
         verbose_name ='환자진단기록'
+
+
+class Book(models.Model):
+    HARDCOVER = 1
+    PAPERBACK = 2
+    EBOOK = 3
+    BOOK_TYPES = (
+        (HARDCOVER, 'Hardcover'),
+        (PAPERBACK, 'Paperback'),
+        (EBOOK, 'E-book'),
+    )
+    title = models.CharField(max_length=50)
+    publication_date = models.DateField(null=True)
+    author = models.CharField(max_length=30, blank=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    pages = models.IntegerField(blank=True, null=True)
+    book_type = models.PositiveSmallIntegerField(choices=BOOK_TYPES)
