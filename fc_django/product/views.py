@@ -593,6 +593,7 @@ def save_dx2_form(request, form, pk, template_name):
         data['html_form'] = render_to_string(template_name, context, request=request)
 
     # print(data)
+    print("this is the end of save_dx2 function")
     return JsonResponse(data)
 
 
@@ -643,8 +644,12 @@ def dx2_update(request, pk):
             print("there is ptdx and doing post")
             form = PtDx3Form(request.POST, instance=ptdx)
         else:
-            print("NO PTDX")
-            form = PtDx3Form(request.POST)
+            print("POST and No ptdx, new ptdx should be done")
+            print("pk is:", pk)
+            print(Patient_info.objects.get(id=pk))
+            print("Posted unit numb is", request.POST.get("unitnumb"))
+            form = PtDx3Form(request.POST, initial={'unitnumb':Patient_info.objects.get(id=pk)})
+            # print("this is form.unitnumb. " ,form.unitnumb)
     else:
         if ptdx:
             print("pk is", pk)

@@ -90,8 +90,9 @@
                 );
                 console.log('this is load form js function!!');
                 render_form_create(res.data.html_form);
-                unitnumb = document.getElementById('id_unitnumb');
-                console.log(unitnumb.getAttribute('name'));
+                const unitnumb_real = document.getElementById('id_unitnumb');
+                console.log(unitnumb_real.getAttribute('name'));
+                console.log('unitnumb_real is ',unitnumb_real.value);
                 {#console.log(res.data.html_form);#}
 
                 const btnCreatePt = document.getElementById('btn_create_pt');
@@ -118,17 +119,19 @@
             console.log('this is load update function');
             const btn_url = this.getAttribute('data-url');
             console.log('this is btn_url', btn_url);
+            {#console.log('unitnumb value is', unitnumb);#}
             try{
                 console.log('this is load update function2');
                 const res = await axios.get(btn_url,
                 );
-              console.log('success!!');
-                render_form_update(res.data.html_form);
+                console.log('success!!');
+                render_form_create(res.data.html_form);
                 {#let modal2 = document.getElementsByClassName('modal2');#}
                 {#modal2.style.width = 500+ "px";#}
                 {#modal2.width = 500 + 'px';#}
                 {#console.log('this is modal2', modal2);#}
-                unitnumb = document.getElementById('id_unitnumb');
+                let unitnumb = document.getElementById('id_unitnumb');
+                console.log('unitnumb value is', unitnumb.value);
                 console.log(unitnumb.getAttribute('name'));
                 {#console.log(res.data.html_form);#}
 
@@ -176,6 +179,7 @@
                         alert("failure");
                         console.log(data);
                         render_form_create(data.html_form);
+
                     }
                 }
             });
@@ -192,14 +196,14 @@
             console.log('saveform axios was clicked!');
             {#console.log(form1.attributes);#}
 
-            const unitnumbElement = document.getElementById('id_unitnumb');
+            let unitnumbElement = document.getElementById('id_unitnumb');
             const dx_dateElement = document.getElementById('id_dx_date');
             const dxcode_0_Element = document.getElementById("id_dxcode_0");
             const dxcode_1_Element = document.getElementById("id_dxcode_1");
             const dxcode_2_Element = document.getElementById("id_dxcode_2");
             const dxcode_3_Element = document.getElementById("id_dxcode_3");
             const regist_user_Element = document.getElementById("id_regist_user");
-            const unitnumb = unitnumbElement.value;
+            let unitnumb = unitnumbElement.value;
             const dx_date = dx_dateElement.value;
             const dxcode_0 = dxcode_0_Element.value;
             const dxcode_1 = dxcode_1_Element.value;
@@ -236,7 +240,15 @@
                         alert('Created!!')
                         render_list(resp.data.html_book_list);
                     } else {
-                        render_form_update(resp.data.html_form);
+                        render_form_create(resp.data.html_form);
+                        const btnUpdatePt = document.getElementById('btn_update_pt');
+                        console.log('this is btnupdatept', btnUpdatePt);
+                        btnUpdatePt.addEventListener('click', event=>{
+                            event.preventDefault();
+                            event.stopPropagation();
+                            console.log('this is event listener');
+                            saveupdateform();
+                        }, false);
                     }
                 } catch {
                     console.log('axios post failed.');
@@ -250,24 +262,24 @@
 
         function saveform() {
             const params = new URLSearchParams();
-            const form1 = document.querySelector('.js-book-create-form')
-            const form_url = form1.getAttribute('action')
+            const form1 = document.querySelector('.js-book-create-form');
+            const form_url = form1.getAttribute('action');
             console.log('url is', form_url);
             console.log('saveform axios was clicked!');
             {#console.log(form1.attributes);#}
 
-            const unitnumbElement = document.getElementById('id_unitnumb');
-            const unitnumb = unitnumbElement.value;
+            let unitnumb_realElement = document.getElementById('id_unitnumb');
+            let unitnumb_real = unitnumb_realElement.value;
             const ptnameElement = document.getElementById('id_ptname');
             const ptname = ptnameElement.value;
             const birthdateElement = document.getElementById('id_birthdate');
             const birthdate = birthdateElement.value;
 
-            console.log('this is unitnumb', unitnumb);
+            console.log('this is unitnumb', unitnumb_real);
             axios.defaults.xsrfCookieName = 'csrftoken';
             axios.defaults.xsrfHeaderName = 'X-CSRFToken';
             let form = new FormData();
-            params.append('unitnumb', unitnumb);
+            params.append('unitnumb', unitnumb_real);
             params.append('ptname', ptname);
             params.append('birthdate', birthdate);
             console.log(params);
@@ -285,10 +297,18 @@
                     console.log('request was successful');
                     console.log(resp.data.form_is_valid);
                     if (resp.data.form_is_valid) {
-                        alert('Created!!')
+                        alert('Created!!');
                         render_list(resp.data.html_book_list);
                     } else {
                         render_form_create(resp.data.html_form);
+                        const btnCreatePt = document.getElementById('btn_create_pt');
+                        console.log(btnCreatePt);
+                        btnCreatePt.addEventListener('click', event=>{
+                            event.preventDefault();
+                            event.stopPropagation();
+                            console.log('this is event listener');
+                            saveform();
+                        }, false);
                     }
                 } catch {
                     console.log('axios post failed.');
@@ -296,6 +316,7 @@
             }
 
             trial();
+            console.log('this is the end of saveform function');
             dismiss_modal();
             return false;
 
