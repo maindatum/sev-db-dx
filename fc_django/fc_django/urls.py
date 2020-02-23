@@ -15,17 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from fcuser.views import index, logout, RegisterView, LoginView, DrCreateView
+from fcuser.views import index, logout, RegisterView, LoginView, DrCreateView, DrRegister
 from product.views import ProductList, ProductCreate, ProductDetail, \
     DxCreate, load_dx1, load_dx3, PtCreate, query_tbl, DxLV, \
     dxlistview, dxlistquery, DbImport, Pt_Dx_Detail, ptcheck, RegisterView, \
     DxUpdateView, book_list, book_create, book_update, save_book_form, book_delete, \
-    dx2, dx2_update, dx2_create, dx2_delete, dx2_search, dx2_anysearch
-from order.views import OrderCreate, OrderList
+    dx2, dx3, dx2_update, dx2_create, dx2_delete, dx2_search, dx2_anysearch, get_ptdxs_list, dx2_dxcodesearch
+
+from order.views import OrderCreate, OrderList, home
 from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cw/', home),
     path('', index),
     path('register/', RegisterView.as_view()),
     path('login/', LoginView.as_view()),
@@ -50,16 +52,19 @@ urlpatterns = [
     path('dxlistquery/loaddx', load_dx3),
     path('dxlistquery/tblquery', query_tbl),
     path('dr_create/', DrCreateView.as_view()),
-    path('dr_register/', TemplateView.as_view(template_name='drregister.html'), name='dr_registration_home'),
+    path('dr_register/', DrRegister.as_view(),name='dr_regist'),
     path('dx_update/<int:pk>', DxUpdateView.as_view()),
     path('books/', book_list, name='book_list'),
-    path('dx2/', dx2, name='dx2'),
+    re_path('dx2/(?P<curr_page>[0-9]+)$', dx3, name='dx3'),
+    re_path('dx2/$', dx2, name='dx2'),
     path('dx2/create/', dx2_create, name='dx2_create'),
     path('dx2/<int:pk>/update/', dx2_update, name='dx2_update'),
     path('dx2/<int:pk>/delete/', dx2_delete, name='dx2_delete'),
     path('books/create/', book_create, name="book_create"),
     path('dx2/search/', dx2_search, name="dx2_search"),
-    path('dx2/search/any/', dx2_anysearch ,name="dx2_anysearch"),
+    re_path(r'^dx2/search/any/(?P<page>)', dx2_anysearch, name="dx2_anysearch"),
+    re_path(r'^dx2/search/dxcode/', dx2_dxcodesearch, name="dx2_dxcodesearch"),
     path('books/<int:pk>/update/', book_update, name="book_update"),
     path('books/<int:pk>/delete/', book_delete, name="book_delete"),
+    path('dx2/sorted', get_ptdxs_list, name="dx2_sorting")
 ]

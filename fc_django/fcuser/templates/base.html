@@ -4,49 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% load static %}
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-            crossorigin="anonymous"  type="text/javascript"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    {#    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    {#    <script src='{% static 'js/index-modal.js' %}'></script>#}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index-modal.css' %}" />
-    <title>Title</title>
     {% block header %}
+    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index-modal.css' %}" />
+    <link rel="stylesheet" href={% static "widgets/fdatepicker/datepicker.css"  %}>
+    <script src={% static "widgets/fdatepicker/datepicker.js" %}></script>
+
+    <title>Title</title>
+    {% block subheader %}
     {% endblock %}
     <style>
         body{
             font-family: "Helvetica Neue", Helvetica, Arial, 맑은 고딕,"malgun gothic", sans-serif;
             margin:10px
         }
+
+        .navbar-nav > .nav-item > a:hover,
+        .navbar-nav > .nav-item > a:focus {
+            color: white !important;
+        }
+
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary text-white">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a>연세암병원 진단 등록 시스템</a>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <a class="navbar-brand mb-0 font-weight-bold">연세암병원 진단등록시스템</a>
+        <div class="collapse navbar-collapse " id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href='/dx2'>전체조회(전체)</a>
+                <li class="nav-item ">
+                    <a class="nav-link " href='/dx2'>전체조회(전체)</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href='/ptregist'>환자등록</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href='/ptregist'>환자등록</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href='/dr_register'>의사등록</a>
+                    <a class="nav-link " href='/dr_register'>의사등록</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href='/dx2/search'>검색</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href='/dxlist'>전체조회(진단)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href='/books'>Books</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,8 +81,14 @@
     {% block contents %}
     {% endblock %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
     <script>
         console.log('here is base html')
+
+
     </script>
+    {% block script %}
+    {% endblock %}
 </body>
 </html>

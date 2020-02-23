@@ -2,6 +2,9 @@ from django import forms
 from .models import Product, Patient_info, Pt_diagnosis, Diagnosis_0, Diagnosis_1, Diagnosis_2, Book
 from fcuser.models import Fcuser, Physician
 
+from django import forms
+from .widgets import FengyuanChenDatePickerInput, CounterTextInput
+
 import simplejson
 from django.http import HttpResponse
 
@@ -354,9 +357,17 @@ class PtRegisterForm(forms.Form):
         label='등록번호')
     ptname = forms.CharField(
         max_length=48,
-        label='환자성명')
+        label='환자성명',
+        widget=CounterTextInput
+    )
     birthdate = forms.DateField(
-        label='생년월일')
+        label='생년월일',
+        input_formats=['%Y/%m/%d %H:%M'],
+        widget=FengyuanChenDatePickerInput(attrs={
+            'autocomplete': 'false'
+        })
+    )
+
 
 # class PtForm2(forms.ModelForm):
 #     class Meta:
@@ -409,14 +420,67 @@ class PtRegisterForm(forms.Form):
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'publication_date', 'author', 'price', 'pages', 'book_type', )
+        fields = ('title', 'publication_date', 'author', 'price', 'pages', 'book_type',)
+
 
 class PtDx2Form(forms.ModelForm):
     class Meta:
         model = Patient_info
-        fields = ('unitnumb','ptname', 'birthdate')
+        fields = ('unitnumb', 'ptname', 'birthdate')
+
+    birthdate = forms.DateField(
+        label='생년월일',
+        input_formats=['%Y-%m-%d'],
+        widget=FengyuanChenDatePickerInput(attrs={
+            'autocomplete': 'off'
+        })
+    )
+
 
 class PtDx3Form(forms.ModelForm):
     class Meta:
         model = Pt_diagnosis
-        fields = ('unitnumb', 'dx_date', 'dxcode_0', 'dxcode_1', 'dxcode_2', 'dxcode_3', 'regist_user')
+        fields = ('unitnumb', 'dx_date', 'dxcode_0', 'dxcode_1', 'dxcode_2', 'dxcode_3','dr_name', 'regist_user')
+
+    dx_date = forms.DateField(
+        label='진단일',
+        input_formats=['%Y-%m-%d'],
+        widget=FengyuanChenDatePickerInput(attrs={
+            'autocomplete': 'off'
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['dxcode_1'].queryset = Diagnosis_1.objects.none()
+        self.fields['dxcode_2'].queryset = Diagnosis_2.objects.none()
+
+        if 'dxcode_0' in self.data:
+            try:
+                dxcode_0_id = int(self.data.get('dxcode_0'))
+                self.fields['dxcode_1'].queryset = Diagnosis_1.objects.filter(dxcode_0_id=dxcode_0_id).order_by(
+                    'dxname_1')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        if 'dxcode_1' in self.data:
+            try:
+                dxcode_1_id = int(self.data.get('dxcode_1'))
+                self.fields['dxcode_2'].queryset = Diagnosis_2.objects.filter(dxcode_1_id=dxcode_1_id).order_by(
+                    'dxname_2')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            print(type(self.instance))
+            print(dir(self.instance.dxcode_1))
+            self.fields['dxcode_1'].queryset = self.instance.dxcode_0.diagnosis_1_set.order_by('dxname_1')
+            self.fields['dxcode_2'].queryset = self.instance.dxcode_1.diagnosis_2_set.order_by('dxname_2')
+
+
+class DateForm(forms.Form):
+    date = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M'],
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control datetimepicker-input',
+            'data-target': '#datetimepicker1'
+        })
+    )

@@ -320,7 +320,7 @@ class Pt_Dx_Detail(DetailView):
 
 #
 def load_dx1(request):
-    print("333")
+    print("this is the function load_dx1")
     dxcode_0_id = request.GET.get('dxcode_0')
     dxcode_1_id = request.GET.get('dxcode_1')
     print(dxcode_0_id, dxcode_1_id)
@@ -470,47 +470,92 @@ def book_list(request):
     return render(request, "book_list.html", {'books': books})
 
 
+def page_func(df_ptdxs, curr_page):
+    total_n = len(df_ptdxs)
+    print("total_n is", total_n)
+    total_pages = total_n // 10 + 1
+    if curr_page < 0:
+        raise ValueError
+    else:
+        if curr_page == 1:
+            prev_page_flag = False
+            prev_page = None
+            if curr_page >= total_pages:
+                next_page_flag = False
+                next_page = None
+            else:
+                next_page = curr_page + 1
+                next_page_flag = True
+        elif curr_page > 1:
+            prev_page = curr_page - 1
+            prev_page_flag = True
+            if curr_page >= total_pages:
+                next_page_flag = False
+                next_page = None
+            else:
+                next_page = curr_page + 1
+                next_page_flag = True
+
+    print('pages:', curr_page, next_page, prev_page, total_pages)
+    print('flg', prev_page_flag, next_page_flag)
+    df_ptdxs_paged = df_ptdxs.iloc[(curr_page) * 10 - 10:(curr_page) * 10]
+    print('df_ptdxs__paged is:', df_ptdxs_paged)
+    df_ptdxs_paged_dict = df_ptdxs_paged.to_dict('index')
+    print('df_ptdxs_paged_dict', df_ptdxs_paged_dict)
+    context = {'ptdxs': df_ptdxs_paged_dict, 'pages': {'prev_page': prev_page, 'next_page': next_page,
+                                                       'total_n': total_n, 'total_pages': total_pages,
+                                                       'curr_page': curr_page,
+                                                       'prev_page_flag': prev_page_flag,
+                                                       'next_page_flag': next_page_flag}}
+    return context
+
+
 def dx2(request):
-    ptinfos_merge_dict2 = get_merged_table()
-    # ptdxs = Pt_diagnosis.objects.select_related('unitnumb_set').order_by('-id')
-    # ptinfos = Patient_info.objects.get(id=1)
-    # ptdxs = Pt_diagnosis.objects.all()
-    # ptinfos = Patient_info.objects.all()
-    # ptdxtrans_dict = {}
-    # ptdxlist = []
-    # print(ptdxs)
-    # for ptdx in ptdxs:
-    #     ptdxtrans_dict = {}
-    #     print(ptdx.dxcode_0)
-    #     print(ptdx.dxcode_1)
-    #     print('ptdx.code2', ptdx.dxcode_2)
-    #     ptdxtrans_dict['unitnumb'] = ptdx.unitnumb.unitnumb
-    #     ptdxtrans_dict['ptname'] = ptdx.unitnumb.ptname
-    #     ptdxtrans_dict['dxname0'] = ptdx.dxcode_0
-    #     ptdxtrans_dict['dxname1'] = ptdx.dxcode_1
-    #     ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
-    #     ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
-    #     ptdxlist.append(ptdxtrans_dict)
-    #     print(ptdxtrans_dict)
-    # print('list',ptdxlist)
-    # ptdxlist_df = pd.DataFrame(ptdxlist)
-    # print('listdf', ptdxlist_df)
-    # ptinfos_df = pd.DataFrame(list(ptinfos.values()))
-    # ptdxs_df = pd.DataFrame(list(ptdxs.values()))
-    # print(ptinfos_df)
-    # print(ptdxs_df)
-    # ptinfos_merge = ptinfos_df.merge(ptdxs_df, left_on='id', right_on='unitnumb_id', how='left')
-    # ptinfos_merge2 = ptinfos_df.merge(ptdxlist_df, left_on='unitnumb', right_on='unitnumb', how='left')
-    # print('m2', ptinfos_merge2)
-    # print(ptinfos_merge.columns)
-    # ptinfos_merge_dict = ptinfos_merge.set_index('id_x').to_dict('index')
-    # ptinfos_merge_dict2 = ptinfos_merge2.set_index('id').to_dict('index')
-    # print(ptinfos_merge_dict)
-    return render(request, "dx2.html", {'ptdxs': ptinfos_merge_dict2})
+    data = dict()
+    if Pt_diagnosis.objects.count() > 0:
+        ptdxs = get_merged_table()
+        curr_page = 1
+        df_ptdxs = pd.DataFrame(ptdxs)
+        df_ptdxs = df_ptdxs.T
+        print(df_ptdxs)
+        context = page_func(df_ptdxs, curr_page)
+    else:
+        curr_page = 1
+        context = {'ptdxs':None, 'pages':{'curr_page':1}}
+    data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    data['curr_page'] = curr_page
+    print('success in dx2')
+    return render(request, "dx2.html", context)
+
+
+def dx3(request, *args, **kwargs):
+    data = dict()
+    print("here is function dx2")
+    ptdxs = get_merged_table()
+
+    curr_page = request.GET.get('curr_page')
+    if curr_page is None:
+        curr_page = 1
+    curr_page = int(curr_page)
+    print('current page is', curr_page)
+
+    df_ptdxs = pd.DataFrame(ptdxs)
+    df_ptdxs = df_ptdxs.T
+    print(df_ptdxs)
+
+    context = page_func(df_ptdxs, curr_page)
+
+    data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    data['curr_page'] = curr_page
+    print('success in dx2')
+
+    return JsonResponse(data)
 
 
 def dx2_create(request):
     print('this is dx2_create')
+    curr_page = request.GET.get('curr_page')
+    print('current page is', curr_page)
     if request.method == "POST":
         form = PtDx2Form(request.POST)
     else:
@@ -522,6 +567,7 @@ def dx2_create(request):
 def get_merged_table():
     ptdxs = Pt_diagnosis.objects.all()
     ptinfos = Patient_info.objects.all()
+    print(ptinfos)
     ptdxtrans_dict = {}
     ptdxlist = []
     print(ptdxs)
@@ -536,6 +582,7 @@ def get_merged_table():
         ptdxtrans_dict['dxname2'] = ptdx.dxcode_2
         ptdxtrans_dict['dxname3'] = ptdx.dxcode_3
         ptdxlist.append(ptdxtrans_dict)
+    print('ptdxlist is ',ptdxlist)
     ptdxlist_df = pd.DataFrame(ptdxlist)
     ptinfos_df = pd.DataFrame(list(ptinfos.values()))
     ptdxs_df = pd.DataFrame(list(ptdxs.values()))
@@ -543,23 +590,70 @@ def get_merged_table():
     ptinfos_merge2 = ptinfos_df.merge(ptdxlist_df, left_on='unitnumb', right_on='unitnumb', how='left')
     ptinfos_merge_dict = ptinfos_merge.set_index('id_x').to_dict('index')
     ptinfos_merge_dict2 = ptinfos_merge2.set_index('id').to_dict('index')
-    return (ptinfos_merge_dict2)
+    return ptinfos_merge_dict2
+
+
+def get_ptdxs_list(request):
+    data = dict()
+    ptdxs = get_merged_table()
+    print(ptdxs)
+    th_transl = {'unitnumb': "unitnumb",
+                 "ptname": "ptname_x",
+                 "birth": "birthdate",
+                 "dxdate": "dx_date",
+                 "dxage": "dx_age",
+                 "dx0": "dxname0",
+                 "dx1": "dxname1",
+                 "dx2": "dxname2"}
+    th_criteria = request.GET.get("criteria")
+    criteria = th_transl[th_criteria]
+    sort_order = request.GET.get("sort_order")
+    df_ptdxs = pd.DataFrame(ptdxs)
+    df_ptdxs = df_ptdxs.T
+    print(df_ptdxs)
+    print(sort_order)
+    if int(sort_order) == 0:
+        df_ptdxs_sorted = df_ptdxs.sort_values(by=[str(criteria).lower()], ascending=True, axis=0)
+        sort_order = 1
+    elif int(sort_order) == 1:
+        df_ptdxs_sorted = df_ptdxs.sort_values(by=[str(criteria).lower()], ascending=False, axis=0)
+        sort_order = 0
+    curr_page = 1
+    context = page_func(df_ptdxs_sorted, curr_page)
+    context['sort_order_new'] = sort_order
+    data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    data['sort_order_new'] = sort_order
+    print(sort_order)
+    print('success in ptdxs_list sorting function.')
+    return JsonResponse(data)
 
 
 def save_dx2_form(request, form, pk, template_name):
     print('this is save dx2 form!')
     data = dict()
     print('this request is', request.method)
+    curr_page = request.GET.get('curr_page')
+    print('current page is', curr_page)
+
+    if curr_page is None:
+        curr_page = 1
+    curr_page = int(curr_page)
+    print('current page is second', curr_page)
+
     if request.method == 'POST':
         if form.is_valid():
             if form.__class__.__name__ == 'PtDx3Form':
                 print('this is PtDx3Form, Yes.')
                 print('this is form is', form.__class__.__name__)
                 print('Form is valid and POST is successful')
-                instance=form.save(commit=False)
+                instance = form.save(commit=False)
                 birthdate = Patient_info.objects.get(pk=pk).birthdate
                 print(birthdate)
-                dx_date = datetime.datetime.strptime(form.data.get('dx_date'), '%Y-%m-%d').date()
+                try:
+                    dx_date = datetime.datetime.strptime(form.data.get('dx_date'), '%Y/%m/%d').date()
+                except:
+                    dx_date = datetime.datetime.strptime(form.data.get('dx_date'), '%Y-%m-%d').date()
+                print(dx_date)
                 print(type(dx_date))
                 print(type(birthdate))
                 td = dx_date - birthdate
@@ -569,7 +663,10 @@ def save_dx2_form(request, form, pk, template_name):
 
                 data['form_is_valid'] = True
                 ptdxs = get_merged_table()
-                context = {'ptdxs': ptdxs}
+                df_ptdxs = pd.DataFrame(ptdxs)
+                df_ptdxs = df_ptdxs.T
+                context = page_func(df_ptdxs, curr_page)
+                # context = {'ptdxs': ptdxs}
                 data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
             else:
                 print('this is form is', form.__class__.__name__)
@@ -577,7 +674,9 @@ def save_dx2_form(request, form, pk, template_name):
                 form.save()
                 data['form_is_valid'] = True
                 ptdxs = get_merged_table()
-                context = {'ptdxs': ptdxs}
+                df_ptdxs = pd.DataFrame(ptdxs)
+                df_ptdxs = df_ptdxs.T
+                context = page_func(df_ptdxs, curr_page)
                 data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
         else:
             data['form_is_valid'] = False
@@ -592,17 +691,23 @@ def save_dx2_form(request, form, pk, template_name):
         print(request)
         data['html_form'] = render_to_string(template_name, context, request=request)
 
-    # print(data)
+    print(data)
     print("this is the end of save_dx2 function")
     return JsonResponse(data)
 
 
 def dx2_search(request):
-    return render(request, 'dx2_search.html')
+    dx_0 = Diagnosis_0.objects.all()
+    context = {'dx_0': dx_0}
+    return render(request, 'dx2_search.html', context)
 
 
 def dx2_anysearch(request, *args, **kwargs):
     data = dict()
+    curr_page = int(request.GET.get('curr_page'))
+    print('current page is', curr_page)
+    if curr_page is None:
+        curr_page = 1
     print("here is function dx2_anysearch")
     keyword = request.GET.get('keyword')
     print('keyword is', keyword)
@@ -616,11 +721,145 @@ def dx2_anysearch(request, *args, **kwargs):
     print('anymask', mask1)
     df_ptdxs_masked = df_ptdxs[mask.any(axis=1)]
     print(df_ptdxs)
-    print('masked df',df_ptdxs_masked)
-    df_ptdxs_masked_dict = df_ptdxs_masked.to_dict('index')
-    print('masked dict', df_ptdxs_masked_dict)
-    context = {'ptdxs': df_ptdxs_masked_dict}
+    print('masked df', df_ptdxs_masked)
+
+    context = page_func(df_ptdxs_masked, curr_page)
+
+    # total_n = len(df_ptdxs_masked)
+    # print("total_n is", total_n)
+    # total_pages = total_n // 10 + 1
+    # if curr_page < 0:
+    #     raise ValueError
+    # else:
+    #     if curr_page == 1:
+    #         prev_page_flag = False
+    #         prev_page = None
+    #         if curr_page >= total_pages:
+    #             next_page_flag = False
+    #             next_page = None
+    #         else:
+    #             next_page = curr_page + 1
+    #             next_page_flag = True
+    #     elif curr_page > 1:
+    #         prev_page = curr_page - 1
+    #         prev_page_flag = True
+    #         if curr_page >= total_pages:
+    #             next_page_flag = False
+    #             next_page = None
+    #         else:
+    #             next_page = curr_page + 1
+    #             next_page_flag = True
+    #
+    # print('pages:', curr_page, next_page, prev_page, total_pages)
+    # print('flg', prev_page_flag, next_page_flag)
+    # df_ptdxs_masked_paged = df_ptdxs_masked.iloc[(curr_page) * 10 - 10:(curr_page) * 10]
+    # print('df_ptdxs_masked_paged_dict is:', df_ptdxs_masked_paged)
+    # df_ptdxs_masked_paged_dict = df_ptdxs_masked_paged.to_dict('index')
+    # print('df_ptdxs_masked_paged_dict', df_ptdxs_masked_paged_dict)
+    # context = {'ptdxs': df_ptdxs_masked_paged_dict, 'pages': {'prev_page': prev_page, 'next_page': next_page,
+    #                                                           'total_n': total_n, 'total_pages': total_pages,
+    #                                                           'curr_page': curr_page,
+    #                                                           'prev_page_flag': prev_page_flag,
+    #                                                           'next_page_flag': next_page_flag}}
     data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    data['curr_page'] = curr_page
+    print('success in dx2_anysearch.')
+    return JsonResponse(data)
+
+
+def dx2_dxcodesearch(request, *args, **kwargs):
+    data = dict()
+
+    curr_page = int(request.GET.get('curr_page'))
+    print('current page is', curr_page)
+    if curr_page is None:
+        curr_page = 1
+
+    print("here is function dx2_dxcodesearch")
+    dxcode_0 = request.GET.get('dxcode_0')
+    dxcode_1 = request.GET.get('dxcode_1')
+    dxcode_2 = request.GET.get('dxcode_2')
+    print('codes are', dxcode_0, dxcode_1, dxcode_2)
+
+    ptdxs = get_merged_table()
+    print('ptdxs is', ptdxs)
+    df_ptdxs = pd.DataFrame(ptdxs)
+    df_ptdxs = df_ptdxs.T
+
+    try:
+        kw_dxcode_0 = Diagnosis_0.objects.get(id=dxcode_0).dxname_0
+    except:
+        kw_dxcode_0 = None
+    try:
+        kw_dxcode_1 = Diagnosis_1.objects.get(id=dxcode_1).dxname_1
+    except:
+        kw_dxcode_1 = None
+    try:
+        kw_dxcode_2 = Diagnosis_2.objects.get(id=dxcode_2).dxname_2
+    except:
+        kw_dxcode_2 = None
+
+    print('keywords are', kw_dxcode_0, kw_dxcode_1, kw_dxcode_2)
+    print(df_ptdxs.dxname0.iloc[0])
+    print('type of df_ptdxs.dxname0', type(df_ptdxs.dxname0.iloc[0]))
+
+    if kw_dxcode_0:
+        if kw_dxcode_1:
+            if kw_dxcode_2:
+                mask = df_ptdxs['dxname2'].map(lambda x: str(kw_dxcode_2).lower() in str(x).lower())
+                # df_ptdxs_filtered = df_ptdxs[df_ptdxs.dxname2 == kw_dxcode_2]
+            else:
+                mask = df_ptdxs['dxname1'].map(lambda x: str(kw_dxcode_1).lower() in str(x).lower())
+                # df_ptdxs_filtered = df_ptdxs[df_ptdxs.dxname1 == kw_dxcode_1]
+        else:
+            mask = df_ptdxs['dxname0'].map(lambda x: str(kw_dxcode_0).lower() in str(x).lower())
+            # df_ptdxs_filtered = df_ptdxs[df_ptdxs.dxname0 == kw_dxcode_0]
+    else:
+        mask = df_ptdxs['dxname0'].map(lambda x: str(kw_dxcode_0).lower() in str(x).lower())
+
+    df_ptdxs_filtered = df_ptdxs[mask]
+    print('df_ptdxs_filtered', df_ptdxs_filtered)
+
+    total_n = len(df_ptdxs_filtered)
+    print("total_n is", total_n)
+    total_pages = total_n // 10 + 1
+    if curr_page < 0:
+        raise ValueError
+    else:
+        if curr_page == 1:
+            prev_page_flag = False
+            prev_page = None
+            if curr_page >= total_pages:
+                next_page_flag = False
+                next_page = None
+            else:
+                next_page = curr_page + 1
+                next_page_flag = True
+        elif curr_page > 1:
+            prev_page = curr_page - 1
+            prev_page_flag = True
+            if curr_page >= total_pages:
+                next_page_flag = False
+                next_page = None
+            else:
+                next_page = curr_page + 1
+                next_page_flag = True
+
+    print('pages:', curr_page, next_page, prev_page, total_pages)
+    print('flg', prev_page_flag, next_page_flag)
+    df_ptdxs_filtered_paged = df_ptdxs_filtered.iloc[(curr_page) * 10 - 10:(curr_page) * 10]
+    print('df_ptdxs_filtered_paged_dict is:', df_ptdxs_filtered_paged)
+    df_ptdxs_filtered_paged_dict = df_ptdxs_filtered_paged.to_dict('index')
+    print(' df_ptdxs_filtered_paged_dict', df_ptdxs_filtered_paged_dict)
+
+    context = {'ptdxs': df_ptdxs_filtered_paged_dict, 'pages': {'prev_page': prev_page, 'next_page': next_page,
+                                                                'total_n': total_n, 'total_pages': total_pages,
+                                                                'curr_page': curr_page,
+                                                                'prev_page_flag': prev_page_flag,
+                                                                'next_page_flag': next_page_flag}}
+    data['html_book_list'] = render_to_string('partial_dx2_list.html', context, request=request)
+    data['curr_page'] = curr_page
+
     print('success in dx2_anysearch.')
     return JsonResponse(data)
 
@@ -648,7 +887,7 @@ def dx2_update(request, pk):
             print("pk is:", pk)
             print(Patient_info.objects.get(id=pk))
             print("Posted unit numb is", request.POST.get("unitnumb"))
-            form = PtDx3Form(request.POST, initial={'unitnumb':Patient_info.objects.get(id=pk)})
+            form = PtDx3Form(request.POST, initial={'unitnumb': Patient_info.objects.get(id=pk)})
             # print("this is form.unitnumb. " ,form.unitnumb)
     else:
         if ptdx:

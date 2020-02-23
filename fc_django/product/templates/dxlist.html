@@ -3,7 +3,7 @@
 {% endblock %}
 {% block contents %}
 <style>
-    .isdisabled{
+    .disabled{
         color: currentColor;
         cursor: not-allowed;
         opacity: 0.5;
@@ -14,51 +14,73 @@
         {#font-size:1rem;#}
     }
 </style>
-     <div id=centerbox>
+    <div id=centerbox>
         {% csrf_token %}
-            <table  class="table">
-                <thead>
-                    <tr>
-                        <th>U_NUMB</th>
-                        <th>PtName</th>
-                        <th>Dx0</th>
-                        <th>Dx1</th>
-                        <th>Dx2</th>
-                        <th>Dx3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for el in ptdxs %}
-                    <tr>
-                        <td>{{el.unitnumb.unitnumb}}</td>
-                        <td>{{el.unitnumb.ptname }}</td>
-                        <td>{{el.dxcode_0}}</td>
-                        <td>{{el.dxcode_1}}</td>
-                        <td>{{el.dxcode_2}}</td>
-                        <td>{{el.dxcode_3}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-      </div>
-     <div class="pagination">
-          <span class="step-links">
-          {% if ptdxs.has_previous %}
-          <a href="?page=1">맨앞으로</a>
-          <a href="?page={{ptdxs.previous_page_number}}">이전으로</a>
-          {% else %}
-          <span style="color:grey;">맨앞으로</span>
-          <span style="color:grey;">이전으로</span>
-          {% endif %}
-              <span class="current">(현재{{ ptdxs.number }}페이지</span>
-              <span>/전체{{ ptdxs.paginator.num_pages }}장)</span>
-          {% if ptdxs.has_next %}
-          <a href="?page={{ptdxs.next_page_number}}">다음으로</a>
-          <a href="?page={{ptdxs.paginator.num_pages}}">맨뒤로</a>
-          {% else %}
-          <span style="color:grey;">다음으로</span>
-          <span style="color:grey;">맨뒤로</span>
-          {% endif %}
-          </span>
-     </div>
+        <table  class="table">
+            <thead>
+            <tr>
+                <th>U_NUMB</th>
+                <th>PtName</th>
+                <th>Dx0</th>
+                <th>Dx1</th>
+                <th>Dx2</th>
+                <th>Dx3</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for el in ptdxs %}
+                <tr>
+                    <td>{{el.unitnumb.unitnumb}}</td>
+                    <td>{{el.unitnumb.ptname }}</td>
+                    <td>{{el.dxcode_0}}</td>
+                    <td>{{el.dxcode_1}}</td>
+                    <td>{{el.dxcode_2}}</td>
+                    <td>{{el.dxcode_3}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <nav aria-label="Page navigation example justify-content-center">
+            <ul class="pagination justify-content-center">
+                {% if ptdxs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">맨앞으로</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ptdxs.previous_page_number}}">전</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">맨앞으로</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">전</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">{{ ptdxs.number }}<span style="color:#e6313d">/(전체{{ ptdxs.paginator.num_pages }}장)</span></a></li>
+                {% if ptdxs.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ptdxs.next_page_number}}">후</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ptdxs.paginator.num_pages}}">맨뒤로</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">후</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">맨뒤로</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+{#     <div class="pagination">#}
+{#          <span class="step-links">#}
+{#          {% if ptdxs.has_previous %}#}
+{#          <a href="?page=1">맨앞으로</a>#}
+{#          <a href="?page={{ptdxs.previous_page_number}}">이전으로</a>#}
+{#          {% else %}#}
+{#          <span style="color:grey;">맨앞으로</span>#}
+{#          <span style="color:grey;">이전으로</span>#}
+{#          {% endif %}#}
+{#              <span class="current">(현재{{ ptdxs.number }}페이지</span>#}
+{#              <span>/전체{{ ptdxs.paginator.num_pages }}장)</span>#}
+{#          {% if ptdxs.has_next %}#}
+{#          <a href="?page={{ptdxs.next_page_number}}">다음으로</a>#}
+{#          <a href="?page={{ptdxs.paginator.num_pages}}">맨뒤로</a>#}
+{#          {% else %}#}
+{#          <span style="color:grey;">다음으로</span>#}
+{#          <span style="color:grey;">맨뒤로</span>#}
+{#          {% endif %}#}
+{#          </span>#}
+{#     </div>#}
 {% endblock %}

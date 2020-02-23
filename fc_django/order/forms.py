@@ -1,4 +1,5 @@
 from django import forms
+from . import widgets
 from .models import Order
 from product.models import Product
 from fcuser.models import Fcuser
@@ -32,5 +33,50 @@ class RegisterForm(forms.Form):
         if not (quantity and product):
             self.add_error('quantity', '값이 없습니다')
             self.add_error('product', '값이 없습니다')
+
+class CustomWidgetForm(forms.Form):
+
+    working = forms.BooleanField(
+        # required must be false, otherwise you will get error when the toggle is off
+        # at least in chrome
+        required=False,
+        widget=widgets.ToggleWidget(
+            options={
+                'on': 'Yep',
+                'off': 'Nope'
+            }
+        )
+    )
+
+    countries = [
+        ('id', 'Indonesia'),
+        ('sar', 'Saudi Arabia'),
+        ('usa', 'United Stated')
+    ]
+
+    country = forms.ChoiceField(
+        choices=countries,
+        widget=widgets.Select2Widget
+    )
+
+    hobbies = [
+        ('fishing', 'Fishing'),
+        ('writing', 'Writing'),
+        ('coding', 'Coding')
+    ]
+
+    hobby = forms.MultipleChoiceField(
+        choices=hobbies,
+        widget=widgets.Select2MultipleWidget(
+            options={
+                'placeholder': 'Your placeholder',
+                'multiple': True,
+                'maximum-selection-length': 1
+            }
+        )
+    )
+
+
+
 
 

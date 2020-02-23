@@ -2,11 +2,74 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="278887bf-d39a-43dc-b60e-46560795103c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/fc_django/fc_django/widgets/fengyuanchen_datepicker.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fc_django/wigets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/delete.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/jquery.rateit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/jquery.rateit.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/jquery.rateit.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/rateit.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/static/widgets/rateit/star.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/templates/widgets/counter_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/fcuser/widgets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/order/static/customselect2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/order/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/order/widgets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.common.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.esm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/static/widgets/fdatepicker/datepicker.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/templates/book_list_backup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/templates/widgets/counter_text.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/templates/widgets/fdatepicker.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/product/widgets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.common.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.esm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fc_django/static/widgets/fdatepicker/datepicker_partial.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fc_django/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fc_django/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fc_django/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fc_django/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fc_django/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/migrations/0002_physician.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/migrations/0003_physician_comment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/migrations/0004_auto_20191130_2323.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/templates/drregister.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/templates/drregister.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/fcuser/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/fcuser/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/order/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/order/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/order/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/order/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0002_auto_20191129_2339.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0003_auto_20191130_1643.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0004_book.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0005_auto_20191208_0155.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0006_auto_20191208_1520.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0007_auto_20200215_0022.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0008_auto_20200215_0025.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0009_auto_20200216_1911.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/migrations/0010_auto_20200216_1912.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/book_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/book_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fc_django/product/templates/dx2.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/dx2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/dx2_search.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/dx2_search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/dxlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/dxlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/partial_dx2_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/partial_dx2_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/partial_dx2_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/partial_dx2_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fc_django/product/templates/ptregister.html" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/templates/ptregister.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fc_django/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fc_django/static/css/index-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/fc_django/static/css/index-modal.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,10 +101,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="Python Script" />
         <option value="HTML File" />
         <option value="JavaScript File" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -65,7 +128,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/fc_django/fcuser/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/fc_django/static/widgets" />
     <property name="list.type.of.created.stylesheet" value="DjangoTemplate" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
   </component>
@@ -87,18 +150,19 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\fcuser\templates" />
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\product\templates" />
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class\fc_django" />
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class\fc_django\fc_django" />
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class\fc_django\fcuser" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\product\templates" />
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\fcuser\templates\widgets" />
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\fcuser\static\widgets\rateit" />
       <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\static\js" />
       <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\static\css" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\static\widgets" />
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\product\static\widgets\fdatepicker" />
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\fcuser\static\widgets\dpicker" />
+      <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\fcuser\static\widgets\rateit" />
       <recent name="C:\Users\jwhan\PycharmProjects\django_class_c2\fc_django\product\templates" />
-      <recent name="C:\Users\jwhan\PycharmProjects\django_class\fc_django" />
     </key>
   </component>
   <component name="RunManager">
@@ -166,7 +230,11 @@
       <workItem from="1581877688519" duration="2583000" />
       <workItem from="1581893447152" duration="11667000" />
       <workItem from="1581942956855" duration="7848000" />
-      <workItem from="1582011376566" duration="11854000" />
+      <workItem from="1582011376566" duration="22815000" />
+      <workItem from="1582106317966" duration="56292000" />
+      <workItem from="1582288497851" duration="3583000" />
+      <workItem from="1582292230156" duration="4553000" />
+      <workItem from="1582336956808" duration="51338000" />
     </task>
     <task id="LOCAL-00001" summary="20191123">
       <created>1574486584370</created>
@@ -190,6 +258,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#Notifications/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581744121177" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1582444907745">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582444907745" />
     <state x="825" y="281" key="EnvironmentVariablesDialog" timestamp="1581744075336">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -202,22 +274,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" width="1260" height="716" key="SettingsEditor/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581851701409" />
-    <state x="652" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1582011427288">
+    <state x="652" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1582336957392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582011427288" />
+    <state x="652" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582336957392" />
     <state x="473" y="118" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581784288292">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="473" y="118" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581784288292" />
+    <state x="630" y="70" width="1296" height="848" key="dock-window-1" timestamp="1582288506057">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="630" y="70" width="1296" height="848" key="dock-window-1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582288506057" />
     <state x="1997" y="110" width="1200" height="800" key="dock-window-2" timestamp="1581942999537">
       <screen x="1920" y="0" width="1280" height="984" />
     </state>
     <state x="1997" y="110" width="1200" height="800" key="dock-window-2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581942999537" />
-    <state x="893" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1582011420420">
+    <state width="600" height="424" key="javadoc.popup" timestamp="1582117332723">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="893" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582011420420" />
+    <state width="600" height="424" key="javadoc.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582117332723" />
+    <state x="893" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1582364372617">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="893" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582364372617" />
     <state x="682" y="431" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581693675601">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

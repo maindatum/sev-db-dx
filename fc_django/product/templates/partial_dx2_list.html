@@ -1,33 +1,60 @@
 {% load widget_tweaks %}
 {% for key, ptdx in ptdxs.items %}
-<tr>
-    <td>{{ key }}{{ ptdx.id }}</td>
-    <td>{{ ptdx.unitnumb}}</td>
-    <td>{{ ptdx.ptname_x }}</td>
-    <td>{{ ptdx.birthdate}}</td>
-    <td>{{ ptdx.dx_date }}</td>
-    <td>{{ ptdx.dx_age|floatformat:2 }}</td>
-    <td>{{ ptdx.dxname0 }}</td>
-    <td>{{ ptdx.dxname1 }}</td>
-    <td>{{ ptdx.dxname2 }}</td>
-    <td>
-        <button type="button"
-                class="btn btn-warning btn-sm js-update-patient"
-                data-url = "{% url 'dx2_update' key %}">
-            <span class=""></span>Edit
-        </button>
-        <button type="button"
-                class="btn btn-danger btn-sm js-delete-patient"
-                data-url = "{% url 'dx2_delete' key  %}">
-            <span class=""></span>Delete
-        </button>
-    </td>
+        <tr>
+            <td>{{ key }}{{ ptdx.id }}</td>
+            <td>{{ ptdx.unitnumb}}</td>
+            <td>{{ ptdx.ptname_x }}</td>
+            <td>{{ ptdx.birthdate}}</td>
+            <td>{{ ptdx.dx_date }}</td>
+            <td>{{ ptdx.dx_age|floatformat:2 }}</td>
+            <td>{{ ptdx.dxname0 }}</td>
+            <td>{{ ptdx.dxname1 }}</td>
+            <td>{{ ptdx.dxname2 }}</td>
+            <td>
+                <button type="button"
+                        class="btn btn-warning btn-sm js-update-patient"
+                        data-url = "{% url 'dx2_update' key %}">
+                    <span class=""></span>Edit
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        class="btn btn-danger btn-sm js-delete-patient"
+                        data-url = "{% url 'dx2_delete' key  %}">
+                    <span class=""></span>Delete
+                </button>
+            </td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="11" class="text-center bg-warning">No Patient</td>
+        </tr>
+        {% endfor %}
+<tr> <td style="text-align: center" colspan="11">
+<div style="margin: auto; display:inline-block ">
+    <ul class="pagination">
+        {% if pages.prev_page_flag %}
+            <li class="page-item"><a class="page-link first_page" id="first_page_able" style="color:royalblue; cursor:pointer" data-page-value=1>맨앞으로</a></li>
+            <li class="page-item"><a class="page-link prev_page" id="prev_page_able" style="color:royalblue; cursor:pointer" data-page-value={{ pages.prev_page }}>전</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link first_page"  id="first_page_able" data-page-value=1 >맨앞으로</a></li>
+            <li class="page-item disabled"><a class="page-link prev_page"  id="prev_page_able" data-page-value={{ pages.prev_page }} >전</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="#" ><span class="curr_page" id="curr_page">{{ pages.curr_page }}</span><span style="color:#e6313d">/(전체{{ pages.total_pages }}장)</span></a></li>
+        {% if pages.next_page_flag %}
+            <li class="page-item"><a class="page-link next_page" id="next_page_able" style="color:royalblue; cursor:pointer" data-page-value={{ pages.next_page }}>후</a></li>
+            <li class="page-item"><a class="page-link total_pages" id="total_pages_able" style="color:royalblue; cursor:pointer" data-page-value={{ pages.total_pages }}>맨뒤로</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link next_page" id="next_page_disabled" data-page-value={{ pages.next_page }}>후</a></li>
+            <li class="page-item disabled"><a class="page-link total_pages" id="total_pages_disabled" data-page-value={{ pages.total_pages }}>맨뒤로</a></li>
+        {% endif %}
+    </ul>
+    <ul>전체자료 ({{ pages.total_n }})명</ul>
+</div>
+</td>
 </tr>
-{% empty %}
-<tr>
-  <td colspan="8" class="text-center bg-warning">No book</td>
-</tr>
-{% endfor %}
+
 
 {#<script>#}
 {#function bindUpdatePtButton(){#}

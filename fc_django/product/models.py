@@ -26,6 +26,9 @@ class Diagnosis_0(models.Model):
         db_table = 'dx_0'
         verbose_name ='진단세부0'
 
+    def __lt__(self, other):
+        return self.__str__() < other.__str__()
+
 class Diagnosis_1(models.Model):
     dxcode_0 = models.ForeignKey('Diagnosis_0', on_delete=models.CASCADE)
     dxcode_1 = models.CharField(max_length=20, verbose_name='dxcode_1')
@@ -37,6 +40,9 @@ class Diagnosis_1(models.Model):
     class Meta:
         db_table = 'dx_1'
         verbose_name ='진단세부1'
+
+    def __lt__(self, other):
+        return self.__str__() < other.__str__()
 
 class Diagnosis_2(models.Model):
     dxcode_1 = models.ForeignKey('Diagnosis_1', on_delete=models.CASCADE)
@@ -50,6 +56,9 @@ class Diagnosis_2(models.Model):
         db_table = 'dx_2'
         verbose_name ='진단세부2'
 
+    def __lt__(self, other):
+        return self.__str__() < other.__str__()
+
 class Diagnosis_3(models.Model):
     dxcode_2 = models.ForeignKey('Diagnosis_2', on_delete=models.CASCADE)
     dxcode_3 = models.CharField(max_length=20, verbose_name='dxcode_3')
@@ -61,6 +70,9 @@ class Diagnosis_3(models.Model):
     class Meta:
         db_table = 'dx_3'
         verbose_name ='진단세부3'
+
+    def __lt__(self, other):
+        return self.__str__() < other.__str__()
 
 class Patient_info(models.Model):
     unitnumb = models.IntegerField(verbose_name='등록번호', unique=True)
@@ -84,7 +96,7 @@ class Pt_diagnosis(models.Model):
     dxcode_3 = models.CharField(max_length=40, blank=True, verbose_name='진단참고사항')
     need_confirm = models.BooleanField(verbose_name='컨펌필요여부', default=False)
     compl_confirm = models.BooleanField(verbose_name='컨펌완료여부', default=False)
-    dr_name = models.CharField(max_length=40, blank=True, verbose_name='주치의')
+    dr_name = models.ForeignKey('fcuser.Physician', on_delete=models.CASCADE, verbose_name='주치의')
     regist_dttm = models.DateTimeField(auto_now_add=True, verbose_name='등록시간')
     regist_user = models.ForeignKey('fcuser.Fcuser', on_delete=models.CASCADE, verbose_name='작성자')
 
@@ -111,3 +123,5 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     pages = models.IntegerField(blank=True, null=True)
     book_type = models.PositiveSmallIntegerField(choices=BOOK_TYPES)
+
+

@@ -1,11 +1,20 @@
 {% load widget_tweaks %}
+{% block subheader %}
 
-{% for field in form %}
-    <div class="form-group{% if field.errors %} has-error{% endif %}">
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% render_field field class="form-control" %}
-        {% for error in field.errors %}
-          <p class="help-block">{{ error }}</p>
-        {% endfor %}
-    </div>
-{% endfor %}
+{% endblock %}
+<div style="font-size: 1rem">
+    {% for field in form %}
+        <div class="form-group{% if field.errors %} {% endif %}">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+            {% else %}
+                {% render_field field class="form-control" autocomplete="off"%}
+            {% endif %}
+            {% for error in field.errors %}
+                <p class="help-block has-error" style="color:red; font-size:0.5rem; font-weight:bold">야 임마 바보야 이거 {{ error }}</p>
+            {% endfor %}
+        </div>
+
+    {% endfor %}
+</div>

@@ -8,6 +8,7 @@ from .models import Order
 from django.db import transaction
 from product.models import Product
 from fcuser.models import Fcuser
+from .forms import CustomWidgetForm
 
 
 # Create your views here.
@@ -50,3 +51,20 @@ class OrderList(ListView):
     def get_queryset(self, **kwargs):
         queryset = Order.objects.filter(fcuser__email=self.request.session.get('user'))
         return queryset
+
+
+def home(request):
+    if request.GET:
+        form = CustomWidgetForm(request.GET)
+    else:
+        form = CustomWidgetForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(
+        request,
+        'home.html',
+        context
+    )

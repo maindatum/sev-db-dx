@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.hashers import check_password, make_password
-from .models import Fcuser
+from .models import Fcuser, Physician
+from .widgets import CounterTextInput, starWidget
 
 
 
@@ -70,3 +71,17 @@ class LoginForm(forms.Form):
 
             if not check_password(password, fcuser.password):
                 self.add_error('password', '비밀번호가 틀립니다')
+
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Physician
+        fields = '__all__'
+        widgets = {
+            'grade': starWidget,
+        }
+
+class DrRegisterForm(forms.ModelForm):
+    class Meta:
+        model = Physician
+        fields = ('dr_name','email', 'comment')

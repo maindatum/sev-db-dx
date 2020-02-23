@@ -5,6 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
+    <style>
+        div.minimalistBlack {
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid #000000;
+            width: 100px;
+            height: 200px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .divTable.minimalistBlack .divTableCell, .divTable.minimalistBlack .divTableHead {
+            border: 0px solid #000000;
+            padding: 6px 7px;
+        }
+        .divTable.minimalistBlack .divTableBody .divTableCell {
+            font-size: 16px;
+        }
+        .divTable.minimalistBlack .divTableRow:nth-child(even) {
+            background: #EFEEF7;
+        }
+        .divTable.minimalistBlack .divTableHeading {
+            background: #CFCFCF;
+            background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+            border-bottom: 1px solid #000000;
+        }
+        .divTable.minimalistBlack .divTableHeading .divTableHead {
+            font-size: 15px;
+            font-weight: bold;
+            color: #000000;
+            text-align: left;
+            border-left: 0px solid #D0E4F5;
+        }
+        .divTable.minimalistBlack .divTableHeading .divTableHead:first-child {
+            border-left: none;
+        }
+
+        .minimalistBlack .tableFootStyle {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            border-top: 2px solid #000000;
+        }
+
+        .minimalistBlack .tableFootStyle .links a{
+            display: inline-block;
+            background: #1C6EA4;
+            color: #FFFFFF;
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+        .minimalistBlack .tableFootStyle .links {
+            text-align: right;
+        }
+
+        .divTable{ display: table; }
+        .divTableRow { display: table-row; }
+        .divTableHeading { display: table-header-group;}
+        .divTableCell, .divTableHead { display: table-cell;}
+        .divTableHeading { display: table-header-group;}
+        .divTableFoot { display: table-footer-group;}
+        .divTableBody { display: table-row-group;}
+    </style>
+
     <title>Document</title>
 {% endblock %}
 {% block contents %}
@@ -15,449 +79,703 @@
             <strong>+ </strong>New Patient</span>
         </button>
     </p>
-    <table class="table" id="book-table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>unitN</th>
-            <th>Name</th>
-            <th>Birth</th>
-            <th>DxDate</th>
-            <th>DxAge</th>
-            <th>Dx0</th>
-            <th>Dx1</th>
-            <th>Dx2</th>
-        </tr>
-        </thead>
-        <tbody id="main_tbody">
-        {% include './partial_dx2_list.html' %}
-        </tbody>
-    </table>
-    <div class="modal-wrapper-create" style="display: none;">
-        <div class="modal_create">
-            {#            <div class="modal-title">안녕하세요</div>#}
-            {#                <p>모달 내용은667788 어쩌고 저쩌고</p>#}
-            <div id="response_html_create"></div>
-            <div class="close-wrapper">
-                <button id="close" class="btn_close">닫기</button>
+{#    <div class="divTable minimalistBlack table">#}
+{#        <div class="divTableHeading">#}
+{#            <div class="divTableRow">#}
+{#                <div class="divTableHead">head1</div>#}
+{#                <div class="divTableHead">head2</div>#}
+{#                <div class="divTableHead">head3</div>#}
+{#                <div class="divTableHead">head4</div>#}
+{#                <div class="divTableHead">head5</div>#}
+{#                <div class="divTableHead">head6</div>#}
+{#                <div class="divTableHead">head7</div>#}
+{#                <div class="divTableHead">head8</div>#}
+{#                <div class="divTableHead">head9</div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="divTableBody">#}
+{#            <div class="divTableRow">#}
+{#                <div class="divTableCell">cell1_1</div>#}
+{#                <div class="divTableCell">cell2_1</div>#}
+{#                <div class="divTableCell">cell3_1</div>#}
+{#                <div class="divTableCell">cell4_1</div>#}
+{#                <div class="divTableCell">cell5_1</div>#}
+{#                <div class="divTableCell">cell6_1</div>#}
+{#                <div class="divTableCell">cell7_1</div>#}
+{#                <div class="divTableCell">cell8_1</div>#}
+{#                <div class="divTableCell">cell9_1</div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="divTableFoot tableFootStyle">#}
+{#        <div class="tableFootStyle">#}
+{#            <div class="links">#}
+{#                <a href="#">&laquo;</a>#}
+{#                <a class="active" href="#">1</a>#}
+{#                <a href="#">2</a>#}
+{#                <a href="#">3</a>#}
+{#                <a href="#">4</a>#}
+{#                <a href="#">&raquo;</a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{{ curr_page }}
+    <table class="table" id="book-table" data-url ="{% url "dx3" curr_page=pages.curr_page %}">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th id="th_unitnumb" name="unitnumb" data-url="{% url "dx2_sorting" %}" data-order="0">unitN</th>
+                <th id="th_ptname" name="ptname" data-url="{% url "dx2_sorting" %}" data-order="0">Name</th>
+                <th id="th_birth" name="birth" data-url="{% url "dx2_sorting" %}" data-order="0">Birth</th>
+                <th id="th_dxdate" name="dxdate" data-url="{% url "dx2_sorting" %}" data-order="0">DxDate</th>
+                <th id="th_dxage" name="dxage" data-url="{% url "dx2_sorting" %}" data-order="0">DxAge</th>
+                <th id="th_dx0" name="dx0" data-url="{% url "dx2_sorting" %}" data-order="0">Dx0</th>
+                <th id="th_dx1" name="dx1" data-url="{% url "dx2_sorting" %}" data-order="0">Dx1</th>
+                <th id="th_dx2"name="dx2" data-url="{% url "dx2_sorting" %}" data-order="0">Dx2</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="main_tbody" class="table-striped">
+            {% include './partial_dx2_list.html' %}
+            </tbody>
+        </table>
+        <div class="modal-wrapper-create" style="display: none;">
+            <div class="modal_create">
+                {#            <div class="modal-title">안녕하세요</div>#}
+                {#                <p>모달 내용은667788 어쩌고 저쩌고</p>#}
+                <div id="response_html_create"></div>
             </div>
         </div>
-    </div>
 
-    <div class="modal-wrapper-update" style="display: none;">
-        <div class="modal_update" >
-            <div id="response_html_update"></div>
-            <div class="close-wrapper">
-                <button id="close" class="btn_close">닫기</button>
+        <div class="modal-wrapper-update" style="display: none;">
+            <div class="modal_update" >
+                <div id="response_html_update"></div>
             </div>
         </div>
-    </div>
-
+{% endblock %}
+{% block script %}
     <script src='{% static 'js/index-modal.js' %}'></script>
-    <script>
-        {#const qs = require('qs');#}
-        const modal_wrapper_create = document.querySelector('.modal-wrapper-create');
-        const modal_wrapper_update = document.querySelector('.modal-wrapper-update');
-        const modal_div  = document.getElementById('response_html_create');
-
-        function dismiss_modal(){
-            modal_wrapper_create.style.display = 'none';
-            modal_wrapper_update.style.display = 'none';
-        }
-
-        function render_list(html_form){
-            const render_area = document.getElementById('main_tbody');
-            render_area.innerHTML = html_form
-        }
-
-        function render_form_create(html_form){
-            modal_wrapper_create.style.display = 'flex';
-            const render_area = document.getElementById('response_html_create');
-            render_area.innerHTML = html_form
-        }
-
-        function render_form_update(html_form){
-            modal_wrapper_update.style.display = 'flex';
-            const render_area = document.getElementById('response_html_update');
-            render_area.innerHTML = html_form
-        }
-
-        async function loadform(btn_url) {
-            try{
-                const btn_url = this.getAttribute('data-url');
-                console.log(btn_url);
-                const res = await axios.get(btn_url,
-                );
-                console.log('this is load form js function!!');
-                render_form_create(res.data.html_form);
-                const unitnumb_real = document.getElementById('id_unitnumb');
-                console.log(unitnumb_real.getAttribute('name'));
-                console.log('unitnumb_real is ',unitnumb_real.value);
-                {#console.log(res.data.html_form);#}
-
-                const btnCreatePt = document.getElementById('btn_create_pt');
-                console.log(btnCreatePt);
-                btnCreatePt.addEventListener('click', event=>{
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log('this is event listener');
-                    saveform();
-                }, false);
-
-                console.log('load function was successful lastly.');
-
-                return null;
-
-            } catch {
-                console.log('this is error');
-                return null;
+        <script>
+            {#const qs = require('qs');#}
+            const modal_wrapper_create = document.querySelector('.modal-wrapper-create');
+            const modal_wrapper_update = document.querySelector('.modal-wrapper-update');
+            const modal_div  = document.getElementById('response_html_create');
+            function scriptgen_datepicker() {let jqueryScript = document.createElement("script");
+                    jqueryScript.setAttribute("src",'{% static "widgets/fdatepicker/datepicker_partial.js" %}');
+                    document.body.appendChild(jqueryScript);
             }
 
-        }
+            function dismiss_modal(){
+                modal_wrapper_create.style.display = 'none';
+                modal_wrapper_update.style.display = 'none';
+            }
 
-        async function loadupdateform(event) {
-            console.log('this is load update function');
-            const btn_url = this.getAttribute('data-url');
-            console.log('this is btn_url', btn_url);
-            {#console.log('unitnumb value is', unitnumb);#}
-            try{
-                console.log('this is load update function2');
-                const res = await axios.get(btn_url,
-                );
-                console.log('success!!');
-                render_form_create(res.data.html_form);
-                {#let modal2 = document.getElementsByClassName('modal2');#}
-                {#modal2.style.width = 500+ "px";#}
-                {#modal2.width = 500 + 'px';#}
-                {#console.log('this is modal2', modal2);#}
-                let unitnumb = document.getElementById('id_unitnumb');
-                console.log('unitnumb value is', unitnumb.value);
-                console.log(unitnumb.getAttribute('name'));
-                {#console.log(res.data.html_form);#}
+            function render_list(html_form){
+                const render_area = document.getElementById('main_tbody');
+                render_area.innerHTML = html_form
+            }
 
+            function render_form_create(html_form){
+                modal_wrapper_create.style.display = 'flex';
+                const render_area = document.getElementById('response_html_create');
+                render_area.innerHTML = html_form
+            }
+
+            function render_form_update(html_form){
+                modal_wrapper_update.style.display = 'flex';
+                const render_area = document.getElementById('response_html_update');
+                render_area.innerHTML = html_form
+            }
+
+            async function loadform(btn_url) {
+                try{
+                    const btn_url = this.getAttribute('data-url');
+                    console.log(btn_url);
+                    const res = await axios.get(btn_url,
+                    );
+                    console.log('this is load form js function!!');
+                    console.log(res.data.html_form);
+                    console.log('this is load form js function!!222');
+                    render_form_create(res.data.html_form);
+                    const unitnumb_real = document.getElementById('id_unitnumb');
+                    console.log(unitnumb_real.getAttribute('name'));
+                    console.log('unitnumb_real is ',unitnumb_real.value);
+                    {#console.log(res.data.html_form);#}
+
+                    const btnCreatePt = document.getElementById('btn_create_pt');
+                    console.log(btnCreatePt);
+                    btnCreatePt.addEventListener('click', event=>{
+                        event.preventDefault();
+                        event.stopPropagation();
+                        console.log('this is event listener');
+                        saveform();
+                    }, false);
+                    console.log('{% static "widgets/fdatepicker/datepicker_partial.js" %}');
+                    scriptgen_datepicker();
+
+                    const inputBirthDate = document.getElementById('id_birthdate');
+                    console.log('this is input birthdate', inputBirthDate);
+                    console.log('this is input btnCreatPt', btnCreatePt);
+                    {#inputBirthDate.addEventListener('click', event=>{#}
+                    {#    event.preventDefault();#}
+                    {#    event.stopPropagation();#}
+                    {#    console.log('this is event listener');#}
+                    {#    datepicker.show();}, false);#}
+                    console.log('load function was successful lastly.');
+                    return null;
+
+                } catch {
+                    console.log('this is error');
+                    return null;
+                }
+
+            }
+
+            async function loadupdateform(event) {
+                console.log('this is load update function');
+                const btn_url = this.getAttribute('data-url');
+                console.log('this is btn_url', btn_url);
+                {#console.log('unitnumb value is', unitnumb);#}
+                try{
+                    console.log('this is load update function2');
+                    const res = await axios.get(btn_url,
+                    );
+                    console.log('success!!');
+                    render_form_create(res.data.html_form);
+                    {#let modal2 = document.getElementsByClassName('modal2');#}
+                    {#modal2.style.width = 500+ "px";#}
+                    {#modal2.width = 500 + 'px';#}
+                    {#console.log('this is modal2', modal2);#}
+                    let unitnumb = document.getElementById('id_unitnumb');
+                    console.log('unitnumb value is', unitnumb.value);
+                    console.log(unitnumb.getAttribute('name'));
+                    {#console.log(res.data.html_form);#}
+
+                    const iddxcode_0_Element = document.getElementById("id_dxcode_0");
+                    const iddxcode_1_Element = document.getElementById("id_dxcode_1");
+                    const iddxcode_2_Element = document.getElementById("id_dxcode_2");
+                    iddxcode_0_Element.addEventListener('change',loaddx_1,false);
+                    iddxcode_1_Element.addEventListener('change',loaddx_2,false);
+
+                    const btnUpdatePt = document.getElementById('btn_update_pt');
+                    console.log('this is btnupdatept', btnUpdatePt);
+                    btnUpdatePt.addEventListener('click', event=>{
+                        event.preventDefault();
+                        event.stopPropagation();
+                        console.log('this is event listener');
+                        saveupdateform();
+                    }, false);
+                    scriptgen_datepicker();
+                    console.log('this is end of load update function');
+
+                    return null;
+
+                } catch {
+                    console.log('this is error');
+                    return null;
+                }
+
+            }
+
+            const saveForm = function () {
+                var form = $(this);
+                $.ajax({
+                    url: form.attr("action"),
+                    data: form.serialize(),
+                    type: form.attr("method"),
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("response arrived");
+                        alert(data.form_is_valid);
+                        if (data.form_is_valid) {
+                            alert("Successful");  // <-- This is just a placeholder for now for testing
+                            render_list(data.html_book_list);
+                            dismiss_modal();
+                        }
+                        else {
+                            alert("failure");
+                            console.log(data);
+                            render_form_create(data.html_form);
+
+                        }
+                    }
+                });
+                return false;
+            };
+            {#$("#response_html").on("submit", ".js-book-create-form", saveForm);#}
+
+            function saveupdateform() {
+                console.log('this is saveupdate function.');
+                const params = new URLSearchParams();
+                const params_page = new URLSearchParams();
+                const form1 = document.querySelector('.js-book-update-form');
+                const form_url = form1.getAttribute('action');
+                console.log('url is', form_url);
+                console.log('saveform axios was clicked!');
+                {#console.log(form1.attributes);#}
+
+                let unitnumbElement = document.getElementById('id_unitnumb');
+                const dx_dateElement = document.getElementById('id_dx_date');
+                const dxcode_0_Element = document.getElementById("id_dxcode_0");
+                const dxcode_1_Element = document.getElementById("id_dxcode_1");
+                const dxcode_2_Element = document.getElementById("id_dxcode_2");
+                const dxcode_3_Element = document.getElementById("id_dxcode_3");
+                const dr_name_Element = document.getElementById("id_dr_name");
+                const regist_user_Element = document.getElementById("id_regist_user");
+                let unitnumb = unitnumbElement.value;
+                const dx_date = dx_dateElement.value;
+                const dxcode_0 = dxcode_0_Element.value;
+                const dxcode_1 = dxcode_1_Element.value;
+                const dxcode_2 = dxcode_2_Element.value;
+                const dxcode_3 = dxcode_3_Element.value;
+                const dr_name = dr_name_Element.value;
+                const regist_user = regist_user_Element.value;
+
+                const curr_pageElement = document.getElementsByClassName("curr_page");
+                console.log('curr_pageElement is', curr_pageElement);
+                const curr_page = Number(curr_pageElement[0].innerHTML);
+                console.log('currpageis', curr_page);
+
+                console.log('this is unitnumb', unitnumb);
+                axios.defaults.xsrfCookieName = 'csrftoken';
+                axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+                params.append('unitnumb', unitnumb);
+                params.append('dx_date', dx_date);
+                params.append('dxcode_0', dxcode_0);
+                params.append('dxcode_1', dxcode_1);
+                params.append('dxcode_2', dxcode_2);
+                params.append('dxcode_3', dxcode_3);
+                params.append('dr_name', dr_name);
+                params.append('regist_user', regist_user);
+                params_page.append('curr_page',curr_page);
+
+                console.log('parameters are', params);
+
+                async function trial() {
+                    try {
+                        const resp = await axios({
+                            method: 'post',
+                            headers: {'Content-type': 'application/x-www-form-urlencoded'},
+                            url: form_url,
+                            data: params,
+                            params: params_page
+                        });
+                        console.log(resp.data);
+                        console.log('request was successful');
+                        console.log(resp.data.form_is_valid);
+                        if (resp.data.form_is_valid) {
+                            alert('Created!!');
+                            render_list(resp.data.html_book_list);
+                            attachclickfns(searchall_page);
+                        } else {
+                            render_form_create(resp.data.html_form);
+                            const iddxcode_0_Element = document.getElementById("id_dxcode_0");
+                            const iddxcode_1_Element = document.getElementById("id_dxcode_1");
+                            iddxcode_0_Element.addEventListener('change',loaddx_1,false);
+                            iddxcode_1_Element.addEventListener('change',loaddx_2,false);
+                            const btnUpdatePt = document.getElementById('btn_update_pt');
+                            console.log('this is btnupdatept', btnUpdatePt);
+                            btnUpdatePt.addEventListener('click', event=>{
+                                event.preventDefault();
+                                event.stopPropagation();
+                                console.log('this is event listener');
+                                saveupdateform();
+                            }, false);
+                            scriptgen_datepicker();
+                        }
+                    } catch {
+                        console.log('axios post failed.');
+                    }
+                }
+
+                trial();
+                dismiss_modal();
+                return false;
+            }
+
+            function saveform() {
+                const params = new URLSearchParams();
+                const params_page = new URLSearchParams();
+                const form1 = document.querySelector('.js-book-create-form');
+                const form_url = form1.getAttribute('action');
+                console.log('url is', form_url);
+                console.log('saveform axios was clicked!');
+                {#console.log(form1.attributes);#}
+
+                const curr_pageElement = document.getElementsByClassName("curr_page");
+                console.log('curr_pageElement is', curr_pageElement);
+                const curr_page = Number(curr_pageElement[0].innerHTML);
+                console.log('currpageis', curr_page);
+
+                let unitnumb_realElement = document.getElementById('id_unitnumb');
+                let unitnumb_real = unitnumb_realElement.value;
+                const ptnameElement = document.getElementById('id_ptname');
+                const ptname = ptnameElement.value;
+                const birthdateElement = document.getElementById('id_birthdate');
+                const birthdate = birthdateElement.value;
+
+                console.log('this is unitnumb', unitnumb_real);
+                axios.defaults.xsrfCookieName = 'csrftoken';
+                axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+                let form = new FormData();
+                params.append('unitnumb', unitnumb_real);
+                params.append('ptname', ptname);
+                params.append('birthdate', birthdate);
+                params_page.append('curr_page', curr_page);
+                console.log ('current page is', curr_page);
+                console.log(params);
+
+                async function trial() {
+                    try {
+                        const resp = await axios({
+                            method: 'post',
+                            headers: {'Content-type': 'application/x-www-form-urlencoded'},
+                            url: form_url,
+                            data: params,
+                            params:params_page,
+                        });
+                        console.log(resp.data);
+                        {#console.log(JSON.stringify(resp,null,2));#}
+                        console.log('request was successful');
+                        console.log(resp.data.form_is_valid);
+                        if (resp.data.form_is_valid) {
+                            alert('Created!!');
+                            render_list(resp.data.html_book_list);
+                            attachclickfns(searchall_page);
+                            {#attachclick('next_page','next_page_able',searchall_page);#}
+                            {#attachclick('prev_page','prev_page_able',searchall_page);#}
+                            {#attachclick('total_pages','total_pages_able',searchall_page);#}
+                            {#attachclick('first_page','first_page_able',searchall_page);#}
+
+                        } else {
+                            render_form_create(resp.data.html_form);
+                            const btnCreatePt = document.getElementById('btn_create_pt');
+                            console.log(btnCreatePt);
+                            btnCreatePt.addEventListener('click', event=>{
+                                event.preventDefault();
+                                event.stopPropagation();
+                                console.log('this is event listener');
+                                saveform();
+                            }, false);
+                            scriptgen_datepicker();
+                        }
+                    } catch {
+                        console.log('axios post failed.');
+                    }
+                }
+
+                trial();
+                console.log('this is the end of saveform function');
+                dismiss_modal();
+                return false;
+
+                {##}
+                {#try{console.log('1st');#}
+                {#    const resp = await axios.post(form_url,{#}
+                {#        headers: { 'Content-type': 'application/json', },#}
+                {#        });#}
+                {##}
+                {#    console.log('2nd');#}
+                {#    console.log(resp.data)#}
+                {#    console.log('this is resdata', resp.data.form_is_valid);#}
+                {#    console.log('this is reshtmlbooklist', resp.data.html_book_list);#}
+                {#    result = resp.data;#}
+                {#    console.log(result);#}
+                {#    if (result.form_is_valid) {#}
+                {#        alert('success');#}
+                {#$('#book-table tbody').html(result.html_book_list);#}
+                {#$('#modal-book').modal("hide");#}
+                {#    }#}
+                {#    else {#}
+                {#        alert('failure');#}
+                {#    }#}
+                {#    alert("response arrived");#}
+                {##}
+                {##}
+                {#    }catch {#}
+                {#        alert('failure24');#}
+                {#    }#}
+
+            }
+
+            async function loaddx_1() {
+                const update_form = document.querySelector(".js-book-update-form");
+                const update_url = update_form.getAttribute('data-dx-url');
+                const params = new URLSearchParams();
                 const iddxcode_0_Element = document.getElementById("id_dxcode_0");
                 const iddxcode_1_Element = document.getElementById("id_dxcode_1");
                 const iddxcode_2_Element = document.getElementById("id_dxcode_2");
-                iddxcode_0_Element.addEventListener('change',loaddx_1,false);
-                iddxcode_1_Element.addEventListener('change',loaddx_2,false);
-
-                const btnUpdatePt = document.getElementById('btn_update_pt');
-                console.log('this is btnupdatept', btnUpdatePt);
-                btnUpdatePt.addEventListener('click', event=>{
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log('this is event listener');
-                    saveupdateform();
-                }, false);
-                console.log('this is end of load update function');
-
-                return null;
-
-            } catch {
-                console.log('this is error');
-                return null;
-            }
-
-        }
-
-        const saveForm = function () {
-            var form = $(this);
-            $.ajax({
-                url: form.attr("action"),
-                data: form.serialize(),
-                type: form.attr("method"),
-                dataType: 'json',
-                success: function (data) {
-                    alert("response arrived");
-                    alert(data.form_is_valid);
-                    if (data.form_is_valid) {
-                        alert("Successful");  // <-- This is just a placeholder for now for testing
-                        render_list(data.html_book_list);
-                        dismiss_modal();
-                    }
-                    else {
-                        alert("failure");
-                        console.log(data);
-                        render_form_create(data.html_form);
-
-                    }
-                }
-            });
-            return false;
-        };
-        {#$("#response_html").on("submit", ".js-book-create-form", saveForm);#}
-
-        function saveupdateform() {
-            console.log('this is saveupdate function.');
-            const params = new URLSearchParams();
-            const form1 = document.querySelector('.js-book-update-form');
-            const form_url = form1.getAttribute('action');
-            console.log('url is', form_url);
-            console.log('saveform axios was clicked!');
-            {#console.log(form1.attributes);#}
-
-            let unitnumbElement = document.getElementById('id_unitnumb');
-            const dx_dateElement = document.getElementById('id_dx_date');
-            const dxcode_0_Element = document.getElementById("id_dxcode_0");
-            const dxcode_1_Element = document.getElementById("id_dxcode_1");
-            const dxcode_2_Element = document.getElementById("id_dxcode_2");
-            const dxcode_3_Element = document.getElementById("id_dxcode_3");
-            const regist_user_Element = document.getElementById("id_regist_user");
-            let unitnumb = unitnumbElement.value;
-            const dx_date = dx_dateElement.value;
-            const dxcode_0 = dxcode_0_Element.value;
-            const dxcode_1 = dxcode_1_Element.value;
-            const dxcode_2 = dxcode_2_Element.value;
-            const dxcode_3 = dxcode_3_Element.value;
-            const regist_user = regist_user_Element.value;
-
-            console.log('this is unitnumb', unitnumb);
-            axios.defaults.xsrfCookieName = 'csrftoken';
-            axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-            params.append('unitnumb', unitnumb);
-            params.append('dx_date', dx_date);
-            params.append('dxcode_0', dxcode_0);
-            params.append('dxcode_1', dxcode_1);
-            params.append('dxcode_2', dxcode_2);
-            params.append('dxcode_3', dxcode_3);
-            params.append('regist_user', regist_user);
-
-            console.log('parameters are', params);
-
-            async function trial() {
-                try {
-                    const resp = await axios({
-                        method: 'post',
-                        headers: {'Content-type': 'application/x-www-form-urlencoded'},
-                        url: form_url,
-                        data: params
-                    });
-                    console.log(resp.data);
-                    console.log('request was successful');
-                    console.log(resp.data.form_is_valid);
-                    if (resp.data.form_is_valid) {
-                        alert('Created!!')
-                        render_list(resp.data.html_book_list);
-                    } else {
-                        render_form_create(resp.data.html_form);
-                        const btnUpdatePt = document.getElementById('btn_update_pt');
-                        console.log('this is btnupdatept', btnUpdatePt);
-                        btnUpdatePt.addEventListener('click', event=>{
-                            event.preventDefault();
-                            event.stopPropagation();
-                            console.log('this is event listener');
-                            saveupdateform();
-                        }, false);
-                    }
-                } catch {
-                    console.log('axios post failed.');
-                }
-            }
-
-            trial()
-            dismiss_modal();
-            return false;
-        }
-
-        function saveform() {
-            const params = new URLSearchParams();
-            const form1 = document.querySelector('.js-book-create-form');
-            const form_url = form1.getAttribute('action');
-            console.log('url is', form_url);
-            console.log('saveform axios was clicked!');
-            {#console.log(form1.attributes);#}
-
-            let unitnumb_realElement = document.getElementById('id_unitnumb');
-            let unitnumb_real = unitnumb_realElement.value;
-            const ptnameElement = document.getElementById('id_ptname');
-            const ptname = ptnameElement.value;
-            const birthdateElement = document.getElementById('id_birthdate');
-            const birthdate = birthdateElement.value;
-
-            console.log('this is unitnumb', unitnumb_real);
-            axios.defaults.xsrfCookieName = 'csrftoken';
-            axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-            let form = new FormData();
-            params.append('unitnumb', unitnumb_real);
-            params.append('ptname', ptname);
-            params.append('birthdate', birthdate);
-            console.log(params);
-
-            async function trial() {
-                try {
-                    const resp = await axios({
-                        method: 'post',
-                        headers: {'Content-type': 'application/x-www-form-urlencoded'},
-                        url: form_url,
-                        data: params
-                    });
-                    console.log(resp.data);
-                    {#console.log(JSON.stringify(resp,null,2));#}
-                    console.log('request was successful');
-                    console.log(resp.data.form_is_valid);
-                    if (resp.data.form_is_valid) {
-                        alert('Created!!');
-                        render_list(resp.data.html_book_list);
-                    } else {
-                        render_form_create(resp.data.html_form);
-                        const btnCreatePt = document.getElementById('btn_create_pt');
-                        console.log(btnCreatePt);
-                        btnCreatePt.addEventListener('click', event=>{
-                            event.preventDefault();
-                            event.stopPropagation();
-                            console.log('this is event listener');
-                            saveform();
-                        }, false);
-                    }
-                } catch {
-                    console.log('axios post failed.');
-                }
-            }
-
-            trial();
-            console.log('this is the end of saveform function');
-            dismiss_modal();
-            return false;
-
-            {##}
-            {#try{console.log('1st');#}
-            {#    const resp = await axios.post(form_url,{#}
-            {#        headers: { 'Content-type': 'application/json', },#}
-            {#        });#}
-            {##}
-            {#    console.log('2nd');#}
-            {#    console.log(resp.data)#}
-            {#    console.log('this is resdata', resp.data.form_is_valid);#}
-            {#    console.log('this is reshtmlbooklist', resp.data.html_book_list);#}
-            {#    result = resp.data;#}
-            {#    console.log(result);#}
-            {#    if (result.form_is_valid) {#}
-            {#        alert('success');#}
-            {#$('#book-table tbody').html(result.html_book_list);#}
-            {#$('#modal-book').modal("hide");#}
-            {#    }#}
-            {#    else {#}
-            {#        alert('failure');#}
-            {#    }#}
-            {#    alert("response arrived");#}
-            {##}
-            {##}
-            {#    }catch {#}
-            {#        alert('failure24');#}
-            {#    }#}
-
-        }
-
-        async function loaddx_1() {
-            const update_form = document.querySelector(".js-book-update-form");
-            const update_url = update_form.getAttribute('data-dx-url');
-            const params = new URLSearchParams();
-            const iddxcode_0_Element = document.getElementById("id_dxcode_0");
-            const iddxcode_1_Element = document.getElementById("id_dxcode_1");
-            const iddxcode_2_Element = document.getElementById("id_dxcode_2");
-            const iddxcode_0 = iddxcode_0_Element.value;
-            params.append('dxcode_0', iddxcode_0);
-            console.log(params);
-            console.log(iddxcode_0);
-            try {
-                const res = await axios({
-                    method: 'get',
-                    url: update_url,
-                    params: params
-                });
-                console.log(res.data)
-                iddxcode_1_Element.innerHTML = res.data;
-                iddxcode_2_Element.innerHTML = "<option>-----------</option>"
-                console.log('the end of loaddx_1 success.')
-            } catch {
-                console.log('failed')
-            }
-        }
-
-        async function loaddx_2() {
-            const update_form = document.querySelector(".js-book-update-form");
-            const update_url = update_form.getAttribute('data-dx-url');
-            const params = new URLSearchParams();
-            const iddxcode_0_Element = document.getElementById("id_dxcode_0");
-            const iddxcode_1_Element = document.getElementById("id_dxcode_1");
-            const iddxcode_2_Element = document.getElementById("id_dxcode_2");
-            const iddxcode_1 = iddxcode_1_Element.value;
-            params.append('dxcode_1', iddxcode_1);
-            console.log(params);
-            console.log(iddxcode_1);
-            try {
-                const res = await axios({
-                    method: 'get',
-                    url: update_url,
-                    params: params
-                });
-                console.log(res.data)
-                iddxcode_2_Element.innerHTML = res.data;
-                console.log('the end of loaddx_2 success.')
-            } catch {
-                console.log('failed')
-            }
-        }
-
-        function loaddx() {
-            const update_form = document.querySelector(".js-book-update-form");
-            {#const iddxcode_0_Element = document.getElementById("id_dxcode_0");#}
-            {#const iddxcode_1_Element = document.getElementById("id_dxcode_1");#}
-            {#const iddxcode_2_Element = document.getElementById("id_dxcode_2");#}
-            const update_url = update_form.getAttribute('data-dx-url');
-            const params = new URLSearchParams();
-            {#const iddxcode_0 = iddxcode_0_Element.value;#}
-            {#const iddxcode_1 = iddxcode_1_Element.value;#}
-            const iddxcode_2 = iddxcode_2_Element.value;
-
-            iddxcode_0_input.addEventListener('change', loaddx_1);
-            params.append('iddxcode_0', iddxcode_0);
-            params.append('iddxcode_1', iddxcode_1);
-            {#params.append('birthdate',birthdate);#}
-
-            async function loaddx_1() {
                 const iddxcode_0 = iddxcode_0_Element.value;
-                params.append('iddxcode_0', iddxcode_0);
+                params.append('dxcode_0', iddxcode_0);
+                console.log(params);
+                console.log(iddxcode_0);
                 try {
                     const res = await axios({
                         method: 'get',
                         url: update_url,
-                        data: params
-                    })
+                        params: params
+                    });
+                    console.log(res.data);
                     iddxcode_1_Element.innerHTML = res.data;
                     iddxcode_2_Element.innerHTML = "<option>-----------</option>"
+                    console.log('the end of loaddx_1 success.')
                 } catch {
                     console.log('failed')
                 }
             }
 
-        }
+            async function loaddx_2() {
+                const update_form = document.querySelector(".js-book-update-form");
+                const update_url = update_form.getAttribute('data-dx-url');
+                const params = new URLSearchParams();
+                const iddxcode_0_Element = document.getElementById("id_dxcode_0");
+                const iddxcode_1_Element = document.getElementById("id_dxcode_1");
+                const iddxcode_2_Element = document.getElementById("id_dxcode_2");
+                const iddxcode_1 = iddxcode_1_Element.value;
+                params.append('dxcode_1', iddxcode_1);
+                console.log(params);
+                console.log(iddxcode_1);
+                try {
+                    const res = await axios({
+                        method: 'get',
+                        url: update_url,
+                        params: params
+                    });
+                    console.log(res.data)
+                    iddxcode_2_Element.innerHTML = res.data;
+                    console.log('the end of loaddx_2 success.')
+                } catch {
+                    console.log('failed')
+                }
+            }
+
+            function loaddx() {
+                const update_form = document.querySelector(".js-book-update-form");
+                {#const iddxcode_0_Element = document.getElementById("id_dxcode_0");#}
+                {#const iddxcode_1_Element = document.getElementById("id_dxcode_1");#}
+                {#const iddxcode_2_Element = document.getElementById("id_dxcode_2");#}
+                const update_url = update_form.getAttribute('data-dx-url');
+                const params = new URLSearchParams();
+                {#const iddxcode_0 = iddxcode_0_Element.value;#}
+                {#const iddxcode_1 = iddxcode_1_Element.value;#}
+                const iddxcode_2 = iddxcode_2_Element.value;
+
+                iddxcode_0_input.addEventListener('change', loaddx_1);
+                params.append('iddxcode_0', iddxcode_0);
+                params.append('iddxcode_1', iddxcode_1);
+                {#params.append('birthdate',birthdate);#}
+
+                async function loaddx_1() {
+                    const iddxcode_0 = iddxcode_0_Element.value;
+                    params.append('iddxcode_0', iddxcode_0);
+
+                    try {
+                        const res = await axios({
+                            method: 'get',
+                            url: update_url,
+                            data: params
+                        });
+                        iddxcode_1_Element.innerHTML = res.data;
+                        iddxcode_2_Element.innerHTML = "<option>-----------</option>"
+                    } catch {
+                        console.log('failed')
+                    }
+                }
+
+            }
 
 
 
-        function bindCreatePtButton(){
-            const btnCreatePt = document.querySelector('.js-create-patient');
-            console.log(btnCreatePt);
-            const btn_url = btnCreatePt.getAttribute('data-url');
-            console.log(btn_url);
-            btnCreatePt.addEventListener('click', loadform);
-        }
+            function bindCreatePtButton(){
+                const btnCreatePt = document.querySelector('.js-create-patient');
+                console.log(btnCreatePt);
+                const btn_url = btnCreatePt.getAttribute('data-url');
+                console.log(btn_url);
+                btnCreatePt.addEventListener('click', loadform);
+            }
 
-        {#function bindUpdatePtButton(){#}
-        {#    const btnUpdatePts = document.getElementsByClassName('js-update-patient');#}
-        {#    for (let i=0; i < btnUpdatePts.length; i++){#}
-        {#        btnUpdatePts[i].addEventListener('click', loadform, false);#}
-        {#    }#}
-        {#}#}
-            $("#book-table").on("click", ".js-update-patient", loadupdateform)
-        {#    $("#response_html_update").on("submit", ".js-book-update-form", saveform);#}
+            async function sort_ptlist1(){
+                const titlehead = document.getElementById('th_unitnumb');
+                titlehead_name = titlehead.getAttribute("name");
+                data_url = titlehead.getAttribute("data-url");
+                sort_order = titlehead.getAttribute("data-order");
+
+                const params = new URLSearchParams();
+                console.log('titlehead_name', titlehead_name);
+                params.append("criteria", titlehead_name);
+                params.append("sort_order", sort_order);
+                console.log(params);
+
+                try{res = await axios({
+                    method: 'get',
+                    url: data_url,
+                    params: params
+                });
+                    render_list(res.data.html_book_list);
+                    attachclickfns(searchall_page);
+                    console.log('sort_order_new',res.data.sort_order_new);
+                    sort_order_new=res.data.sort_order_new;
+                    console.log(sort_order_new);
+                    titlehead.setAttribute("data-order",sort_order_new);
+                    if (sort_order_new === 1) {
+                        titlehead.setAttribute("style", "background-color:red;border-color:red");
+                    } else{
+                        titlehead.setAttribute("style", "background-color:black;border-color:black");
+                    }
+                }catch{
+                    'this is faiure of sort_ptlist function'}
+            }
+
+            async function sort_ptlist(thel){
+                const thElement = document.getElementById(thel);
+                titlehead_name = thElement.getAttribute("name");
+                data_url = thElement.getAttribute("data-url");
+                sort_order = thElement.getAttribute("data-order");
+
+                const params = new URLSearchParams();
+                console.log('titlehead_name', titlehead_name);
+                params.append("criteria", titlehead_name);
+                params.append("sort_order", sort_order);
+                console.log(params);
+
+                try{res = await axios({
+                    method: 'get',
+                    url: data_url,
+                    params: params
+                });
+                    render_list(res.data.html_book_list);
+                    attachclickfns(searchall_page);
+                    console.log('sort_order_new',res.data.sort_order_new);
+                    sort_order_new=res.data.sort_order_new;
+                    console.log(sort_order_new);
+                    thElement.setAttribute("data-order",sort_order_new);
+                    if (sort_order_new === 1) {
+                        thElement.setAttribute("style", "background-color:red;border-color:red");
+                    } else{
+                        thElement.setAttribute("style", "background-color:#343A40;border-color:#343A40");
+                    }
+                }catch{
+                    'this is faiure of sort_ptlist function'}
+            }
+
+
+            function bindSortFunc(thel){
+                const thElement = document.getElementById(thel);
+                console.log(thElement);
+                thElement.addEventListener('click', function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    alert("hey this is clicked thUnitnumb");
+                    sort_ptlist(thel);
+                }
+                , false);
+            }
+            testarray = ['th_unitnumb','th_ptname','th_birth','th_dxage', 'th_dxdate', 'th_dx0', 'th_dx1', 'th_dx2'];
+
+            testarray.map(bindSortFunc);
+
+            {#function bindUpdatePtButton(){#}
+            {#    const btnUpdatePts = document.getElementsByClassName('js-update-patient');#}
+            {#    for (let i=0; i < btnUpdatePts.length; i++){#}
+            {#        btnUpdatePts[i].addEventListener('click', loadform, false);#}
+            {#    }#}
+
+            $("#book-table").on("click", ".js-update-patient", loadupdateform);
+            {#$("#response_html_update").on("submit", ".js-book-update-form", saveform);#}
+
+
+            function attachclick(cname, elid, elfunc) {
+                {#console.log('this is attahch click function');#}
+                const pageElement = document.getElementsByClassName(cname);
+                {#console.log('this is PageElement', pageElement);#}
+                {#console.log(pageElement[0].id);#}
+                if (pageElement[0].id === elid) {
+                    {#console.log('this is if statement of attach click func');#}
+                    pageElement[0].addEventListener('click', event => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            {#console.log('this is event listener');#}
+                            elfunc(cname);
+                        },
+                        false);
+                    {#console.log('success of event attachment.')#}
+                } else{console.log('hello? there is wrong thing')}
+            }
+
+            async function searchall(searchpage, form_url){
+                axios.defaults.xsrfCookieName = 'csrftoken';
+                axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+                console.log("hello this is in searchall function");
+
+                const params = new URLSearchParams();
+                if (!searchpage){
+                    searchpage = 1;
+                }else
+                    console.log(searchpage);
+                params.append('curr_page', searchpage);
+
+                console.log('this is url', form_url);
+                try {
+                    const res = await axios({
+                        method: 'get',
+                        url: form_url,
+                        params: params
+                    });
+                    console.log(res.data);
+                    {#console.log(res.data.html_book_list);#}
+                    {#console.log('current page is', res.data.curr_page);#}
+                    render_list(res.data.html_book_list);
+                    attachclickfns(searchall_page);
+                    {#attachclick('next_page','next_page_able',searchall_page);#}
+                    {#attachclick('prev_page','prev_page_able',searchall_page);#}
+                    {#attachclick('total_pages','total_pages_able',searchall_page);#}
+                    {#attachclick('first_page','first_page_able',searchall_page);#}
+
+                    console.log('success');
+                } catch {
+                    console.log ('failed anysearch')
+                }
+            }
+
+
+
+            function searchall_page(cname){
+
+                const searchpageElement = document.getElementsByClassName(cname);
+                console.log('searchpage element is', searchpageElement);
+                const searchpage = searchpageElement[0].getAttribute('data-page-value');
+
+                const maintableElement = document.getElementById("book-table");
+                const form_url = maintableElement.getAttribute('data-url');
+                searchall(searchpage, form_url)
+            }
+
+            function attachclickfns(fnx){
+                attachclick('next_page','next_page_able',fnx);
+                attachclick('prev_page','prev_page_able',fnx);
+                attachclick('total_pages','total_pages_able',fnx);
+                attachclick('first_page','first_page_able',fnx);
+            }
+
+            attachclickfns(searchall_page);
+
+            {#attachclick('next_page','next_page_able',searchall_page);#}
+            {#attachclick('prev_page','prev_page_able',searchall_page);#}
+            {#attachclick('total_pages','total_pages_able',searchall_page);#}
+            {#attachclick('first_page','first_page_able',searchall_page);#}
 
             function main(){
                 bindCreatePtButton();
-                console.log('hello this is ds2html');
+                  console.log('hello this is ds2html');
             }
             document.addEventListener('DOMContentLoaded', main);
 
-    </script>
+        </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src={% static "widgets/fdatepicker/datepicker.js" %}></script>
+
+
 {% endblock %}

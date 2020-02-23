@@ -14,42 +14,42 @@
     <div>
         <div class="input-group">
             <form class="form-inline">
-                <input id="anysearch_word" class="form-control mr-sm-2" style="width: 200px; margin: 05px 10px" type="search" placeholder="Search" aria-label="Search">
-                <button id="anysearch" class="btn btn-outline-success my-2 my-sm-0" data-url="{% url "dx2_anysearch" %}" type="button">검색</button>
+                <input id="anysearch_word" class="form-control mr-sm-2" style="width: 200px; margin: 05px 10px" type="search" placeholder="검색어입력" aria-label="Search">
+                <button id="anysearch" class="btn btn-outline-success my-2 my-sm-0" data-url="{% url "dx2_anysearch" page %}" type="button">검색</button>
             </form>
             <form class="form-inline">
-                <input class="form-control mr-sm-2" style="width: 200px; margin: 05px 10px" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" style="width: 200px; margin: 05px 10px" type="search" placeholder="개발중" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button">검색</button>
             </form>
         </div>
-        <div style="display:flex; flex-direction: row">
-            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                <option selected>Choose...</option>
+        <div style="display:flex; flex-direction: row" id="div_search_dx_code" data-url = "{% url 'dx2_dxcodesearch' %}">
+            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupDx0" data-dx-url="{% url 'ajax_load_dxs' %}" aria-label="Example select with button addon">
+                <option value="0" selected>대분류진단</option>
+                {% for el in dx_0 %}
+                <option value={{ el.id }}> {{ el.dxname_0 }} </option>
+                {% endfor %}
+            </select>
+            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupDx1" data-dx-url="{% url 'ajax_load_dxs' %}" aria-label="Example select with button addon">
+                <option value="0" selected>중분류진단</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
-            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                <option selected>Choose...</option>
+            <select style="width: 200px; margin: 05px 10px" class="custom-select" id="inputGroupDx2" data-dx-url="{% url 'ajax_load_dxs' %}" aria-label="Example select with button addon">
+                <option value="0" selected>소분류진단</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" style="width: 100px; margin: 05px 10px height: 24px" type="button">Button</button>
+                <button class="btn btn-outline-secondary" id="btn_search_dxcode" style="width: 120px; margin: 05px 10px; height: 40px" type="button">진단명검색</button>
             </div>
         </div>
 
     </div>
     <p></p>
     <table class="table" id="book-table">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>#</th>
             <th>unitN</th>
@@ -60,12 +60,15 @@
             <th>Dx0</th>
             <th>Dx1</th>
             <th>Dx2</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody id="main_tbody">
         {% include './partial_dx2_list.html' %}
         </tbody>
     </table>
+
     <div class="modal fade" id="modal-book">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -74,39 +77,248 @@
     </div>
     <script>
 
-    const btn_anysearch = document.getElementById('anysearch');
-    btn_anysearch.addEventListener('click', anysearch, false);
-    btn_anysearch.addEventListener('keypress',function(e){if(e.keyCode === 13) {anysearch();}}, false);
-    function render_list(html_form){
+        const btn_anysearch = document.getElementById('anysearch');
+        btn_anysearch.addEventListener('click', kwsearch_main, false);
+        btn_anysearch.addEventListener('keypress',function(e){if(e.keyCode === 13) {anysearch();}}, false);
+
+        const btn_search_dxcodeElement = document.getElementById('btn_search_dxcode');
+        btn_search_dxcodeElement.addEventListener('click', dxcodesearch_main, false);
+        btn_search_dxcodeElement.addEventListener('keypress',function(e){if(e.keyCode === 13) {dxcodesearch();}}, false);
+
+        const inputGroupDx0_Element = document.getElementById("inputGroupDx0");
+        const inputGroupDx1_Element = document.getElementById("inputGroupDx1");
+        const inputGroupDx2_Element = document.getElementById("inputGroupDx2");
+        inputGroupDx0_Element.addEventListener('change',loaddx_1,false);
+        inputGroupDx1_Element.addEventListener('change',loaddx_2,false);
+
+        function render_list(html_form){
             const render_area = document.getElementById('main_tbody');
             render_area.innerHTML = html_form
         }
-    async function anysearch(){
-        axios.defaults.xsrfCookieName = 'csrftoken';
-        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-        console.log("hello this is in anysearch function");
-        const anysearch_wordElement = document.getElementById('anysearch_word');
-        const form_url = btn_anysearch.getAttribute('data-url');
-        let anysearch_word = anysearch_wordElement.value;
-        const params = new URLSearchParams();
-        params.append('keyword',anysearch_word);
-        console.log('this is url', form_url)
-        try {
-            const res = await axios({
-                method: 'get',
-                {#headers: {'Content-type': 'application/x-www-form-urlencoded'},#}
-                url: form_url,
-                params: params
-            });
-            console.log(res.data);
-            console.log(res.data.html_book_list);
-            render_list(res.data.html_book_list);
-            console.log('success');
 
-        } catch {
-            console.log ('failed anysearch')
+        function attachclick(cname, elid, elfunc) {
+            {#console.log('this is attahch click function');#}
+            const pageElement = document.getElementsByClassName(cname);
+            {#console.log('this is PageElement', pageElement);#}
+            {#console.log(pageElement[0].id);#}
+            if (pageElement[0].id === elid) {
+                {#console.log('this is if statement of attach click func');#}
+                pageElement[0].addEventListener('click', event => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        {#console.log('this is event listener');#}
+                        elfunc(cname);
+                    },
+                    false);
+                {#console.log('success of event attachment.')#}
+            } else{console.log('hello? there is wrong thing')}
         }
 
-}
+
+        function kwsearch_main(){
+            const anysearch_wordElement = document.getElementById('anysearch_word');
+            let anysearch_word = anysearch_wordElement.value;
+            const searchpage = NaN;
+            const form_url = btn_anysearch.getAttribute('data-url');
+            anysearch(anysearch_word, searchpage, form_url)
+        }
+
+        function dxcodesearch_main(){
+            const kwobj = {};
+            const inputGroupDx0_Element = document.getElementById("inputGroupDx0");
+            const inputGroupDx1_Element = document.getElementById("inputGroupDx1");
+            const inputGroupDx2_Element = document.getElementById("inputGroupDx2");
+            const inputGroupDx0 = inputGroupDx0_Element.value;
+            const inputGroupDx1 = inputGroupDx1_Element.value;
+            const inputGroupDx2 = inputGroupDx2_Element.value;
+
+            kwobj.inputGroupDx0 = inputGroupDx0;
+            kwobj.inputGroupDx1 = inputGroupDx1;
+            kwobj.inputGroupDx2 = inputGroupDx2;
+
+            const searchpage = NaN;
+            const div_search_dx_codeElement = document.getElementById("div_search_dx_code");
+            const form_url = div_search_dx_codeElement.getAttribute('data-url');
+            dxcodesearch(kwobj, searchpage, form_url)
+
+            const anysearch_wordElement = document.getElementById('anysearch_word');
+            anysearch_wordElement.value=""
+        }
+
+        function dxcodesearch_page(cname){
+            const kwobj = {};
+            const inputGroupDx0_Element = document.getElementById("inputGroupDx0");
+            const inputGroupDx1_Element = document.getElementById("inputGroupDx1");
+            const inputGroupDx2_Element = document.getElementById("inputGroupDx2");
+            const inputGroupDx0 = inputGroupDx0_Element.value;
+            const inputGroupDx1 = inputGroupDx1_Element.value;
+            const inputGroupDx2 = inputGroupDx2_Element.value;
+
+            kwobj.inputGroupDx0 = inputGroupDx0;
+            kwobj.inputGroupDx1 = inputGroupDx1;
+            kwobj.inputGroupDx2 = inputGroupDx2;
+
+            const searchpageElement = document.getElementsByClassName(cname);
+            console.log(searchpageElement);
+            const searchpage = searchpageElement[0].getAttribute('data-page-value');
+
+            const div_search_dx_codeElement = document.getElementById("div_search_dx_code");
+            const form_url = div_search_dx_codeElement.getAttribute('data-url');
+            dxcodesearch(kwobj, searchpage, form_url)
+        }
+
+        function kwsearch_page(cname){
+            console.log('cname', cname);
+            const anysearch_wordElement = document.getElementById('anysearch_word');
+            let anysearch_word = anysearch_wordElement.value;
+
+            const searchpageElement = document.getElementsByClassName(cname);
+            console.log(searchpageElement);
+            const searchpage = searchpageElement[0].getAttribute('data-page-value');
+            const form_url = btn_anysearch.getAttribute('data-url');
+            anysearch(anysearch_word, searchpage, form_url)
+        }
+
+
+        function kwsearchfunc(argsearchword, argsearchpage){
+            const search_wordElement = document.getElementById(argsearchword);
+            let search_word = search_wordElement.value;
+            const searchpageElement = document.getElementsByClassName(argsearchpage);
+            console.log(searchpageElement);
+            const searchpage = searchpageElement[0].getAttribute('data-page-value');
+            const form_url = btn_anysearch.getAttribute('data-url');
+            anysearch(search_word, searchpage, form_url)
+        }
+
+        async function anysearch(keyword, searchpage, form_url){
+            axios.defaults.xsrfCookieName = 'csrftoken';
+            axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+            console.log("hello this is in anysearch function");
+            console.log('the curr_page',curr_page);
+            if (!searchpage){
+                searchpage = 1;
+            }else
+                console.log(searchpage);
+            {#let anysearch_word = anysearch_wordElement.value;#}
+            const params = new URLSearchParams();
+            params.append('keyword',keyword);
+            params.append('curr_page', searchpage);
+            console.log('this is url', form_url);
+            try {
+                const res = await axios({
+                    method: 'get',
+                    url: form_url,
+                    params: params
+                });
+                console.log(res.data);
+                {#console.log(res.data.html_book_list);#}
+                console.log('current page is', res.data.curr_page);
+                render_list(res.data.html_book_list);
+                attachclick('next_page','next_page_able',kwsearch_page);
+                attachclick('prev_page','prev_page_able',kwsearch_page);
+                attachclick('total_pages','total_pages_able',kwsearch_page);
+                attachclick('first_page','first_page_able',kwsearch_page);
+
+                console.log('success');
+            } catch {
+                console.log ('failed anysearch')
+            }
+        }
+
+        console.log('ths html is dx2_search.');
+
+        async function loaddx_1() {
+            const update_form = document.getElementById("inputGroupDx0");
+            console.log(update_form);
+            const update_url = update_form.getAttribute('data-dx-url');
+            const params = new URLSearchParams();
+            const inputGroupDx0_Element = document.getElementById("inputGroupDx0");
+            const inputGroupDx1_Element = document.getElementById("inputGroupDx1");
+            const inputGroupDx2_Element = document.getElementById("inputGroupDx2");
+            const inputGroupDx0 = inputGroupDx0_Element.value;
+            params.append('dxcode_0', inputGroupDx0);
+            console.log(params);
+            console.log(inputGroupDx0);
+            try {
+                const res = await axios({
+                    method: 'get',
+                    url: update_url,
+                    params: params
+                });
+                console.log(res.data);
+                inputGroupDx1_Element.innerHTML = res.data;
+                inputGroupDx2_Element.innerHTML = "<option>-----------</option>";
+                console.log('the end of loaddx_1 success.')
+            } catch {
+                console.log('failed')
+            }
+        }
+        async function loaddx_2() {
+            const update_form = document.getElementById("inputGroupDx1");
+            const update_url = update_form.getAttribute('data-dx-url');
+            const params = new URLSearchParams();
+            const inputGroupDx0_Element = document.getElementById("inputGroupDx0");
+            const inputGroupDx1_Element = document.getElementById("inputGroupDx1");
+            const inputGroupDx2_Element = document.getElementById("inputGroupDx2");
+            const inputGroupDx1 = inputGroupDx1_Element.value;
+            params.append('dxcode_1', inputGroupDx1);
+            console.log(params);
+            console.log(inputGroupDx1);
+            try {
+                const res = await axios({
+                    method: 'get',
+                    url: update_url,
+                    params: params
+                });
+                console.log(res.data);
+                inputGroupDx2_Element.innerHTML = res.data;
+                console.log('the end of loaddx_2 success.')
+            } catch {
+                console.log('failed')
+            }
+        }
+
+        async function dxcodesearch(kwobj,searchpage, form_url){
+            axios.defaults.xsrfCookieName = 'csrftoken';
+            axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+            console.log("hello this is in dxcodesearch function");
+            const inputGroupDx0 = kwobj.inputGroupDx0;
+            const inputGroupDx1 = kwobj.inputGroupDx1;
+            const inputGroupDx2 = kwobj.inputGroupDx2;
+            console.log(inputGroupDx0, inputGroupDx1, inputGroupDx2);
+            const params = new URLSearchParams();
+            if (!searchpage){
+                searchpage = 1;
+            }else
+                console.log(searchpage);
+            params.append('dxcode_0',inputGroupDx0);
+            params.append('dxcode_1',inputGroupDx1);
+            params.append('dxcode_2',inputGroupDx2);
+            params.append('curr_page', searchpage);
+
+            console.log('this is url', form_url);
+            try {
+                const res = await axios({
+                    method: 'get',
+                    url: form_url,
+                    params: params
+                });
+                console.log(res.data);
+                {#console.log(res.data.html_book_list);#}
+                {#console.log('current page is', res.data.curr_page);#}
+                render_list(res.data.html_book_list);
+                attachclick('next_page','next_page_able',dxcodesearch_page);
+                attachclick('prev_page','prev_page_able',dxcodesearch_page);
+                attachclick('total_pages','total_pages_able',dxcodesearch_page);
+                attachclick('first_page','first_page_able',dxcodesearch_page);
+
+                console.log('success');
+            } catch {
+                console.log ('failed anysearch')
+            }
+        }
+
+
+
     </script>
 {% endblock %}

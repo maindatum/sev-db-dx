@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.hashers import make_password
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, DrRegisterForm
 from django.views.decorators.csrf import csrf_exempt
 from .models import Fcuser, Physician
 from product.models import Diagnosis_0, Diagnosis_1, Diagnosis_2
@@ -101,3 +101,37 @@ class DrCreateView(BaseView):
         print("dr3")
 
         return self.response({'physician.id': physician.id})
+
+class DrRegister(CreateView):
+    model = Physician
+    form_class = DrRegisterForm
+    template_name = "drregister.html"
+    success_url = '/'
+
+    # def form_valid(self, form):
+    #     print(self.request.session.get('user'))
+    #     print(Fcuser.objects.get(email=self.request.session.get('user')))
+    #     print(Fcuser.objects.get(email=self.request.session.get('user')))
+    #     ptdiagnosis = Pt_diagnosis(
+    #         unitnumb=form.data.get('id_unitnumb'),
+    #         dx_date=form.data.get('id_dx_date'),
+    #         dxcode_0=Diagnosis_0.objects.get(pk=form.data.get('id_dxcode_0')),
+    #         dxcode_1=Diagnosis_1.objects.get(pk=form.data.get('id_dxcode_1')),
+    #         dxcode_2=Diagnosis_2.objects.get(pk=form.data.get('id_dxcode_2')),
+    #         dxcode_3=form.data.get('dxcode_3'),
+    #         dr_name=form.data.get('id_dr_name'),
+    #         regist_user=form.data.get(''),
+    #     )
+    #     ptdiagnosis = form.save(commit=False)
+    #     regist_user = Fcuser.objects.get(email=self.request.session.get('user'))
+    #     ptdiagnosis.regist_user = Fcuser.objects.get(email=regist_user)
+    #     ptdiagnosis.save()
+    #     return super().form_valid(form)
+
+    # def get_form_kwargs(self, **kwargs):
+    #     kw = super().get_form_kwargs(**kwargs)
+    #     kw.update({
+    #         'request': self.request
+    #     })
+    #     return kw
+    #

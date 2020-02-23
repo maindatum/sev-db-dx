@@ -1,6 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block contents %}
+<link  rel="stylesheet" href={% static "widgets/dpicker/datepicker.css"  %}>
+<script src={% static "widgets/dpicker/datepicker.js" %}></script>
     Hello World!
 
-
+<input data-toggle="datepicker">
+<textarea data-toggle="datepicker"></textarea>
+<div data-toggle="datepicker"></div>
+<script>
+    $('[data-toggle="datepicker"]').datepicker();
+</script>
 {% endblock %}
